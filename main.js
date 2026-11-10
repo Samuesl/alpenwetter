@@ -279,6 +279,7 @@ async function loadBrightSkyStations() {
         let url = new URL(brightSkyCurrentWeather);
         url.searchParams.set("lat", location.lat);
         url.searchParams.set("lon", location.lon);
+        url.searchParams.set("units", "dwd");
         let response = await fetch(url);
         if (!response.ok) {
             throw new Error(`${location.name}: ${response.status}`);
@@ -293,6 +294,8 @@ async function loadBrightSkyStations() {
         if (!station) {
             throw new Error(`${location.name}: Messstation fehlt in der Antwort`);
         }
+        let getOwnMeasurement = (parameter, value) =>
+            Number.isFinite(value) && !weather.fallback_source_ids?.[parameter] ? value : undefined;
 
         return {
             type: "Feature",
@@ -306,12 +309,12 @@ async function loadBrightSkyStations() {
                 operator: "DWD via Bright Sky",
                 operatorLink: "https://brightsky.dev/",
                 date: weather.timestamp,
-                LT: weather.temperature,
-                RH: weather.relative_humidity,
-                WG: Number.isFinite(weather.wind_speed_10) ? weather.wind_speed_10 * 3.6 : undefined,
-                WR: weather.wind_direction_10,
-                PR: Number.isFinite(weather.precipitation_60) ? weather.precipitation_60 : undefined,
-                RS: Number.isFinite(weather.solar_60) ? weather.solar_60 : undefined,
+                LT: getOwnMeasurement("temperature", weather.temperature),
+                RH: getOwnMeasurement("relative_humidity", weather.relative_humidity),
+                WG: getOwnMeasurement("wind_speed_10", weather.wind_speed_10),
+                WR: getOwnMeasurement("wind_direction_10", weather.wind_direction_10),
+                PR: getOwnMeasurement("precipitation_60", weather.precipitation_60),
+                RS: getOwnMeasurement("solar_60", weather.solar_60),
             },
         };
     }));
@@ -563,19 +566,28 @@ async function loadStations() {
         onEachFeature: function (feature, layer) {
             let pointInTime = new Date(feature.properties.date);
             let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
-            let additionalMeasurements = Number.isFinite(feature.properties.PR) || Number.isFinite(feature.properties.RS)
-                ? `<li> Niederschlag (60 Min., mm) ${formatValue(feature.properties.PR)}</li>
-                   <li> Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
-                : "";
+            let measurements = [
+                ["Lufttemperatur", feature.properties.LT, "°C"],
+                ["Relative Luftfeuchte", feature.properties.RH, "%"],
+                ["Niederschlag (60 Min.)", feature.properties.PR, "mm"],
+                ["Windgeschwindigkeit", feature.properties.WG, "km/h"],
+                ["Windrichtung", feature.properties.WR, "°"],
+                ["Schneehöhe", feature.properties.HS, "cm"],
+            ];
+            let measurementsList = `<ul>${measurements.map(([label, value, unit]) => {
+                let isValid = typeof value === "number" && Number.isFinite(value) &&
+                    value !== -999 && value !== -777;
+                let displayValue = isValid ? formatValue(value) : "-";
+                return `<li>${label} ${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</li>`;
+            }).join("")}${
+                typeof feature.properties.RS === "number" && Number.isFinite(feature.properties.RS) &&
+                    feature.properties.RS !== -999 && feature.properties.RS !== -777
+                    ? `<li>Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
+                    : ""
+            }</ul>`;
             layer.bindPopup(`
                     <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
-                    <ul>
-                    <li> Lufttemperatur (C) ${formatValue(feature.properties.LT)}</li>
-                    <li> relative Luftfeuchte (%) ${formatValue(feature.properties.RH)}</li>
-                    <li> Windgeschwindigkeit (km/h) ${formatValue(feature.properties.WG)}</li>
-                    <li> Schneehöhe (cm) ${formatValue(feature.properties.HS)}</li>
-                    ${additionalMeasurements}
-                    </ul>
+                    ${measurementsList}
                     <span>${pointInTime.toLocaleString()}</span>
                  `);
             if (feature.id === requestedStationId) {
