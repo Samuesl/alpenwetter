@@ -71,11 +71,26 @@ const germanAlpineCoverageLocations = [
 ];
 
 // Karte initialisierenn
-let map = L.map("map").setView([ibk.lat, ibk.lng], ibk.zoom);
+let map = L.map("map", { maxZoom: 18 }).setView([ibk.lat, ibk.lng], ibk.zoom);
 
 // thematische Layer
 let overlays = {
-    stations: L.featureGroup().addTo(map),
+    stations: L.markerClusterGroup({
+        maxClusterRadius: 60,
+        disableClusteringAtZoom: 11,
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: true,
+        iconCreateFunction: function (cluster) {
+            let count = cluster.getChildCount();
+            let density = count >= 50 ? "high" : count >= 25 ? "medium" : count >= 10 ? "low" : "very-low";
+            let size = count >= 50 ? 58 : count >= 25 ? 52 : count >= 10 ? 46 : 40;
+            return L.divIcon({
+                html: `<span>${count}</span>`,
+                className: `station-cluster station-cluster-${density}`,
+                iconSize: L.point(size, size),
+            });
+        },
+    }).addTo(map),
     temperature: L.featureGroup(),
     wind: L.featureGroup(),
     snow: L.featureGroup(),
