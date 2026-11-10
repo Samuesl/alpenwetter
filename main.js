@@ -6,13 +6,17 @@ let ibk = {
     lng: 11.392778,
     zoom: 11,
 };
+const maxStationAge = 90 * 60 * 1000;
+const geoSphereApi = "https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min";
+const meteoSwissStacSearch = "https://data.geo.admin.ch/api/stac/v1/search";
+const meteoSwissCollection = "ch.meteoschweiz.ogd-smn";
 
 // Karte initialisierenn
 let map = L.map("map").setView([ibk.lat, ibk.lng], ibk.zoom);
 
 // thematische Layer
 let overlays = {
-    stations: L.featureGroup(),
+    stations: L.featureGroup().addTo(map),
     temperature: L.featureGroup(),
     wind: L.featureGroup(),
     snow: L.featureGroup(),
@@ -92,16 +96,261 @@ function normalizeStation(feature, isAdditionalFeed) {
     };
 }
 
+function addNewestStation(featuresById, feature, isAdditionalFeed) {
+    let normalizedFeature = normalizeStation(feature, isAdditionalFeed);
+    let existingFeature = featuresById.get(feature.id);
+    let newTimestamp = Date.parse(normalizedFeature.properties.date);
+    let existingTimestamp = existingFeature ? Date.parse(existingFeature.properties.date) : NaN;
+
+    if (!existingFeature || (Number.isFinite(newTimestamp) &&
+        (!Number.isFinite(existingTimestamp) || newTimestamp > existingTimestamp))) {
+        featuresById.set(feature.id, normalizedFeature);
+    }
+}
+
+function addNewestLiveStation(featuresById, feature) {
+    let [longitude, latitude] = feature.geometry.coordinates;
+    let nearbyEntry = [...featuresById.entries()].find(([, existingFeature]) => {
+        let [existingLongitude, existingLatitude] = existingFeature.geometry.coordinates;
+        let eastWestDistance = (longitude - existingLongitude) * 111320 * Math.cos(latitude * Math.PI / 180);
+        let northSouthDistance = (latitude - existingLatitude) * 111320;
+        return Math.hypot(eastWestDistance, northSouthDistance) < 100;
+    });
+
+    if (nearbyEntry) {
+        let existingTimestamp = Date.parse(nearbyEntry[1].properties.date);
+        let newTimestamp = Date.parse(feature.properties.date);
+        if (Number.isFinite(existingTimestamp) && existingTimestamp >= newTimestamp) {
+            return;
+        }
+        featuresById.delete(nearbyEntry[0]);
+    }
+
+    featuresById.set(feature.id, feature);
+}
+
+async function loadGeoSphereStations() {
+    let metadata = await loadStationData(`${geoSphereApi}/metadata`);
+    let activeStations = metadata.stations.filter(station => station.is_active);
+    let url = new URL(geoSphereApi);
+    url.searchParams.set("parameters", "TL,RF,FF,DD,SCHNEE");
+    url.searchParams.set("station_ids", activeStations.map(station => station.id).join(","));
+    let data = await loadStationData(url);
+    let stationsById = new Map(activeStations.map(station => [station.id, station]));
+    let now = Date.now();
+
+    return data.features.flatMap(feature => {
+        let station = stationsById.get(feature.properties.station);
+        if (!station) {
+            return [];
+        }
+
+        let measurementIndex = -1;
+        let timestamp;
+        for (let index = data.timestamps.length - 1; index >= 0; index--) {
+            let candidateTimestamp = Date.parse(data.timestamps[index]);
+            let age = now - candidateTimestamp;
+            if (!Number.isFinite(candidateTimestamp) || age < 0 || age > maxStationAge) {
+                continue;
+            }
+
+            let hasValue = Object.values(feature.properties.parameters).some(parameter => {
+                let value = parameter.data[index];
+                return typeof value === "number" && Number.isFinite(value) && value !== -999 && value !== -777;
+            });
+            if (hasValue) {
+                measurementIndex = index;
+                timestamp = new Date(candidateTimestamp).toISOString();
+                break;
+            }
+        }
+        if (measurementIndex < 0) {
+            return [];
+        }
+
+        let getValue = parameter => {
+            let value = feature.properties.parameters[parameter]?.data[measurementIndex];
+            return typeof value === "number" && Number.isFinite(value) && value !== -999 && value !== -777
+                ? value
+                : undefined;
+        };
+        let windSpeed = getValue("FF");
+
+        return [{
+            type: "Feature",
+            id: `geosphere-${station.id}`,
+            geometry: {
+                type: "Point",
+                coordinates: [station.lon, station.lat, station.altitude],
+            },
+            properties: {
+                name: station.name,
+                operator: "GeoSphere Austria",
+                operatorLink: "https://www.geosphere.at/",
+                date: timestamp,
+                LT: getValue("TL"),
+                RH: getValue("RF"),
+                WG: windSpeed === undefined ? undefined : windSpeed * 3.6,
+                WR: getValue("DD"),
+                HS: getValue("SCHNEE"),
+            },
+        }];
+    });
+}
+
+function parseSemicolonCsvRow(row) {
+    let values = [];
+    let value = "";
+    let quoted = false;
+
+    for (let index = 0; index < row.length; index++) {
+        let character = row[index];
+        if (character === '"' && row[index + 1] === '"' && quoted) {
+            value += '"';
+            index++;
+        } else if (character === '"') {
+            quoted = !quoted;
+        } else if (character === ";" && !quoted) {
+            values.push(value);
+            value = "";
+        } else {
+            value += character;
+        }
+    }
+    values.push(value);
+    return values;
+}
+
+function parseMeteoSwissTimestamp(value) {
+    let match = value.match(/^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/);
+    if (!match) {
+        return NaN;
+    }
+    let [, day, month, year, hour, minute] = match;
+    let utcGuess = Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute));
+    let timeZoneName = new Intl.DateTimeFormat("en", {
+        timeZone: "Europe/Zurich",
+        timeZoneName: "shortOffset",
+    }).formatToParts(new Date(utcGuess)).find(part => part.type === "timeZoneName").value;
+    let offsetHours = Number(timeZoneName.match(/GMT([+-]\d+)/)?.[1] ?? 0);
+    return utcGuess - offsetHours * 60 * 60 * 1000;
+}
+
+async function loadMeteoSwissStations() {
+    let [metadataResponse, stationsResponse] = await Promise.all([
+        fetch("https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/ogd-smn_meta_stations.csv"),
+        loadStationData(`${meteoSwissStacSearch}?collections=${meteoSwissCollection}&bbox=8.2,45.9,10.7,47.9&limit=100`),
+    ]);
+    if (!metadataResponse.ok) {
+        throw new Error(`MeteoSchweiz-Stationsmetadaten konnten nicht geladen werden (${metadataResponse.status})`);
+    }
+
+    let metadataRows = (await metadataResponse.text()).trim().split(/\r?\n/);
+    let headers = parseSemicolonCsvRow(metadataRows[0].replace(/^\uFEFF/, ""));
+    let column = name => headers.indexOf(name);
+    let stationMetadataById = new Map(metadataRows.slice(1).map(row => {
+        let values = parseSemicolonCsvRow(row);
+        return [values[column("station_abbr")].toLowerCase(), {
+            canton: values[column("station_canton")],
+            altitude: Number(values[column("station_height_masl")]),
+        }];
+    }));
+    let stations = stationsResponse.features.filter(feature =>
+        ["TG", "SG", "GR"].includes(stationMetadataById.get(feature.id)?.canton)
+    );
+    let stationResults = await Promise.allSettled(stations.map(async stationFeature => {
+        let stationId = stationFeature.id;
+        let csvUrl = `https://data.geo.admin.ch/${meteoSwissCollection}/${stationId}/ogd-smn_${stationId}_t_now.csv`;
+        let csvResponse = await fetch(csvUrl);
+        if (!csvResponse.ok) {
+            throw new Error(`${stationId}: ${csvResponse.status}`);
+        }
+
+        let rows = (await csvResponse.text()).trim().split(/\r?\n/);
+        let fields = parseSemicolonCsvRow(rows[0]);
+        let valuesByName = new Map(fields.map((field, index) => [field, index]));
+        let getValue = (row, name) => {
+            let rawValue = row[valuesByName.get(name)]?.trim();
+            if (!rawValue || rawValue === "-999" || rawValue === "-9999") {
+                return undefined;
+            }
+            let value = Number(rawValue);
+            return Number.isFinite(value) ? value : undefined;
+        };
+        let measurement;
+        let timestamp;
+        for (let index = rows.length - 1; index > 0; index--) {
+            let row = parseSemicolonCsvRow(rows[index]);
+            let candidateTimestamp = parseMeteoSwissTimestamp(row[1]);
+            let age = Date.now() - candidateTimestamp;
+            if (!Number.isFinite(candidateTimestamp) || age < 0 || age > maxStationAge) {
+                continue;
+            }
+
+            if (["tre200s0", "ure200s0", "fkl010z0", "dkl010z0", "htoauts0"]
+                .some(name => getValue(row, name) !== undefined)) {
+                measurement = row;
+                timestamp = new Date(candidateTimestamp).toISOString();
+                break;
+            }
+        }
+        if (!measurement) {
+            return undefined;
+        }
+
+        let windSpeed = getValue(measurement, "fkl010z0");
+        return {
+            type: "Feature",
+            id: `meteoswiss-${stationId}`,
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    ...stationFeature.geometry.coordinates,
+                    stationMetadataById.get(stationId).altitude,
+                ],
+            },
+            properties: {
+                name: stationFeature.properties.title.replace(/\s*\([^)]+\)$/, ""),
+                operator: "MeteoSchweiz",
+                operatorLink: stationFeature.links.find(link => link.rel === "about")?.href
+                    ?? "https://www.meteoswiss.admin.ch/",
+                altitude: stationMetadataById.get(stationId).altitude,
+                date: timestamp,
+                LT: getValue(measurement, "tre200s0"),
+                RH: getValue(measurement, "ure200s0"),
+                WG: windSpeed === undefined ? undefined : windSpeed * 3.6,
+                WR: getValue(measurement, "dkl010z0"),
+                HS: getValue(measurement, "htoauts0"),
+            },
+        };
+    }));
+
+    let failures = stationResults.filter(result => result.status === "rejected");
+    if (failures.length) {
+        console.warn(
+            `${failures.length} MeteoSchweiz-Stationsdateien konnten nicht geladen werden.`,
+            stationResults.flatMap((result, index) => result.status === "rejected"
+                ? [`${stations[index].id}: ${result.reason}`]
+                : [])
+        );
+    }
+    return stationResults.flatMap(result =>
+        result.status === "fulfilled" && result.value ? [result.value] : []
+    );
+}
+
 async function loadStations() {
-    let [avalancheResult, additionalResult] = await Promise.allSettled([
+    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult] = await Promise.allSettled([
         loadStationData("https://static.avalanche.report/weather_stations/stations.geojson"),
-        loadStationData("https://lawinen.report/eaws_weather_stations/linea.geojson"),
+        loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"),
+        loadGeoSphereStations(),
+        loadMeteoSwissStations(),
     ]);
     let featuresById = new Map();
 
     if (additionalResult.status === "fulfilled") {
         for (let feature of additionalResult.value.features) {
-            featuresById.set(feature.id, normalizeStation(feature, true));
+            addNewestStation(featuresById, feature, true);
         }
     } else {
         console.error("Der zusätzliche Wetterstations-Feed konnte nicht geladen werden.", additionalResult.reason);
@@ -109,10 +358,26 @@ async function loadStations() {
 
     if (avalancheResult.status === "fulfilled") {
         for (let feature of avalancheResult.value.features) {
-            featuresById.set(feature.id, normalizeStation(feature, false));
+            addNewestStation(featuresById, feature, false);
         }
     } else {
         console.error("Der avalanche.report-Wetterstations-Feed konnte nicht geladen werden.", avalancheResult.reason);
+    }
+
+    if (geoSphereResult.status === "fulfilled") {
+        for (let feature of geoSphereResult.value) {
+            addNewestLiveStation(featuresById, feature);
+        }
+    } else {
+        console.error("Die GeoSphere-Live-Wetterstationen konnten nicht geladen werden.", geoSphereResult.reason);
+    }
+
+    if (meteoSwissResult.status === "fulfilled") {
+        for (let feature of meteoSwissResult.value) {
+            addNewestLiveStation(featuresById, feature);
+        }
+    } else {
+        console.error("Die MeteoSchweiz-Live-Wetterstationen konnten nicht geladen werden.", meteoSwissResult.reason);
     }
 
     if (!featuresById.size) {
@@ -120,13 +385,31 @@ async function loadStations() {
         return;
     }
 
+    let now = Date.now();
+    let allFeatures = [...featuresById.values()];
+    let freshFeatures = allFeatures.filter(feature => {
+        let timestamp = Date.parse(feature.properties.date);
+        return Number.isFinite(timestamp) && now - timestamp >= 0 && now - timestamp <= maxStationAge;
+    });
+    let excludedCount = allFeatures.length - freshFeatures.length;
+
+    if (excludedCount) {
+        console.info(`${excludedCount} Wetterstationen wegen veralteter oder fehlender Zeitstempel ausgeblendet.`);
+    }
+    if (!freshFeatures.length) {
+        console.warn("Keine Wetterstationen mit Daten der letzten 90 Minuten gefunden.");
+        return;
+    }
+
     let jsondata = {
         type: "FeatureCollection",
-        features: [...featuresById.values()],
+        features: freshFeatures,
     };
+    let requestedStationId = new URLSearchParams(window.location.search).get("station");
+    let focusedLayer;
 
     L.geoJSON(jsondata, {
-        attribution: "Datenquellen: <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
+        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
                 icon: L.icon({
@@ -140,23 +423,36 @@ async function loadStations() {
             let pointInTime = new Date(feature.properties.date);
             let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
             layer.bindPopup(`
-                    <h4>${feature.properties.name} (${altitude || "-"} m)</h4>
+                    <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
                     <ul>
-                    <li> Lufttemperatur (C) ${feature.properties.LT !== undefined ? feature.properties.LT : "-"}</li> 
-                    <li> relative Luftfeuchte (%) ${feature.properties.RH ?? "-"}</li>
-                    <li> Windgeschwindigkeit (km/h) ${feature.properties.WG ?? "-"}</li>
-                    <li> Schneehöhe (cm) ${feature.properties.HS ?? "-"}</li>
+                    <li> Lufttemperatur (C) ${formatValue(feature.properties.LT)}</li>
+                    <li> relative Luftfeuchte (%) ${formatValue(feature.properties.RH)}</li>
+                    <li> Windgeschwindigkeit (km/h) ${formatValue(feature.properties.WG)}</li>
+                    <li> Schneehöhe (cm) ${formatValue(feature.properties.HS)}</li>
                     </ul>
                     <span>${pointInTime.toLocaleString()}</span>
                  `);
+            if (feature.id === requestedStationId) {
+                focusedLayer = layer;
+            }
         }
     }).addTo(overlays.stations);
+    if (focusedLayer) {
+        map.setView(focusedLayer.getLatLng(), Math.max(map.getZoom(), 11));
+        focusedLayer.openPopup();
+    } else if (requestedStationId) {
+        console.warn(`Die angeforderte Wetterstation wurde nicht gefunden: ${requestedStationId}`);
+    }
     showTemperature(jsondata);
     showWind(jsondata);
     showSnow(jsondata);
     showDirect(jsondata);
 }
 loadStations();
+
+function formatValue(value) {
+    return typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : value ?? "-";
+}
 
 function showTemperature(jsondata) {
     L.geoJSON(jsondata, {
