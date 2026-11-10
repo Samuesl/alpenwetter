@@ -11,7 +11,7 @@ const geoSphereApi = "https://dataset.api.hub.geosphere.at/v1/station/current/ta
 const meteoSwissStacSearch = "https://data.geo.admin.ch/api/stac/v1/search";
 const meteoSwissCollection = "ch.meteoschweiz.ogd-smn";
 const brightSkyCurrentWeather = "https://api.brightsky.dev/current_weather";
-const bavarianCoverageLocations = [
+const germanAlpineCoverageLocations = [
     { name: "Lindau", lat: 47.55, lon: 9.69 },
     { name: "Oberstdorf", lat: 47.41, lon: 10.28 },
     { name: "Füssen", lat: 47.57, lon: 10.70 },
@@ -66,6 +66,8 @@ const bavarianCoverageLocations = [
     { name: "Riedlingen", lat: 48.15, lon: 9.48 },
     { name: "Biberach an der Riß", lat: 48.10, lon: 9.79 },
     { name: "Deggenhausertal", lat: 47.80, lon: 9.41 },
+    { name: "Sigmarszell-Zeisertsweiler", lat: 47.5776, lon: 9.74045 },
+    { name: "Rot an der Rot", lat: 47.9589, lon: 10.0139 },
 ];
 
 // Karte initialisierenn
@@ -103,7 +105,8 @@ L.control.scale({
     imperial: false,
 }).addTo(map);
 
-//Rainviewer Regen
+/*
+// RainViewer-Regensteuerung, aktuell deaktiviert.
 L.control.rainviewer({
     position: 'bottomleft',
     nextButtonText: '>',
@@ -114,6 +117,7 @@ L.control.rainviewer({
     animationInterval: 500,
     opacity: 0.5
 }).addTo(map);
+*/
 
 //Wetterstationen mit Icons und Popups
 async function loadStationData(url) {
@@ -255,8 +259,8 @@ async function loadGeoSphereStations() {
     });
 }
 
-async function loadBavarianBorderStations() {
-    let stationResults = await Promise.allSettled(bavarianCoverageLocations.map(async location => {
+async function loadBrightSkyStations() {
+    let stationResults = await Promise.allSettled(germanAlpineCoverageLocations.map(async location => {
         let url = new URL(brightSkyCurrentWeather);
         url.searchParams.set("lat", location.lat);
         url.searchParams.set("lon", location.lon);
@@ -302,7 +306,7 @@ async function loadBavarianBorderStations() {
         console.warn(
             `${failures.length} Bright Sky-Abfragen für bayerische Grenzlandkreise sind fehlgeschlagen.`,
             stationResults.flatMap((result, index) => result.status === "rejected"
-                ? [`${bavarianCoverageLocations[index].name}: ${result.reason}`]
+                ? [`${germanAlpineCoverageLocations[index].name}: ${result.reason}`]
                 : [])
         );
     }
@@ -458,7 +462,7 @@ async function loadStations() {
         loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"),
         loadGeoSphereStations(),
         loadMeteoSwissStations(),
-        loadBavarianBorderStations(),
+        loadBrightSkyStations(),
     ]);
     let featuresById = new Map();
 
@@ -499,7 +503,7 @@ async function loadStations() {
             addNewestLiveStation(featuresById, feature);
         }
     } else {
-        console.error("Die DWD-Live-Wetterstationen aus Bayern konnten nicht geladen werden.", bavarianResult.reason);
+        console.error("Die DWD-Live-Wetterstationen aus dem deutschen Alpenraum konnten nicht geladen werden.", bavarianResult.reason);
     }
 
     if (!featuresById.size) {
