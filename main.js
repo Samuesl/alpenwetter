@@ -10,6 +10,20 @@ const maxStationAge = 90 * 60 * 1000;
 const geoSphereApi = "https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min";
 const meteoSwissStacSearch = "https://data.geo.admin.ch/api/stac/v1/search";
 const meteoSwissCollection = "ch.meteoschweiz.ogd-smn";
+const brightSkyCurrentWeather = "https://api.brightsky.dev/current_weather";
+const bavarianBorderLocations = [
+    { name: "Lindau", lat: 47.55, lon: 9.69 },
+    { name: "Oberstdorf", lat: 47.41, lon: 10.28 },
+    { name: "Füssen", lat: 47.57, lon: 10.70 },
+    { name: "Garmisch-Partenkirchen", lat: 47.49, lon: 11.10 },
+    { name: "Bad Tölz", lat: 47.76, lon: 11.56 },
+    { name: "Miesbach", lat: 47.79, lon: 11.83 },
+    { name: "Rosenheim", lat: 47.85, lon: 12.13 },
+    { name: "Traunstein", lat: 47.87, lon: 12.65 },
+    { name: "Berchtesgaden", lat: 47.63, lon: 13.00 },
+    { name: "Simbach am Inn", lat: 48.27, lon: 13.02 },
+    { name: "Passau", lat: 48.57, lon: 13.46 },
+];
 
 // Karte initialisierenn
 let map = L.map("map").setView([ibk.lat, ibk.lng], ibk.zoom);
@@ -198,6 +212,62 @@ async function loadGeoSphereStations() {
     });
 }
 
+async function loadBavarianBorderStations() {
+    let stationResults = await Promise.allSettled(bavarianBorderLocations.map(async location => {
+        let url = new URL(brightSkyCurrentWeather);
+        url.searchParams.set("lat", location.lat);
+        url.searchParams.set("lon", location.lon);
+        let response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`${location.name}: ${response.status}`);
+        }
+
+        let data = await response.json();
+        let weather = data.weather;
+        if (!weather) {
+            throw new Error(`${location.name}: Keine aktuellen Wetterdaten`);
+        }
+        let station = data.sources.find(source => source.id === weather.source_id);
+        if (!station) {
+            throw new Error(`${location.name}: Messstation fehlt in der Antwort`);
+        }
+
+        return {
+            type: "Feature",
+            id: `brightsky-${station.id}`,
+            geometry: {
+                type: "Point",
+                coordinates: [station.lon, station.lat, station.height],
+            },
+            properties: {
+                name: station.station_name,
+                operator: "DWD via Bright Sky",
+                operatorLink: "https://brightsky.dev/",
+                date: weather.timestamp,
+                LT: weather.temperature,
+                RH: weather.relative_humidity,
+                WG: Number.isFinite(weather.wind_speed_10) ? weather.wind_speed_10 * 3.6 : undefined,
+                WR: weather.wind_direction_10,
+                PR: Number.isFinite(weather.precipitation_60) ? weather.precipitation_60 : undefined,
+                RS: Number.isFinite(weather.solar_60) ? weather.solar_60 : undefined,
+            },
+        };
+    }));
+
+    let failures = stationResults.filter(result => result.status === "rejected");
+    if (failures.length) {
+        console.warn(
+            `${failures.length} Bright Sky-Abfragen für bayerische Grenzlandkreise sind fehlgeschlagen.`,
+            stationResults.flatMap((result, index) => result.status === "rejected"
+                ? [`${bavarianBorderLocations[index].name}: ${result.reason}`]
+                : [])
+        );
+    }
+    return stationResults.flatMap(result =>
+        result.status === "fulfilled" ? [result.value] : []
+    );
+}
+
 function parseSemicolonCsvRow(row) {
     let values = [];
     let value = "";
@@ -340,11 +410,12 @@ async function loadMeteoSwissStations() {
 }
 
 async function loadStations() {
-    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult] = await Promise.allSettled([
+    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult, bavarianResult] = await Promise.allSettled([
         loadStationData("https://static.avalanche.report/weather_stations/stations.geojson"),
         loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"),
         loadGeoSphereStations(),
         loadMeteoSwissStations(),
+        loadBavarianBorderStations(),
     ]);
     let featuresById = new Map();
 
@@ -380,6 +451,14 @@ async function loadStations() {
         console.error("Die MeteoSchweiz-Live-Wetterstationen konnten nicht geladen werden.", meteoSwissResult.reason);
     }
 
+    if (bavarianResult.status === "fulfilled") {
+        for (let feature of bavarianResult.value) {
+            addNewestLiveStation(featuresById, feature);
+        }
+    } else {
+        console.error("Die DWD-Live-Wetterstationen in den bayerischen Grenzlandkreisen konnten nicht geladen werden.", bavarianResult.reason);
+    }
+
     if (!featuresById.size) {
         console.error("Es konnten keine Wetterstationen geladen werden.");
         return;
@@ -409,7 +488,7 @@ async function loadStations() {
     let focusedLayer;
 
     L.geoJSON(jsondata, {
-        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
+        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://brightsky.dev/'>DWD via Bright Sky</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
                 icon: L.icon({
@@ -422,6 +501,10 @@ async function loadStations() {
         onEachFeature: function (feature, layer) {
             let pointInTime = new Date(feature.properties.date);
             let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
+            let additionalMeasurements = Number.isFinite(feature.properties.PR) || Number.isFinite(feature.properties.RS)
+                ? `<li> Niederschlag (60 Min., mm) ${formatValue(feature.properties.PR)}</li>
+                   <li> Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
+                : "";
             layer.bindPopup(`
                     <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
                     <ul>
@@ -429,6 +512,7 @@ async function loadStations() {
                     <li> relative Luftfeuchte (%) ${formatValue(feature.properties.RH)}</li>
                     <li> Windgeschwindigkeit (km/h) ${formatValue(feature.properties.WG)}</li>
                     <li> Schneehöhe (cm) ${formatValue(feature.properties.HS)}</li>
+                    ${additionalMeasurements}
                     </ul>
                     <span>${pointInTime.toLocaleString()}</span>
                  `);
