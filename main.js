@@ -34,7 +34,7 @@ let overlays = {
     temperature: L.featureGroup(),
     wind: L.featureGroup(),
     snow: L.featureGroup(),
-    direction: L.featureGroup().addTo(map),
+    direction: L.featureGroup(),
 }
 
 // Layer control
