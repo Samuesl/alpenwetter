@@ -11,18 +11,61 @@ const geoSphereApi = "https://dataset.api.hub.geosphere.at/v1/station/current/ta
 const meteoSwissStacSearch = "https://data.geo.admin.ch/api/stac/v1/search";
 const meteoSwissCollection = "ch.meteoschweiz.ogd-smn";
 const brightSkyCurrentWeather = "https://api.brightsky.dev/current_weather";
-const bavarianBorderLocations = [
+const bavarianCoverageLocations = [
     { name: "Lindau", lat: 47.55, lon: 9.69 },
     { name: "Oberstdorf", lat: 47.41, lon: 10.28 },
     { name: "Füssen", lat: 47.57, lon: 10.70 },
+    { name: "Kempten", lat: 47.73, lon: 10.32 },
+    { name: "Kaufbeuren", lat: 47.88, lon: 10.62 },
+    { name: "Memmingen", lat: 47.98, lon: 10.18 },
+    { name: "Mindelheim", lat: 48.05, lon: 10.49 },
+    { name: "Augsburg", lat: 48.37, lon: 10.90 },
+    { name: "Donauwörth", lat: 48.72, lon: 10.78 },
+    { name: "Nördlingen", lat: 48.85, lon: 10.49 },
+    { name: "Dillingen", lat: 48.58, lon: 10.49 },
+    { name: "Günzburg", lat: 48.46, lon: 10.28 },
+    { name: "Krumbach", lat: 48.25, lon: 10.36 },
+    { name: "Landsberg am Lech", lat: 48.05, lon: 10.87 },
+    { name: "Schongau", lat: 47.82, lon: 10.90 },
     { name: "Garmisch-Partenkirchen", lat: 47.49, lon: 11.10 },
+    { name: "Weilheim", lat: 47.84, lon: 11.14 },
     { name: "Bad Tölz", lat: 47.76, lon: 11.56 },
     { name: "Miesbach", lat: 47.79, lon: 11.83 },
     { name: "Rosenheim", lat: 47.85, lon: 12.13 },
     { name: "Traunstein", lat: 47.87, lon: 12.65 },
     { name: "Berchtesgaden", lat: 47.63, lon: 13.00 },
+    { name: "Ingolstadt", lat: 48.77, lon: 11.43 },
+    { name: "Neuburg an der Donau", lat: 48.73, lon: 11.18 },
+    { name: "Pfaffenhofen", lat: 48.53, lon: 11.51 },
+    { name: "Freising", lat: 48.40, lon: 11.75 },
+    { name: "Erding", lat: 48.31, lon: 11.91 },
+    { name: "München", lat: 48.14, lon: 11.58 },
+    { name: "Dachau", lat: 48.26, lon: 11.43 },
+    { name: "Fürstenfeldbruck", lat: 48.18, lon: 11.25 },
+    { name: "Ebersberg", lat: 48.08, lon: 11.97 },
+    { name: "Mühldorf am Inn", lat: 48.25, lon: 12.52 },
+    { name: "Altötting", lat: 48.23, lon: 12.68 },
+    { name: "Wasserburg am Inn", lat: 48.06, lon: 12.23 },
     { name: "Simbach am Inn", lat: 48.27, lon: 13.02 },
     { name: "Passau", lat: 48.57, lon: 13.46 },
+    { name: "Konstanz", lat: 47.66, lon: 9.18 },
+    { name: "Überlingen", lat: 47.77, lon: 9.16 },
+    { name: "Friedrichshafen", lat: 47.65, lon: 9.48 },
+    { name: "Markdorf", lat: 47.72, lon: 9.39 },
+    { name: "Ravensburg", lat: 47.78, lon: 9.61 },
+    { name: "Bad Waldsee", lat: 47.92, lon: 9.75 },
+    { name: "Leutkirch", lat: 47.83, lon: 10.02 },
+    { name: "Wangen im Allgäu", lat: 47.69, lon: 9.83 },
+    { name: "Oberstaufen", lat: 47.56, lon: 10.02 },
+    { name: "Immenstadt", lat: 47.56, lon: 10.22 },
+    { name: "Balderschwang", lat: 47.46, lon: 10.10 },
+    { name: "Wertach", lat: 47.60, lon: 10.41 },
+    { name: "Oberammergau", lat: 47.60, lon: 11.07 },
+    { name: "Mittenwald", lat: 47.44, lon: 11.26 },
+    { name: "Aulendorf", lat: 47.95, lon: 9.64 },
+    { name: "Riedlingen", lat: 48.15, lon: 9.48 },
+    { name: "Biberach an der Riß", lat: 48.10, lon: 9.79 },
+    { name: "Deggenhausertal", lat: 47.80, lon: 9.41 },
 ];
 
 // Karte initialisierenn
@@ -213,7 +256,7 @@ async function loadGeoSphereStations() {
 }
 
 async function loadBavarianBorderStations() {
-    let stationResults = await Promise.allSettled(bavarianBorderLocations.map(async location => {
+    let stationResults = await Promise.allSettled(bavarianCoverageLocations.map(async location => {
         let url = new URL(brightSkyCurrentWeather);
         url.searchParams.set("lat", location.lat);
         url.searchParams.set("lon", location.lon);
@@ -259,7 +302,7 @@ async function loadBavarianBorderStations() {
         console.warn(
             `${failures.length} Bright Sky-Abfragen für bayerische Grenzlandkreise sind fehlgeschlagen.`,
             stationResults.flatMap((result, index) => result.status === "rejected"
-                ? [`${bavarianBorderLocations[index].name}: ${result.reason}`]
+                ? [`${bavarianCoverageLocations[index].name}: ${result.reason}`]
                 : [])
         );
     }
@@ -456,7 +499,7 @@ async function loadStations() {
             addNewestLiveStation(featuresById, feature);
         }
     } else {
-        console.error("Die DWD-Live-Wetterstationen in den bayerischen Grenzlandkreisen konnten nicht geladen werden.", bavarianResult.reason);
+        console.error("Die DWD-Live-Wetterstationen aus Bayern konnten nicht geladen werden.", bavarianResult.reason);
     }
 
     if (!featuresById.size) {
