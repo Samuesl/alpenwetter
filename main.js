@@ -2,8 +2,8 @@
 
 // Innsbruck
 let ibk = {
-    lat: 47.267222,
-    lng: 11.392778,
+    lat: 47.5798,
+    lng: 9.6789,
     zoom: 11,
 };
 const maxStationAge = 90 * 60 * 1000;
