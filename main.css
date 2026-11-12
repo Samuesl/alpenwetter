@@ -98,6 +98,32 @@ footer nav {
         1px 1px 0 white;
 }
 
+.aws-div-icon-humidity > span {
+    box-sizing: border-box;
+    width: 72px;
+    height: 38px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    background: #168fe5;
+    color: #073b69;
+    font-size: 19px;
+    line-height: 1;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.aws-div-icon-humidity b {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
 .aws-div-icon-wind span {
     font-size: 2em;
     font-weight: bold;

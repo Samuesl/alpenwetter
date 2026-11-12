@@ -678,8 +678,8 @@ function showHumidity(jsondata) {
                 icon: L.divIcon({
                     className: "aws-div-icon-humidity",
                     html: `<span><i class="fa-solid fa-droplet"></i><b>${formatValue(feature.properties.RH)}%</b></span>`,
-                    iconSize: [42, 48],
-                    iconAnchor: [13, 30],
+                    iconSize: [72, 38],
+                    iconAnchor: [36, 19],
                 }),
             }).bindPopup(stationPopupContent(feature));
         },
