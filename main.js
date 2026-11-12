@@ -92,6 +92,7 @@ let overlays = {
         },
     }).addTo(map),
     temperature: L.featureGroup(),
+    humidity: L.featureGroup(),
     wind: L.featureGroup(),
     snow: L.featureGroup(),
     direction: L.featureGroup(),
@@ -110,6 +111,7 @@ L.control.layers({
 }, {
     "Wetterstationen": overlays.stations,
     "Temperatur": overlays.temperature,
+    "Luftfeuchte": overlays.humidity,
     "Windgeschwindigkeit": overlays.wind,
     "Schneehöhe": overlays.snow,
     "Windrichtung": overlays.direction,
@@ -172,37 +174,64 @@ function normalizeStation(feature, isAdditionalFeed) {
     };
 }
 
-function addNewestStation(featuresById, feature, isAdditionalFeed) {
-    let normalizedFeature = normalizeStation(feature, isAdditionalFeed);
-    let existingFeature = featuresById.get(feature.id);
-    let newTimestamp = Date.parse(normalizedFeature.properties.date);
-    let existingTimestamp = existingFeature ? Date.parse(existingFeature.properties.date) : NaN;
-
-    if (!existingFeature || (Number.isFinite(newTimestamp) &&
-        (!Number.isFinite(existingTimestamp) || newTimestamp > existingTimestamp))) {
-        featuresById.set(feature.id, normalizedFeature);
-    }
+function isValidMeasurement(value) {
+    return typeof value === "number" && Number.isFinite(value) &&
+        value !== -999 && value !== -777;
 }
 
-function addNewestLiveStation(featuresById, feature) {
+function mergeStationFeatures(existingFeature, incomingFeature) {
+    let existingTimestamp = Date.parse(existingFeature.properties.date);
+    let incomingTimestamp = Date.parse(incomingFeature.properties.date);
+    let incomingIsNewer = Number.isFinite(incomingTimestamp) &&
+        (!Number.isFinite(existingTimestamp) || incomingTimestamp > existingTimestamp);
+    let preferredFeature = incomingIsNewer ? incomingFeature : existingFeature;
+    let secondaryFeature = incomingIsNewer ? existingFeature : incomingFeature;
+    let properties = {
+        ...secondaryFeature.properties,
+        ...preferredFeature.properties,
+    };
+
+    for (let measurement of ["LT", "RH", "PR", "WG", "WR", "HS", "RS"]) {
+        let preferredValue = preferredFeature.properties[measurement];
+        let secondaryValue = secondaryFeature.properties[measurement];
+        if (!isValidMeasurement(preferredValue) && isValidMeasurement(secondaryValue)) {
+            properties[measurement] = secondaryValue;
+        }
+    }
+
+    return {
+        ...preferredFeature,
+        properties,
+    };
+}
+
+function addNewestStation(featuresById, feature, isAdditionalFeed) {
+    let normalizedFeature = normalizeStation(feature, isAdditionalFeed);
+    addStationFeature(featuresById, normalizedFeature);
+}
+
+function addStationFeature(featuresById, feature) {
     let [longitude, latitude] = feature.geometry.coordinates;
-    let nearbyEntry = [...featuresById.entries()].find(([, existingFeature]) => {
+    let nearbyEntries = [...featuresById.entries()].filter(([id, existingFeature]) => {
+        if (id === feature.id) {
+            return true;
+        }
         let [existingLongitude, existingLatitude] = existingFeature.geometry.coordinates;
         let eastWestDistance = (longitude - existingLongitude) * 111320 * Math.cos(latitude * Math.PI / 180);
         let northSouthDistance = (latitude - existingLatitude) * 111320;
         return Math.hypot(eastWestDistance, northSouthDistance) < 100;
     });
 
-    if (nearbyEntry) {
-        let existingTimestamp = Date.parse(nearbyEntry[1].properties.date);
-        let newTimestamp = Date.parse(feature.properties.date);
-        if (Number.isFinite(existingTimestamp) && existingTimestamp >= newTimestamp) {
-            return;
-        }
-        featuresById.delete(nearbyEntry[0]);
+    let mergedFeature = feature;
+    for (let [id, nearbyFeature] of nearbyEntries) {
+        mergedFeature = mergeStationFeatures(nearbyFeature, mergedFeature);
+        featuresById.delete(id);
     }
+    featuresById.set(mergedFeature.id, mergedFeature);
+}
 
-    featuresById.set(feature.id, feature);
+function addNewestLiveStation(featuresById, feature) {
+    addStationFeature(featuresById, feature);
 }
 
 async function loadGeoSphereStations() {
@@ -564,32 +593,7 @@ async function loadStations() {
             });
         },
         onEachFeature: function (feature, layer) {
-            let pointInTime = new Date(feature.properties.date);
-            let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
-            let measurements = [
-                ["Lufttemperatur", feature.properties.LT, "°C"],
-                ["Relative Luftfeuchte", feature.properties.RH, "%"],
-                ["Niederschlag (60 Min.)", feature.properties.PR, "mm"],
-                ["Windgeschwindigkeit", feature.properties.WG, "km/h"],
-                ["Windrichtung", feature.properties.WR, "°"],
-                ["Schneehöhe", feature.properties.HS, "cm"],
-            ];
-            let measurementsList = `<ul>${measurements.map(([label, value, unit]) => {
-                let isValid = typeof value === "number" && Number.isFinite(value) &&
-                    value !== -999 && value !== -777;
-                let displayValue = isValid ? formatValue(value) : "-";
-                return `<li>${label} ${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</li>`;
-            }).join("")}${
-                typeof feature.properties.RS === "number" && Number.isFinite(feature.properties.RS) &&
-                    feature.properties.RS !== -999 && feature.properties.RS !== -777
-                    ? `<li>Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
-                    : ""
-            }</ul>`;
-            layer.bindPopup(`
-                    <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
-                    ${measurementsList}
-                    <span>${pointInTime.toLocaleString()}</span>
-                 `);
+            layer.bindPopup(stationPopupContent(feature));
             if (feature.id === requestedStationId) {
                 focusedLayer = layer;
             }
@@ -602,6 +606,7 @@ async function loadStations() {
         console.warn(`Die angeforderte Wetterstation wurde nicht gefunden: ${requestedStationId}`);
     }
     showTemperature(jsondata);
+    showHumidity(jsondata);
     showWind(jsondata);
     showSnow(jsondata);
     showDirect(jsondata);
@@ -612,13 +617,46 @@ function formatValue(value) {
     return typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : value ?? "-";
 }
 
+function formatWindDirection(degrees) {
+    let directions = ["Nord", "Nordost", "Ost", "Südost", "Süd", "Südwest", "West", "Nordwest"];
+    let normalizedDegrees = ((degrees % 360) + 360) % 360;
+    let direction = directions[Math.round(normalizedDegrees / 45) % directions.length];
+    return `${direction} (${Math.round(normalizedDegrees)}°)`;
+}
+
+function stationPopupContent(feature) {
+    let pointInTime = new Date(feature.properties.date);
+    let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
+    let measurements = [
+        ["Lufttemperatur", feature.properties.LT, "°C"],
+        ["Relative Luftfeuchte", feature.properties.RH, "%"],
+        ["Niederschlag (60 Min.)", feature.properties.PR, "mm"],
+        ["Windgeschwindigkeit", feature.properties.WG, "km/h"],
+        ["Windrichtung", feature.properties.WR, "°"],
+        ["Schneehöhe", feature.properties.HS, "cm"],
+    ];
+    let measurementsList = `<ul>${measurements.map(([label, value, unit]) => {
+        let displayValue = isValidMeasurement(value) ? formatValue(value) : "-";
+        if (label === "Windrichtung" && displayValue !== "-") {
+            return `<li>${label} ${formatWindDirection(value)}</li>`;
+        }
+        return `<li>${label} ${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</li>`;
+    }).join("")}${
+        isValidMeasurement(feature.properties.RS)
+            ? `<li>Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
+            : ""
+    }</ul>`;
+
+    return `
+        <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
+        ${measurementsList}
+        <span>${pointInTime.toLocaleString()}</span>
+    `;
+}
+
 function showTemperature(jsondata) {
     L.geoJSON(jsondata, {
-        filter: function (feature) {
-            if (feature.properties.LT > -20 && feature.properties.LT < 50) {
-                return true;
-            }
-        },
+        filter: feature => isValidMeasurement(feature.properties.LT),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.LT, COLORS.temperature);
             return L.marker(latlng, {
@@ -626,9 +664,26 @@ function showTemperature(jsondata) {
                     className: "aws-div-icon",
                     html: `<span style = "background-color:${color}">${feature.properties.LT.toFixed(1)}</span>`
                 }),
-            })
+            }).bindPopup(stationPopupContent(feature));
         },
     }).addTo(overlays.temperature);
+}
+
+function showHumidity(jsondata) {
+    L.geoJSON(jsondata, {
+        filter: feature => isValidMeasurement(feature.properties.RH) &&
+            feature.properties.RH >= 0 && feature.properties.RH <= 100,
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.divIcon({
+                    className: "aws-div-icon-humidity",
+                    html: `<span><i class="fa-solid fa-droplet"></i><b>${formatValue(feature.properties.RH)}%</b></span>`,
+                    iconSize: [42, 48],
+                    iconAnchor: [13, 30],
+                }),
+            }).bindPopup(stationPopupContent(feature));
+        },
+    }).addTo(overlays.humidity);
 }
 
 
@@ -636,11 +691,7 @@ function showTemperature(jsondata) {
 //Windgeschwindigkeit
 function showWind(jsondata) {
     L.geoJSON(jsondata, {
-        filter: function (feature) {
-            if (feature.properties.WG > 0 && feature.properties.WG < 200) {
-                return true;
-            }
-        },
+        filter: feature => isValidMeasurement(feature.properties.WG),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.WG, COLORS.wind);
             return L.marker(latlng, {
@@ -648,7 +699,7 @@ function showWind(jsondata) {
                     className: "aws-div-icon-wind-speed",
                     html: `<span style="background-color:${color}"> ${feature.properties.WG.toFixed(1)}</span>`
                 })
-            })
+            }).bindPopup(stationPopupContent(feature));
         },
     }).addTo(overlays.wind);
 }
@@ -656,12 +707,7 @@ function showWind(jsondata) {
 //Schneehöhe
 function showSnow(jsondata) {
     L.geoJSON(jsondata, {
-        filter: function (feature) {
-            console.log(feature.properties)
-            if (feature.properties.HS > 0 && feature.properties.HS < 1000) {
-                return true;
-            }
-        },
+        filter: feature => isValidMeasurement(feature.properties.HS),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.HS, COLORS.snow);
             return L.marker(latlng, {
@@ -669,7 +715,7 @@ function showSnow(jsondata) {
                     className: "aws-div-icon-snow",
                     html: `<span style="background-color:${color}"> ${feature.properties.HS.toFixed(1)}</span>`
                 })
-            })
+            }).bindPopup(stationPopupContent(feature));
         },
     }).addTo(overlays.snow);
 }
@@ -678,12 +724,7 @@ function showSnow(jsondata) {
 function showDirect(jsondata) {
 
     L.geoJSON(jsondata, {
-        filter: function (feature) {
-            console.log(feature.properties)
-            if (feature.properties.WR >= 0 && feature.properties.WR < 400) {
-                return true;
-            }
-        },
+        filter: feature => isValidMeasurement(feature.properties.WR),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.WG, COLORS.wind);
             return L.marker(latlng, {
@@ -693,7 +734,7 @@ function showDirect(jsondata) {
                     color:${color}"class="fa-solid 
                     fa-circle-arrow-down"></i></span>`,
                 })
-            })
+            }).bindPopup(stationPopupContent(feature));
         },
     }).addTo(overlays.direction);
 }
