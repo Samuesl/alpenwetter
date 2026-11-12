@@ -24,13 +24,6 @@ header h2 {
     margin: 0;
 }
 
-header nav {
-    text-align: right;
-    font-size: 0.9em;
-    font-weight: bold;
-    padding-top: 1em;
-}
-
 article {
     margin-top: 0.5em;
 }
@@ -162,6 +155,68 @@ footer nav {
         -1px 1px 0 white,
         1px -1px 0 white,
         1px 1px 0 white;
+}
+
+.station-popup-heading {
+    position: relative;
+    padding: 0 30px;
+}
+
+.station-popup-title {
+    margin: 0 0 4px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.station-popup-time {
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+.station-source-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.station-source-info summary {
+    display: flex;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #456b8a;
+    border-radius: 50%;
+    color: #234b6b;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+
+.station-source-info summary::-webkit-details-marker {
+    display: none;
+}
+
+.station-source-info-content {
+    position: absolute;
+    top: 27px;
+    right: 0;
+    z-index: 1000;
+    width: max-content;
+    max-width: min(260px, 70vw);
+    padding: 8px 10px;
+    border: 1px solid #9aa8b2;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+}
+
+.station-source-info-content ul {
+    margin: 4px 0 0;
+    padding-left: 18px;
 }
 
 @media (max-width: 600px) {

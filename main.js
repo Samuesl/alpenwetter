@@ -7,6 +7,13 @@ let ibk = {
     zoom: 11,
 };
 const maxStationAge = 90 * 60 * 1000;
+const regionalFallbackMaxDistance = 25000;
+const bodenseeOberschwabenBounds = {
+    south: 47.4,
+    north: 48.2,
+    west: 9.0,
+    east: 10.15,
+};
 const geoSphereApi = "https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min";
 const meteoSwissStacSearch = "https://data.geo.admin.ch/api/stac/v1/search";
 const meteoSwissCollection = "ch.meteoschweiz.ogd-smn";
@@ -99,13 +106,13 @@ let overlays = {
 }
 
 // Layer control
-L.control.layers({
+let layerControl = L.control.layers({
     "Relief avalanche.report": L.tileLayer(
         "https://static.avalanche.report/tms/{z}/{x}/{y}.webp", {
         attribution: `© <a href="https://sonny.4lima.de">Sonny</a>, <a href="https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b">EU-DEM</a>, <a href="https://lawinen.report/">avalanche.report</a>, all licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
         maxZoom: 12
-    }).addTo(map),
-    "OpenStreetMap": L.tileLayer.provider("OpenStreetMap.Mapnik"),
+    }),
+    "OpenStreetMap": L.tileLayer.provider("OpenStreetMap.Mapnik").addTo(map),
     "OpenTopoMap": L.tileLayer.provider("OpenTopoMap"),
     "Esri WorldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }, {
@@ -116,6 +123,20 @@ L.control.layers({
     "Schneehöhe": overlays.snow,
     "Windrichtung": overlays.direction,
 }).addTo(map);
+
+for (let input of layerControl.getContainer().querySelectorAll('input[type="checkbox"]')) {
+    input.type = "radio";
+    input.name = "weather-overlay";
+}
+
+let weatherOverlays = Object.values(overlays);
+map.on("overlayadd", function (event) {
+    for (let overlay of weatherOverlays) {
+        if (overlay !== event.layer && map.hasLayer(overlay)) {
+            map.removeLayer(overlay);
+        }
+    }
+});
 
 // Maßstab
 L.control.scale({
@@ -292,6 +313,7 @@ async function loadGeoSphereStations() {
                 name: station.name,
                 operator: "GeoSphere Austria",
                 operatorLink: "https://www.geosphere.at/",
+                providerStationId: station.id,
                 date: timestamp,
                 LT: getValue("TL"),
                 RH: getValue("RF"),
@@ -337,12 +359,13 @@ async function loadBrightSkyStations() {
                 name: station.station_name,
                 operator: "DWD via Bright Sky",
                 operatorLink: "https://brightsky.dev/",
+                providerStationId: station.id,
+                dwdStationId: station.dwd_station_id,
                 date: weather.timestamp,
                 LT: getOwnMeasurement("temperature", weather.temperature),
                 RH: getOwnMeasurement("relative_humidity", weather.relative_humidity),
                 WG: getOwnMeasurement("wind_speed_10", weather.wind_speed_10),
                 WR: getOwnMeasurement("wind_direction_10", weather.wind_direction_10),
-                PR: getOwnMeasurement("precipitation_60", weather.precipitation_60),
                 RS: getOwnMeasurement("solar_60", weather.solar_60),
             },
         };
@@ -574,6 +597,8 @@ async function loadStations() {
         return;
     }
 
+    fillRegionalMeasurementGaps(freshFeatures);
+
     let jsondata = {
         type: "FeatureCollection",
         features: freshFeatures,
@@ -624,33 +649,121 @@ function formatWindDirection(degrees) {
     return `${direction} (${Math.round(normalizedDegrees)}°)`;
 }
 
+function distanceBetweenStations(firstCoordinates, secondCoordinates) {
+    let toRadians = degrees => degrees * Math.PI / 180;
+    let [firstLongitude, firstLatitude] = firstCoordinates;
+    let [secondLongitude, secondLatitude] = secondCoordinates;
+    let latitudeDifference = toRadians(secondLatitude - firstLatitude);
+    let longitudeDifference = toRadians(secondLongitude - firstLongitude);
+    let haversine = Math.sin(latitudeDifference / 2) ** 2 +
+        Math.cos(toRadians(firstLatitude)) * Math.cos(toRadians(secondLatitude)) *
+        Math.sin(longitudeDifference / 2) ** 2;
+    return 6371000 * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
+}
+
+function isInBodenseeOberschwaben(feature) {
+    let [longitude, latitude] = feature.geometry.coordinates;
+    return latitude >= bodenseeOberschwabenBounds.south &&
+        latitude <= bodenseeOberschwabenBounds.north &&
+        longitude >= bodenseeOberschwabenBounds.west &&
+        longitude <= bodenseeOberschwabenBounds.east;
+}
+
+function fillRegionalMeasurementGaps(features) {
+    let sourceFeatures = features.map(feature => ({
+        ...feature,
+        properties: { ...feature.properties },
+    }));
+    let measurements = ["LT", "RH", "WG", "WR", "HS", "RS"];
+
+    for (let feature of features) {
+        if (!isInBodenseeOberschwaben(feature)) {
+            continue;
+        }
+
+        let measurementSources = { ...feature.properties.measurementSources };
+        for (let measurement of measurements) {
+            if (isValidMeasurement(feature.properties[measurement])) {
+                continue;
+            }
+
+            let nearestStation;
+            let nearestDistance = Infinity;
+            for (let candidate of sourceFeatures) {
+                if (candidate === feature || !isValidMeasurement(candidate.properties[measurement])) {
+                    continue;
+                }
+                let distance = distanceBetweenStations(
+                    feature.geometry.coordinates,
+                    candidate.geometry.coordinates,
+                );
+                if (distance <= regionalFallbackMaxDistance && distance < nearestDistance) {
+                    nearestStation = candidate;
+                    nearestDistance = distance;
+                }
+            }
+
+            if (!nearestStation) {
+                continue;
+            }
+
+            feature.properties[measurement] = nearestStation.properties[measurement];
+            measurementSources[measurement] = {
+                name: nearestStation.properties.name,
+                date: nearestStation.properties.date,
+                distanceKm: Math.round(nearestDistance / 100) / 10,
+            };
+        }
+        feature.properties.measurementSources = measurementSources;
+    }
+}
+
 function stationPopupContent(feature) {
     let pointInTime = new Date(feature.properties.date);
     let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
+    let measurementSources = Object.values(feature.properties.measurementSources ?? []);
+    let uniqueMeasurementSources = measurementSources.filter((source, index) =>
+        measurementSources.findIndex(candidate =>
+            candidate.name === source.name && candidate.distanceKm === source.distanceKm
+        ) === index
+    );
     let measurements = [
-        ["Lufttemperatur", feature.properties.LT, "°C"],
-        ["Relative Luftfeuchte", feature.properties.RH, "%"],
-        ["Niederschlag (60 Min.)", feature.properties.PR, "mm"],
-        ["Windgeschwindigkeit", feature.properties.WG, "km/h"],
-        ["Windrichtung", feature.properties.WR, "°"],
-        ["Schneehöhe", feature.properties.HS, "cm"],
+        ["Lufttemperatur", "LT", "°C"],
+        ["Relative Luftfeuchte", "RH", "%"],
+        ["Windgeschwindigkeit", "WG", "km/h"],
+        ["Windrichtung", "WR", "°"],
+        ["Schneehöhe", "HS", "cm"],
     ];
-    let measurementsList = `<ul>${measurements.map(([label, value, unit]) => {
+    let measurementsList = `<ul>${measurements.map(([label, property, unit]) => {
+        let value = feature.properties[property];
         let displayValue = isValidMeasurement(value) ? formatValue(value) : "-";
         if (label === "Windrichtung" && displayValue !== "-") {
-            return `<li>${label} ${formatWindDirection(value)}</li>`;
+            return `<li>${label} <strong>${formatWindDirection(value)}</strong></li>`;
         }
-        return `<li>${label} ${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</li>`;
+        return `<li>${label} <strong>${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</strong></li>`;
     }).join("")}${
         isValidMeasurement(feature.properties.RS)
-            ? `<li>Strahlung (60 Min.) ${formatValue(feature.properties.RS)}</li>`
+            ? `<li>Strahlung (60 Min.) <strong>${formatValue(feature.properties.RS)}</strong></li>`
             : ""
     }</ul>`;
 
     return `
-        <h4>${feature.properties.name} (${formatValue(altitude)} m)</h4>
+        <div class="station-popup-heading">
+            <h4 class="station-popup-title">${feature.properties.name} (${formatValue(altitude)} m)</h4>
+            ${uniqueMeasurementSources.length
+                ? `<details class="station-source-info">
+                    <summary aria-label="Herkunft ergänzter Messwerte" title="Herkunft ergänzter Messwerte">i</summary>
+                    <div class="station-source-info-content">
+                        <strong>Ergänzte Werte</strong>
+                        <ul>${uniqueMeasurementSources.map(source =>
+                            `<li>${source.name} (${source.distanceKm} km, ${new Date(source.date).toLocaleTimeString()})</li>`
+                        ).join("")}</ul>
+                    </div>
+                </details>`
+                : ""}
+        </div>
+        <p class="station-popup-time">${pointInTime.toLocaleString()}</p>
         ${measurementsList}
-        <span>${pointInTime.toLocaleString()}</span>
     `;
 }
 
