@@ -645,7 +645,7 @@ function showWind(jsondata) {
             let color = getColor(feature.properties.WG, COLORS.wind);
             return L.marker(latlng, {
                 icon: L.divIcon({
-                    className: "aws-div-icon-wind",
+                    className: "aws-div-icon-wind-speed",
                     html: `<span style="background-color:${color}"> ${feature.properties.WG.toFixed(1)}</span>`
                 })
             })
