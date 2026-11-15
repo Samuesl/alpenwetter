@@ -258,7 +258,10 @@ favoritesControl.onAdd = function () {
     let container = L.DomUtil.create("div", "favorites-map-control");
     container.innerHTML = `
         <details class="favorites-menu">
-            <summary><i class="fa-solid fa-star" aria-hidden="true"></i> Favoriten · <span class="favorites-count">0</span></summary>
+            <summary aria-label="Favoriten öffnen oder schließen" title="Favoriten">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <span class="favorites-button-label">Favoriten · <span class="favorites-count">0</span></span>
+            </summary>
         </details>
     `;
     container.querySelector("details").append(document.querySelector("#favorites-bar"));

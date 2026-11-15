@@ -435,9 +435,33 @@ footer nav {
 }
 
 @media (max-width: 600px) {
+    .leaflet-top.leaflet-right {
+        top: 96px;
+    }
+
+    .leaflet-top.leaflet-right .favorites-map-control {
+        position: absolute;
+        top: 10px;
+        right: 72px;
+        margin: 0;
+        float: none;
+    }
+
     .favorites-menu > summary {
+        width: 52px;
+        height: 52px;
         min-height: 52px;
-        padding: 8px;
+        justify-content: center;
+        padding: 0;
+        font-size: 24px;
+    }
+
+    .favorites-button-label {
+        display: none;
+    }
+
+    .favorites-menu #favorites-bar {
+        font-size: 14px;
     }
 
     .favorite-location,
