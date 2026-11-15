@@ -181,6 +181,38 @@ L.control.zoom({
     position: "bottomleft",
 }).addTo(map);
 
+let dataSourcesControl = L.control({ position: "bottomright" });
+dataSourcesControl.onAdd = function () {
+    let container = L.DomUtil.create("div", "data-sources-control");
+    let button = L.DomUtil.create("button", "data-sources-button", container);
+    button.type = "button";
+    button.innerHTML = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i> Datenquellen';
+    button.setAttribute("aria-haspopup", "dialog");
+    button.setAttribute("aria-controls", "data-sources-dialog");
+    let dialog = document.querySelector("#data-sources-dialog");
+    button.addEventListener("click", function () {
+        if (!dialog.open) dialog.showModal();
+    });
+    dialog.querySelector(".data-sources-close").addEventListener("click", function () {
+        dialog.close();
+    });
+    dialog.addEventListener("close", function () {
+        button.focus({ preventScroll: true });
+    });
+    dialog.addEventListener("click", function (event) {
+        if (event.target !== dialog) return;
+        let bounds = dialog.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom) {
+            dialog.close();
+        }
+    });
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+    return container;
+};
+dataSourcesControl.addTo(map);
+
 function findNearestStation(latitude, longitude) {
     let nearest;
     for (let layer of stationLayersById.values()) {

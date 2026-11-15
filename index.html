@@ -48,18 +48,45 @@
                 <span class="favorites-status" role="status" aria-live="polite"></span>
             </nav>
         </article>
-        <footer>
-            <strong>Datenquellen:</strong>
-            <nav>
-                <a href="https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn">MeteoSchweiz Messdaten</a> |
-                <a href="https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min">GeoSphere Austria Live-Daten</a> |
-                <a href="https://brightsky.dev/">DWD-Messwerte via Bright Sky</a> |
-                <a href="https://lawinen.report/">Lawinen.report</a> |
-                <a href="https://lawinen.report/eaws_weather_stations/linea.geojson">Alle Wetterstationen (GeoJSON)</a> |
-                <a href="https://static.avalanche.report/weather_stations/stations.geojson">avalanche.report GeoJSON</a> |
-                <a href="https://www.data.gv.at/katalog/de/dataset/land-tirol_wetterstationsdatentirol">Metadaten</a>
-            </nav>
-        </footer>
+        <dialog id="data-sources-dialog" class="data-sources-dialog" aria-labelledby="data-sources-title">
+            <div class="data-sources-header">
+                <h2 id="data-sources-title">Datenquellen</h2>
+                <button type="button" class="data-sources-close" aria-label="Datenquellen schließen" title="Schließen">×</button>
+            </div>
+            <div class="data-sources-content">
+                <section aria-labelledby="sources-stations-title">
+                    <h3 id="sources-stations-title">Stationsdaten</h3>
+                    <ul>
+                        <li><a href="https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn" target="_blank" rel="noopener noreferrer">MeteoSchweiz Messdaten</a></li>
+                        <li><a href="https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min" target="_blank" rel="noopener noreferrer">GeoSphere Austria Live-Daten</a></li>
+                        <li><a href="https://brightsky.dev/" target="_blank" rel="noopener noreferrer">DWD-Messwerte via Bright Sky</a></li>
+                        <li><a href="https://lawinen.report/eaws_weather_stations/linea.geojson" target="_blank" rel="noopener noreferrer">Lawinen.report – Stationsdaten (GeoJSON)</a></li>
+                        <li><a href="https://static.avalanche.report/weather_stations/stations.geojson" target="_blank" rel="noopener noreferrer">avalanche.report – Stationsdaten (GeoJSON)</a></li>
+                        <li><a href="https://www.data.gv.at/katalog/de/dataset/land-tirol_wetterstationsdatentirol" target="_blank" rel="noopener noreferrer">Land Tirol – Stationsmetadaten</a></li>
+                    </ul>
+                </section>
+                <section aria-labelledby="sources-forecast-title">
+                    <h3 id="sources-forecast-title">Wettervorhersage</h3>
+                    <ul>
+                        <li><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation" target="_blank" rel="noopener noreferrer">MET Norway – Locationforecast</a></li>
+                        <li><a href="https://github.com/metno/weathericons/" target="_blank" rel="noopener noreferrer">MET Norway – Wettersymbole</a></li>
+                        <li><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">Vorhersagedaten: CC BY 4.0</a></li>
+                    </ul>
+                </section>
+                <section aria-labelledby="sources-map-title">
+                    <h3 id="sources-map-title">Kartenmaterial und Ortssuche</h3>
+                    <ul>
+                        <li><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap – Kartendaten</a></li>
+                        <li><a href="https://opentopomap.org/" target="_blank" rel="noopener noreferrer">OpenTopoMap – topografische Karte</a></li>
+                        <li><a href="https://www.esri.com/" target="_blank" rel="noopener noreferrer">Esri – World Imagery</a></li>
+                        <li><a href="https://lawinen.report/" target="_blank" rel="noopener noreferrer">avalanche.report – Reliefkarte</a></li>
+                        <li><a href="https://sonny.4lima.de" target="_blank" rel="noopener noreferrer">Sonny – Höhendaten</a></li>
+                        <li><a href="https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b" target="_blank" rel="noopener noreferrer">EU-DEM – Höhendaten</a></li>
+                        <li><a href="https://nominatim.org/" target="_blank" rel="noopener noreferrer">Nominatim – Ortssuche mit OpenStreetMap</a></li>
+                    </ul>
+                </section>
+            </div>
+        </dialog>
     </main>
 </body>
 
