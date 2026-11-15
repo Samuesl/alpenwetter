@@ -114,44 +114,6 @@ let stationDataReady;
 // Karte initialisierenn
 let map = L.map("map", { maxZoom: 18, zoomControl: false }).setView([ibk.lat, ibk.lng], ibk.zoom);
 
-// Persönlicher Bild-Pin in Lindau, unabhängig von den Wetter-Layern.
-function addLindauPicturePin() {
-    let location = germanAlpineCoverageLocations.find(place => place.name === "Lindau");
-    let content = document.createElement("figure");
-    content.className = "lindau-picture";
-    let title = document.createElement("h3");
-    title.textContent = "swain";
-    let picture = document.createElement("img");
-    picture.src = "icons/lindau-jolly.jpg";
-    picture.alt = "Weißes NICI-Plüschschaf mit bunten Blumen";
-    picture.width = 349;
-    picture.height = 440;
-    let caption = document.createElement("figcaption");
-    let source = document.createElement("a");
-    source.href = "https://image.ceneostatic.pl/data/products/5750053/i-nici-jolly-lovely-25-cm-488-2031494.jpg";
-    source.textContent = "Bildquelle: Ceneo";
-    source.target = "_blank";
-    source.rel = "noopener noreferrer";
-    caption.append(source);
-    content.append(title, picture, caption);
-
-    let pin = L.marker([location.lat, location.lon], {
-        title: "swain – Bild ansehen",
-        zIndexOffset: 500,
-        icon: L.divIcon({
-            className: "lindau-picture-pin",
-            html: '<span class="lindau-pig-nose" aria-hidden="true"><span></span><span></span></span>',
-            iconSize: [44, 44],
-            iconAnchor: [22, 22],
-            popupAnchor: [0, -22],
-        }),
-    }).bindPopup(content, { className: "lindau-picture-popup", minWidth: 180, maxWidth: 230 }).addTo(map);
-    picture.addEventListener("load", function () {
-        if (pin.isPopupOpen()) pin.getPopup().update();
-    });
-}
-addLindauPicturePin();
-
 // thematische Layer
 let overlays = {
     stations: L.markerClusterGroup({

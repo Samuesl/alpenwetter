@@ -535,63 +535,6 @@ article {
     border: 0;
 }
 
-.lindau-picture-pin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.lindau-pig-nose {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-sizing: border-box;
-    width: 44px;
-    height: 34px;
-    border: 2px solid #ba597e;
-    border-radius: 50%;
-    background: #f7bfd4;
-    box-shadow: 0 2px 6px rgba(80, 30, 50, 0.3);
-}
-
-.lindau-pig-nose > span {
-    width: 8px;
-    height: 12px;
-    border-radius: 50%;
-    background: #a64c70;
-}
-
-.lindau-picture {
-    margin: 0;
-    text-align: center;
-    font-family: "Open Sans", sans-serif;
-}
-
-.lindau-picture h3 {
-    margin: 0 0 8px;
-    color: #234b6b;
-    font-size: 15px;
-}
-
-.lindau-picture img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: min(280px, 45vh);
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.lindau-picture figcaption {
-    margin-top: 6px;
-    font-size: 10px;
-}
-
-.lindau-picture a {
-    color: #627481;
-}
-
 .station-cluster {
     box-sizing: border-box;
     display: flex;
