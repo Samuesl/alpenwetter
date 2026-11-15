@@ -185,6 +185,11 @@ let placeSearchControl = L.control({ position: "topleft" });
 placeSearchControl.onAdd = function () {
     let container = L.DomUtil.create("div", "place-search-control leaflet-bar");
     container.innerHTML = `
+        <details class="place-search-panel" open>
+        <summary aria-label="Ortssuche öffnen oder schließen" title="Ort suchen">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </summary>
+        <div class="place-search-content">
         <form class="place-search-form" role="search">
             <label class="visually-hidden" for="place-search-input">Ort suchen</label>
             <input id="place-search-input" type="search" placeholder="Ort suchen…" autocomplete="off" required>
@@ -194,6 +199,8 @@ placeSearchControl.onAdd = function () {
         </form>
         <div class="place-search-message" role="status" aria-live="polite"></div>
         <small class="place-search-attribution">Ortsdaten: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap</a></small>
+        </div>
+        </details>
     `;
     L.DomEvent.disableClickPropagation(container);
     L.DomEvent.disableScrollPropagation(container);
@@ -202,6 +209,26 @@ placeSearchControl.onAdd = function () {
     let input = container.querySelector("input");
     let button = container.querySelector("button");
     let message = container.querySelector(".place-search-message");
+    let panel = container.querySelector("details");
+    let mobileLayout = window.matchMedia("(max-width: 600px)");
+    function updateSearchLayout() {
+        panel.open = !mobileLayout.matches;
+    }
+    updateSearchLayout();
+    mobileLayout.addEventListener("change", updateSearchLayout);
+    panel.addEventListener("toggle", function () {
+        if (panel.open && mobileLayout.matches) {
+            favoritesControl.getContainer().querySelector("details").open = false;
+            layerControl.collapse();
+            input.focus({ preventScroll: true });
+        }
+    });
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && mobileLayout.matches) {
+            panel.open = false;
+            panel.querySelector("summary").focus();
+        }
+    });
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
         let query = input.value.trim();
@@ -240,6 +267,10 @@ placeSearchControl.onAdd = function () {
             map.addLayer(overlays.stations);
             map.flyTo([latitude, longitude], 12);
             message.textContent = results[0].display_name;
+            if (mobileLayout.matches) {
+                input.blur();
+                panel.open = false;
+            }
         } catch (error) {
             console.error("Die Ortsuche konnte nicht ausgeführt werden.", error);
             message.textContent = "Ortsuche momentan nicht verfügbar.";
@@ -270,6 +301,19 @@ favoritesControl.onAdd = function () {
     return container;
 };
 favoritesControl.addTo(map);
+
+favoritesControl.getContainer().querySelector("details").addEventListener("toggle", function (event) {
+    if (event.target.open && window.matchMedia("(max-width: 600px)").matches) {
+        placeSearchControl.getContainer().querySelector("details").open = false;
+        layerControl.collapse();
+    }
+});
+layerControl.getContainer().addEventListener("click", function () {
+    if (window.matchMedia("(max-width: 600px)").matches) {
+        placeSearchControl.getContainer().querySelector("details").open = false;
+        favoritesControl.getContainer().querySelector("details").open = false;
+    }
+});
 
 function setFavoritesStatus(message) {
     document.querySelector(".favorites-status").textContent = message;
@@ -376,6 +420,9 @@ function toggleStationFavorite(feature) {
 
 function flyToFavorite(favorite) {
     setFavoritesStatus("");
+    if (window.matchMedia("(max-width: 600px)").matches) {
+        favoritesControl.getContainer().querySelector("details").open = false;
+    }
     map.addLayer(overlays.stations);
     map.closePopup();
     map.once("moveend", function () {
