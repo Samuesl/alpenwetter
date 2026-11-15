@@ -200,6 +200,7 @@ function updateWeatherOverlays(jsondata) {
 }
 
 map.on("overlayadd", function (event) {
+    if (!weatherOverlays.includes(event.layer)) return;
     for (let overlay of weatherOverlays) {
         if (overlay !== event.layer && map.hasLayer(overlay)) {
             map.removeLayer(overlay);
@@ -517,6 +518,191 @@ favoritesControl.onAdd = function () {
     return container;
 };
 favoritesControl.addTo(map);
+
+// Webcams werden über einen eigenen Kamerabutton geschaltet.
+map.createPane("webcamPane").style.zIndex = 625;
+let webcamMarkers = L.markerClusterGroup({
+    clusterPane: "webcamPane",
+    maxClusterRadius: 45,
+    disableClusteringAtZoom: 13,
+    showCoverageOnHover: false,
+    iconCreateFunction: cluster => L.divIcon({
+        className: "webcam-cluster",
+        html: `<i class="fa-solid fa-camera" aria-hidden="true"></i><span>${cluster.getChildCount()}</span>`,
+        iconSize: [44, 44],
+    }),
+});
+let webcamDataPromise;
+let webcamsBuilt = false;
+let webcamsVisible = false;
+let webcamToggleRequestId = 0;
+let webcamControl = L.control({ position: "topright" });
+webcamControl.onAdd = function () {
+    let container = L.DomUtil.create("div", "webcam-control");
+    container.innerHTML = `
+        <button type="button" class="webcam-toggle" aria-label="Webcams einblenden" aria-pressed="false" title="Webcams einblenden">
+            <i class="fa-solid fa-camera" aria-hidden="true"></i>
+        </button>
+        <div class="webcam-status" role="status" aria-live="polite" hidden></div>
+    `;
+    container.querySelector("button").addEventListener("click", () => setWebcamsVisible(!webcamsVisible));
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+    return container;
+};
+webcamControl.addTo(map);
+
+function validWebcamUrl(value) {
+    try {
+        let url = new URL(value);
+        return url.protocol === "https:" && !url.username && !url.password;
+    } catch {
+        return false;
+    }
+}
+
+async function loadWebcams() {
+    if (!webcamDataPromise) {
+        webcamDataPromise = loadStationData("data/webcams.geojson").then(data => {
+            if (data?.type !== "FeatureCollection" || !Array.isArray(data.features)) {
+                throw new Error("Ungültige Webcam-Liste");
+            }
+            let ids = new Set();
+            let features = data.features.filter(feature => {
+                let [longitude, latitude] = feature?.geometry?.coordinates ?? [];
+                let valid = feature?.geometry?.type === "Point" &&
+                    Number.isFinite(latitude) && Math.abs(latitude) <= 90 &&
+                    Number.isFinite(longitude) && Math.abs(longitude) <= 180 &&
+                    typeof feature.id === "string" && !ids.has(feature.id) &&
+                    typeof feature.properties?.name === "string" && feature.properties.name.trim() &&
+                    validWebcamUrl(feature.properties.url);
+                if (valid) ids.add(feature.id);
+                return valid;
+            });
+            if (!features.length) throw new Error("Keine gültigen Webcams vorhanden");
+            return { type: "FeatureCollection", features };
+        }).catch(error => {
+            webcamDataPromise = undefined;
+            throw error;
+        });
+    }
+    return webcamDataPromise;
+}
+
+function webcamPopupContent(feature) {
+    let properties = feature.properties;
+    let content = document.createElement("div");
+    content.className = "webcam-popup";
+    let title = document.createElement("h3");
+    title.textContent = properties.name;
+    let region = document.createElement("p");
+    region.className = "webcam-region";
+    region.textContent = [properties.region, { AT: "Österreich", CH: "Schweiz", DE: "Deutschland" }[properties.country]].filter(Boolean).join(" · ");
+    content.append(title, region);
+    let info = document.createElement("p");
+    info.className = "webcam-details";
+    let details = [];
+    if (Number.isFinite(properties.altitude)) details.push(`${Math.round(properties.altitude)} m Höhe`);
+    if (properties.panorama) details.push("360°-Panorama");
+    if (Number.isFinite(properties.bearing)) details.push(`Blick: ${formatWindDirection(properties.bearing)}`);
+    if (properties.description) details.push(properties.description);
+    info.textContent = details.join(" · ");
+    if (details.length) content.append(info);
+    let links = [{ url: properties.url, label: properties.linkLabel || "Webcam öffnen" }];
+    if (Array.isArray(properties.additionalLinks)) links.push(...properties.additionalLinks);
+    let seenUrls = new Set();
+    for (let item of links) {
+        if (!validWebcamUrl(item?.url) || seenUrls.has(item.url)) continue;
+        seenUrls.add(item.url);
+        let link = document.createElement("a");
+        link.className = "webcam-open-link";
+        link.href = item.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = `${item.label || "Weitere Blickrichtung"} ↗`;
+        content.append(link);
+    }
+    let credit = document.createElement("p");
+    credit.className = "webcam-credit";
+    if (validWebcamUrl(properties.sourceUrl)) {
+        let source = document.createElement("a");
+        source.href = properties.sourceUrl;
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        source.textContent = properties.provider || "Standortinformationen";
+        credit.append("Quelle: ", source);
+    } else {
+        credit.textContent = properties.provider || "";
+    }
+    content.append(credit);
+    return content;
+}
+
+async function setWebcamsVisible(visible) {
+    let requestId = ++webcamToggleRequestId;
+    let container = webcamControl.getContainer();
+    let button = container.querySelector("button");
+    let icon = button.querySelector("i");
+    let status = container.querySelector(".webcam-status");
+    webcamsVisible = visible;
+    button.setAttribute("aria-pressed", String(visible));
+    button.classList.toggle("is-active", visible);
+    button.title = visible ? "Webcams ausblenden" : "Webcams einblenden";
+    button.setAttribute("aria-label", button.title);
+    if (!visible) {
+        map.removeLayer(webcamMarkers);
+        status.hidden = true;
+        button.removeAttribute("aria-busy");
+        icon.className = "fa-solid fa-camera";
+        return;
+    }
+    button.setAttribute("aria-busy", "true");
+    icon.className = "fa-solid fa-spinner fa-spin";
+    status.textContent = "Webcams werden geladen …";
+    status.hidden = false;
+    try {
+        let data = await loadWebcams();
+        if (requestId !== webcamToggleRequestId || !webcamsVisible) return;
+        if (!webcamsBuilt) {
+            let cameraIcon = L.divIcon({
+                className: "webcam-marker",
+                html: '<span><i class="fa-solid fa-camera" aria-hidden="true"></i></span>',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18],
+                popupAnchor: [0, -18],
+            });
+            L.geoJSON(data, {
+                pointToLayer: (feature, latlng) => L.marker(latlng, {
+                    icon: cameraIcon,
+                    pane: "webcamPane",
+                    title: `${feature.properties.name} – Webcam öffnen`,
+                }),
+                onEachFeature: (feature, layer) => layer.bindPopup(webcamPopupContent(feature), { maxWidth: 280, minWidth: 200 }),
+            }).addTo(webcamMarkers);
+            webcamsBuilt = true;
+        }
+        for (let layer of weatherOverlays) {
+            if (map.hasLayer(layer)) map.removeLayer(layer);
+        }
+        map.closePopup();
+        map.addLayer(webcamMarkers);
+        status.hidden = true;
+    } catch (error) {
+        if (requestId !== webcamToggleRequestId) return;
+        webcamsVisible = false;
+        button.classList.remove("is-active");
+        button.setAttribute("aria-pressed", "false");
+        button.title = "Webcams erneut laden";
+        button.setAttribute("aria-label", button.title);
+        status.textContent = "Webcams konnten nicht geladen werden. Zum Wiederholen erneut auf die Kamera tippen.";
+        status.hidden = false;
+    } finally {
+        if (requestId === webcamToggleRequestId) {
+            button.removeAttribute("aria-busy");
+            icon.className = "fa-solid fa-camera";
+        }
+    }
+}
 
 function closeFavoritesOutside(event) {
     let container = favoritesControl.getContainer();

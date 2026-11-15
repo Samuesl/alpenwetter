@@ -101,6 +101,131 @@ main {
     clear: none;
 }
 
+.leaflet-top.leaflet-right .webcam-control {
+    clear: none;
+}
+
+.webcam-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--control-size);
+    height: var(--control-size);
+    padding: 0;
+    border: 1px solid var(--control-border);
+    border-radius: var(--control-radius);
+    background: white;
+    color: #234b6b;
+    box-shadow: var(--control-shadow);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.webcam-toggle:hover {
+    background: #e8eef2;
+}
+
+.webcam-toggle.is-active {
+    border-color: #234b6b;
+    background: #234b6b;
+    color: white;
+}
+
+.webcam-toggle:focus-visible,
+.webcam-open-link:focus-visible {
+    outline: 3px solid #234b6b;
+    outline-offset: 2px;
+}
+
+.webcam-status {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    box-sizing: border-box;
+    width: min(240px, calc(100vw - 160px));
+    padding: 10px;
+    border: 1px solid var(--control-border);
+    border-radius: 8px;
+    background: white;
+    color: #234b6b;
+    box-shadow: var(--control-shadow);
+    font: 12px/1.4 "Open Sans", sans-serif;
+}
+
+#map .leaflet-top:has(.webcam-status:not([hidden])) {
+    z-index: 1100;
+}
+
+#map .webcam-control:has(.webcam-status:not([hidden])) {
+    z-index: 1000;
+}
+
+.webcam-marker > span,
+.webcam-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: #234b6b;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.webcam-marker > span {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+}
+
+.webcam-cluster {
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.webcam-popup {
+    font: 12px/1.4 "Open Sans", sans-serif;
+    color: #234052;
+}
+
+.webcam-popup h3 {
+    margin: 0 0 5px;
+    color: #234b6b;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.webcam-popup .webcam-region,
+.webcam-popup .webcam-details {
+    margin: 6px 0;
+    color: #627481;
+}
+
+.webcam-open-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background: #234b6b;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.webcam-popup .webcam-credit {
+    margin: 8px 0 0;
+    font-size: 10px;
+}
+
+.webcam-credit a {
+    color: #627481;
+}
+
 .favorites-menu {
     position: relative;
     font-family: "Open Sans", sans-serif;
@@ -445,7 +570,8 @@ article {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .location-button .fa-spin {
+    .location-button .fa-spin,
+    .webcam-toggle .fa-spin {
         animation: none;
     }
 }
@@ -1157,6 +1283,14 @@ footer nav {
         position: absolute;
         top: 10px;
         right: 72px;
+        margin: 0;
+        float: none;
+    }
+
+    .leaflet-top.leaflet-right .webcam-control {
+        position: absolute;
+        top: 10px;
+        right: 134px;
         margin: 0;
         float: none;
     }

@@ -1,0 +1,6547 @@
+{
+  "type": "FeatureCollection",
+  "name": "Webcams Alpenwetter",
+  "description": "Verlinkte Panorama- und Bergkameras aus Anbieterinformationen. Schwerpunkt Tirol; keine vollstaendige Abdeckung. Keine eingebetteten Bilder oder Streams.",
+  "checkedOn": "2026-11-15",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "foto-webcam-innsbruck",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.377861,
+          47.305572
+        ]
+      },
+      "properties": {
+        "name": "Seegrube - Innsbruck - Blick nach Süden",
+        "url": "https://www.foto-webcam.eu/webcam/innsbruck/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/innsbruck/infos/",
+        "altitude": 1945,
+        "bearing": 170,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-seefeld",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.16102,
+          47.329114
+        ]
+      },
+      "properties": {
+        "name": "Seefeld in Tirol / Brunschkopf - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/seefeld/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/seefeld/infos/",
+        "altitude": 1510,
+        "bearing": 90,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-leutasch",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.145101,
+          47.378603
+        ]
+      },
+      "properties": {
+        "name": "Leutasch - Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/leutasch/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/leutasch/infos/",
+        "altitude": 1523,
+        "bearing": 150,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-schlegeis",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.702469,
+          47.040543
+        ]
+      },
+      "properties": {
+        "name": "Schlegeis Stausee - Zillertaler Alpen - Blick nach Süden",
+        "url": "https://www.foto-webcam.eu/webcam/schlegeis/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/schlegeis/infos/",
+        "altitude": 1840,
+        "bearing": 170,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-mayrhofen",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.860466,
+          47.166807
+        ]
+      },
+      "properties": {
+        "name": "Neuhaus Zillertal Resort / Mayrhofen - Blick nach Südwesten",
+        "url": "https://www.foto-webcam.eu/webcam/mayrhofen/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/mayrhofen/infos/",
+        "altitude": 633,
+        "bearing": 220,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-st-anton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.224083,
+          47.13442
+        ]
+      },
+      "properties": {
+        "name": "St. Anton am Arlberg / Galzig - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/st-anton/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/st-anton/infos/",
+        "altitude": 2090,
+        "bearing": 75,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-starthaus-hahnenkamm",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.370907,
+          47.425915
+        ]
+      },
+      "properties": {
+        "name": "Kitzbühel / Starthaus Hahnenkamm - Blick nach Norden zum Kitzbüheler Horn",
+        "url": "https://www.foto-webcam.eu/webcam/starthaus-hahnenkamm/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/starthaus-hahnenkamm/infos/",
+        "altitude": 1665,
+        "bearing": 20,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-lienz",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.803983,
+          46.860338
+        ]
+      },
+      "properties": {
+        "name": "Lienz / Zettersfeld - Blick in die Lienzer Dolomiten",
+        "url": "https://www.foto-webcam.eu/webcam/lienz/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/lienz/infos/",
+        "altitude": 1750,
+        "bearing": 200,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-pendling-ost",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.11221,
+          47.57291
+        ]
+      },
+      "properties": {
+        "name": "Pendlinghaus - Kufstein - Blick nach Osten ins Kaisergebirge",
+        "url": "https://www.foto-webcam.eu/webcam/pendling-ost/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/pendling-ost/infos/",
+        "altitude": 1565,
+        "bearing": 90,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-tannheimertal",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.506507,
+          47.50004
+        ]
+      },
+      "properties": {
+        "name": "Tannheimertal - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/tannheimertal/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/tannheimertal/infos/",
+        "altitude": 1100,
+        "bearing": 100,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-dornbirn",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.75051,
+          47.388064
+        ]
+      },
+      "properties": {
+        "name": "Dornbirn / Karren - Blick nach Nordwesten zum Bodensee",
+        "url": "https://www.foto-webcam.eu/webcam/dornbirn/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/dornbirn/infos/",
+        "altitude": 976,
+        "bearing": 330,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-yc-hard-nord",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.68625,
+          47.49905
+        ]
+      },
+      "properties": {
+        "name": "Yachtclub Hard - Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/yc-hard-nord/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/yc-hard-nord/infos/",
+        "altitude": 396,
+        "bearing": 10,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-feldkirch",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.598371,
+          47.232575
+        ]
+      },
+      "properties": {
+        "name": "Feldkirch / Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/feldkirch/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/feldkirch/infos/",
+        "altitude": 614,
+        "bearing": 1,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-bludenz",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.818069,
+          47.156955
+        ]
+      },
+      "properties": {
+        "name": "Bludenz - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/bludenz/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/bludenz/infos/",
+        "altitude": 570,
+        "bearing": 90,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-damuels",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.890544,
+          47.285447
+        ]
+      },
+      "properties": {
+        "name": "Damüls / Hotel Alpenblume - Blick nach Süden / Faschina",
+        "url": "https://www.foto-webcam.eu/webcam/damuels/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/damuels/infos/",
+        "altitude": 1400,
+        "bearing": 180,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-schroecken",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.094002,
+          47.256754
+        ]
+      },
+      "properties": {
+        "name": "Schröcken - Blick nach Nordwesten",
+        "url": "https://www.foto-webcam.eu/webcam/schroecken/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/schroecken/infos/",
+        "altitude": 1265,
+        "bearing": 310,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-lech",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1718,
+          47.21977
+        ]
+      },
+      "properties": {
+        "name": "Lech am Arlberg - Blick nach Südwest ins Zugertal",
+        "url": "https://www.foto-webcam.eu/webcam/lech/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/lech/infos/",
+        "altitude": 1970,
+        "bearing": 240,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-gargellen",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.90114,
+          46.95884
+        ]
+      },
+      "properties": {
+        "name": "Gargellen - Blick nach Nordosten",
+        "url": "https://www.foto-webcam.eu/webcam/gargellen/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/gargellen/infos/",
+        "altitude": 2027,
+        "bearing": 52,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-tschagguns",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.912421,
+          47.065405
+        ]
+      },
+      "properties": {
+        "name": "Tschagguns / Montafon Nordic Schanzenzentrum - Blick nach NO",
+        "url": "https://www.foto-webcam.eu/webcam/tschagguns/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/tschagguns/infos/",
+        "altitude": 775,
+        "bearing": 15,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-sibratsgfaell",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.011797,
+          47.439096
+        ]
+      },
+      "properties": {
+        "name": "Sibratsgfäll / Bregenzerwald- Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/sibratsgfaell/",
+        "country": "AT",
+        "region": "Vorarlberg",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/sibratsgfaell/infos/",
+        "altitude": 1070,
+        "bearing": 140,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-oberstaufen",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.043138,
+          47.572375
+        ]
+      },
+      "properties": {
+        "name": "Oberstaufen / Haubers Naturresort - Blick nach Südwesten",
+        "url": "https://www.foto-webcam.eu/webcam/oberstaufen/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/oberstaufen/infos/",
+        "altitude": 950,
+        "bearing": 205,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-sonthofen",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.327536,
+          47.48474
+        ]
+      },
+      "properties": {
+        "name": "Sonthofen / Oberallgäu – Blick vom Sonthofer Hof nach Nordwesten",
+        "url": "https://www.foto-webcam.eu/webcam/sonthofen/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/sonthofen/infos/",
+        "altitude": 1147,
+        "bearing": 320,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-nebelhorn",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.342512,
+          47.421681
+        ]
+      },
+      "properties": {
+        "name": "Nebelhornbahn Gipfelstation - Oberstdorf - Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/nebelhorn/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/nebelhorn/infos/",
+        "altitude": 2224,
+        "bearing": 130,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-scheibenhaus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.281679,
+          47.393347
+        ]
+      },
+      "properties": {
+        "name": "Oberstdorf / Scheibenhaus - Blick nach Süden",
+        "url": "https://www.foto-webcam.eu/webcam/scheibenhaus/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/scheibenhaus/infos/",
+        "altitude": 815,
+        "bearing": 180,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-skiflugschanze",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.267085,
+          47.377001
+        ]
+      },
+      "properties": {
+        "name": "Heini-Klopfer-Skiflugschanze - Oberstdorf - Blick nach Nordosten",
+        "url": "https://www.foto-webcam.eu/webcam/skiflugschanze/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/skiflugschanze/infos/",
+        "altitude": 1050,
+        "bearing": 40,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-fellhorn",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.216169,
+          47.348075
+        ]
+      },
+      "properties": {
+        "name": "Fellhornbahn Gipfelstation - Oberstdorf - Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/fellhorn/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/fellhorn/infos/",
+        "altitude": 1967,
+        "bearing": 140,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-obermaiselstein",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.23208,
+          47.44399
+        ]
+      },
+      "properties": {
+        "name": "Obermaiselstein / Großer Herrenberg - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/obermaiselstein/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/obermaiselstein/infos/",
+        "altitude": 960,
+        "bearing": 75,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-balderschwang-kreuzle",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.144696,
+          47.458518
+        ]
+      },
+      "properties": {
+        "name": "Balderschwang / Kreuzle - Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/balderschwang-kreuzle/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/balderschwang-kreuzle/infos/",
+        "altitude": 1390,
+        "bearing": 275,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-max-wild-arena",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.032582,
+          47.683198
+        ]
+      },
+      "properties": {
+        "name": "Max-Wild-Arena - Felderhalde / Isny im Allgäu - Blick nach Nordosten",
+        "url": "https://www.foto-webcam.eu/webcam/max-wild-arena/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/max-wild-arena/infos/",
+        "altitude": 730,
+        "bearing": 17,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-hanuselhof",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.196552,
+          47.658929
+        ]
+      },
+      "properties": {
+        "name": "Hanusel Hof - Golf und Wellness Hotel im Allgäu - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/hanuselhof/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/hanuselhof/infos/",
+        "altitude": 965,
+        "bearing": 120,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-schwaerzenlifte",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1941924,
+          47.7072237
+        ]
+      },
+      "properties": {
+        "name": "Schwärzenlifte - Eschach / Oberallgäu - Blick zum Gletschergumpen und zur Gletscheralp",
+        "url": "https://www.foto-webcam.eu/webcam/schwaerzenlifte/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/schwaerzenlifte/infos/",
+        "altitude": 1068,
+        "bearing": 35,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-zugspitze",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.98473,
+          47.42083
+        ]
+      },
+      "properties": {
+        "name": "Wetterwarte Zugspitze - Blick über den Gipfel nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/zugspitze/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/zugspitze/infos/",
+        "altitude": 2962,
+        "bearing": 80,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-wank",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.14322,
+          47.50833
+        ]
+      },
+      "properties": {
+        "name": "Wankhaus - Garmisch-Partenkirchen - Blick nach Südwesten zur Zugspitze",
+        "url": "https://www.foto-webcam.eu/webcam/wank/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/wank/infos/",
+        "altitude": 1780,
+        "bearing": 240,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-rosenheim",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.131823,
+          47.860299
+        ]
+      },
+      "properties": {
+        "name": "Rosenheim / RoMed Klinikum - Blick nach Süden",
+        "url": "https://www.foto-webcam.eu/webcam/rosenheim/",
+        "country": "DE",
+        "region": "Allgäu und Bayerische Alpen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/rosenheim/infos/",
+        "altitude": 450,
+        "bearing": 185,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-pizol",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.436717,
+          46.979739
+        ]
+      },
+      "properties": {
+        "name": "Pizol - Bad Ragaz - Wangs / Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/pizol/",
+        "country": "CH",
+        "region": "St. Gallen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/pizol/infos/",
+        "altitude": 2230,
+        "bearing": 5,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-wildhaus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.337852,
+          47.158949
+        ]
+      },
+      "properties": {
+        "name": "Bergbahnen Wildhaus - Gamserrugg mit Blick zum Säntis und Schafberg",
+        "url": "https://www.foto-webcam.eu/webcam/wildhaus/",
+        "country": "CH",
+        "region": "St. Gallen",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/wildhaus/infos/",
+        "altitude": 2076,
+        "bearing": 345,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "roundshot-romanshorn",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.38013,
+          47.56687
+        ]
+      },
+      "properties": {
+        "name": "Hafen Romanshorn",
+        "url": "https://romanshorn.roundshot.com/",
+        "country": "CH",
+        "region": "Thurgau",
+        "provider": "Roundshot",
+        "sourceUrl": "https://romanshorn.roundshot.com/",
+        "metadataUrl": "https://romanshorn.roundshot.com/settings.json",
+        "altitude": 405,
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "roundshot-flims",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.2815,
+          46.834029
+        ]
+      },
+      "properties": {
+        "name": "Talstation Flims",
+        "url": "https://laax.roundshot.com/talstation/",
+        "country": "CH",
+        "region": "Graubünden",
+        "provider": "Roundshot",
+        "sourceUrl": "https://laax.roundshot.com/talstation/",
+        "metadataUrl": "https://laax.roundshot.com/talstation/settings.json",
+        "altitude": 1098,
+        "panorama": false,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "roundshot-chur",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.541719,
+          46.861134
+        ]
+      },
+      "properties": {
+        "name": "Chur",
+        "url": "https://churtourismus.roundshot.com/",
+        "country": "CH",
+        "region": "Graubünden",
+        "provider": "Roundshot",
+        "sourceUrl": "https://churtourismus.roundshot.com/",
+        "metadataUrl": "https://churtourismus.roundshot.com/settings.json",
+        "altitude": 640,
+        "panorama": false,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "roundshot-brambruesch",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.50279,
+          46.81233
+        ]
+      },
+      "properties": {
+        "name": "Brambrüesch",
+        "url": "https://brambruesch.roundshot.com/",
+        "country": "CH",
+        "region": "Graubünden",
+        "provider": "Roundshot",
+        "sourceUrl": "https://brambruesch.roundshot.com/",
+        "metadataUrl": "https://brambruesch.roundshot.com/settings.json",
+        "altitude": 1950,
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-berlinerhuette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.813689,
+          47.025049
+        ]
+      },
+      "properties": {
+        "name": "Berliner Hütte - Blick nach Südwesten zum Waxeggkees",
+        "url": "https://www.foto-webcam.eu/webcam/berlinerhuette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/berlinerhuette/infos/",
+        "altitude": 2073,
+        "bearing": 210,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-bethuberhof",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.530486,
+          46.986122
+        ]
+      },
+      "properties": {
+        "name": "Matrei in Osttirol / Bethuberhof - Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/bethuberhof/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/bethuberhof/infos/",
+        "altitude": 1010,
+        "bearing": 18,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-bockkogel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.095297,
+          47.025269
+        ]
+      },
+      "properties": {
+        "name": "Bockkogel - Blick zum Schrankogel",
+        "url": "https://www.foto-webcam.eu/webcam/bockkogel/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/bockkogel/infos/",
+        "altitude": 2920,
+        "bearing": 15,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-braunschweigerhuette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.909495,
+          46.935176
+        ]
+      },
+      "properties": {
+        "name": "Braunschweiger Hütte - Blick zum Mittelbergferner und zur Wildspitze",
+        "url": "https://www.foto-webcam.eu/webcam/braunschweigerhuette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/braunschweigerhuette/infos/",
+        "altitude": 2759,
+        "bearing": 220,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-bremerhuette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.26339,
+          46.995787
+        ]
+      },
+      "properties": {
+        "name": "Bremer Hütte - Blick nach Osten ins Gschnitztal",
+        "url": "https://www.foto-webcam.eu/webcam/bremerhuette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/bremerhuette/infos/",
+        "altitude": 2440,
+        "bearing": 60,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-bzb-gipfel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.984445,
+          47.421449
+        ]
+      },
+      "properties": {
+        "name": "Seilbahn Zugspitze - Blick zum Gipfel von Westen",
+        "url": "https://www.foto-webcam.eu/webcam/bzb-gipfel/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/bzb-gipfel/infos/",
+        "altitude": 2970,
+        "bearing": 90,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-das-kaltenbach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.875363,
+          47.284186
+        ]
+      },
+      "properties": {
+        "name": "Kaltenbach - Zillertal - Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/das-kaltenbach/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/das-kaltenbach/infos/",
+        "altitude": 590,
+        "bearing": 1,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-dolomitenhuette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.78353,
+          46.789667
+        ]
+      },
+      "properties": {
+        "name": "Dolomitenhütte - Blick in die Lienzer Dolomiten",
+        "url": "https://www.foto-webcam.eu/webcam/dolomitenhuette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/dolomitenhuette/infos/",
+        "altitude": 1620,
+        "bearing": 200,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-ewa",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.225127,
+          47.09494
+        ]
+      },
+      "properties": {
+        "name": "St. Anton / Wasserschloss KW Kartell - Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/ewa/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/ewa/infos/",
+        "altitude": 1985,
+        "bearing": 2,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-faschingalm",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.80399,
+          46.86035
+        ]
+      },
+      "properties": {
+        "name": "Lienz / Zettersfeld - Blick ins Skigebiet Faschingalm",
+        "url": "https://www.foto-webcam.eu/webcam/faschingalm/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/faschingalm/infos/",
+        "altitude": 1750,
+        "bearing": 5,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-gamshuette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.795856,
+          47.129953
+        ]
+      },
+      "properties": {
+        "name": "Gamshütte / Zillertal - Blick nach Südosten zum Tristner",
+        "url": "https://www.foto-webcam.eu/webcam/gamshuette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/gamshuette/infos/",
+        "altitude": 1911,
+        "bearing": 120,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-glocknerwinkel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.689609,
+          47.021832
+        ]
+      },
+      "properties": {
+        "name": "Glocknerwinkel / Blick nach Norden zum Großglockner",
+        "url": "https://www.foto-webcam.eu/webcam/glocknerwinkel/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/glocknerwinkel/infos/",
+        "altitude": 1920,
+        "bearing": 3,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-hintereisferner1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7828,
+          46.7959
+        ]
+      },
+      "properties": {
+        "name": "Hintereisferner - Blick Richtung Weißkugel und Langtaufererspitze",
+        "url": "https://www.foto-webcam.eu/webcam/hintereisferner1/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/hintereisferner1/infos/",
+        "altitude": 3245,
+        "bearing": 270,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-hintereisferner2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7828,
+          46.7959
+        ]
+      },
+      "properties": {
+        "name": "Hintereisferner - Blick Richtung Hintere Hintereisspitze",
+        "url": "https://www.foto-webcam.eu/webcam/hintereisferner2/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/hintereisferner2/infos/",
+        "altitude": 3245,
+        "bearing": 340,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-hopfgarten",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.479249,
+          46.909794
+        ]
+      },
+      "properties": {
+        "name": "Hopfgarten im Defereggental - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/hopfgarten/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/hopfgarten/infos/",
+        "altitude": 1924,
+        "bearing": 60,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-hotel-berghaus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.696721,
+          47.126081
+        ]
+      },
+      "properties": {
+        "name": "Tux / Alpinhotel Berghaus - Blick nach Südwesten zum Hintertuxer Gletscher",
+        "url": "https://www.foto-webcam.eu/webcam/hotel-berghaus/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/hotel-berghaus/infos/",
+        "altitude": 1400,
+        "bearing": 230,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-innsbruck-uni",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.384167,
+          47.259998
+        ]
+      },
+      "properties": {
+        "name": "Universität Innsbruck / Blick nach Nordosten ins Unterinntal",
+        "url": "https://www.foto-webcam.eu/webcam/innsbruck-uni/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/innsbruck-uni/infos/",
+        "altitude": 580,
+        "bearing": 68,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-innsbruck-uni-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.384111,
+          47.264167
+        ]
+      },
+      "properties": {
+        "name": "Universität Innsbruck / Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/innsbruck-uni-west/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/innsbruck-uni-west/infos/",
+        "altitude": 610,
+        "bearing": 250,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-kals",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.647537,
+          47.007477
+        ]
+      },
+      "properties": {
+        "name": "Kals am Großglockner - Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/kals/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/kals/infos/",
+        "altitude": 1400,
+        "bearing": 280,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-kals-nord",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.626943,
+          46.98332
+        ]
+      },
+      "properties": {
+        "name": "Kals am Großglockner - Blick nach Nordosten",
+        "url": "https://www.foto-webcam.eu/webcam/kals-nord/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/kals-nord/infos/",
+        "altitude": 1500,
+        "bearing": 40,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-kalsertal",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.58326,
+          46.913221
+        ]
+      },
+      "properties": {
+        "name": "Kalsertal - Blick nach Norden zum Großglockner",
+        "url": "https://www.foto-webcam.eu/webcam/kalsertal/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/kalsertal/infos/",
+        "altitude": 1400,
+        "bearing": 33,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-kreuzspitze",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.312059,
+          46.827946
+        ]
+      },
+      "properties": {
+        "name": "Kreuzspitze / Villgratental - Blick nach Innervillgraten",
+        "url": "https://www.foto-webcam.eu/webcam/kreuzspitze/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/kreuzspitze/infos/",
+        "altitude": 2614,
+        "bearing": 120,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-lucknerhaus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.687957,
+          47.020987
+        ]
+      },
+      "properties": {
+        "name": "Lucknerhaus - Blick zum Großglockner",
+        "url": "https://www.foto-webcam.eu/webcam/lucknerhaus/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/lucknerhaus/infos/",
+        "altitude": 1920,
+        "bearing": 1,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-moesern",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.142919,
+          47.31269
+        ]
+      },
+      "properties": {
+        "name": "Seefeld / Friedensglocke Mösern - Blick nach Westen ins Inntal",
+        "url": "https://www.foto-webcam.eu/webcam/moesern/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/moesern/infos/",
+        "altitude": 1206,
+        "bearing": 255,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-obergarten",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.855217,
+          47.409977
+        ]
+      },
+      "properties": {
+        "name": "Obergarten - Blick nach Nordosten",
+        "url": "https://www.foto-webcam.eu/webcam/obergarten/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/obergarten/infos/",
+        "altitude": 1107,
+        "bearing": 40,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-pendling-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.11197,
+          47.57289
+        ]
+      },
+      "properties": {
+        "name": "Pendlinghaus - Kufstein - Blick über Hinterthiersee nach Nordwesten",
+        "url": "https://www.foto-webcam.eu/webcam/pendling-west/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/pendling-west/infos/",
+        "altitude": 1565,
+        "bearing": 285,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-pointenhof",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.436067,
+          47.503542
+        ]
+      },
+      "properties": {
+        "name": "St. Johann in Tirol – Blick zur Jodlalmbahn-Baustelle",
+        "url": "https://www.foto-webcam.eu/webcam/pointenhof/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/pointenhof/infos/",
+        "altitude": 992,
+        "bearing": 110,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-russkopf",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.169416,
+          46.866
+        ]
+      },
+      "properties": {
+        "name": "Rußkopf - Blick nach Südwesten zum Jamtalferner",
+        "url": "https://www.foto-webcam.eu/webcam/russkopf/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/russkopf/infos/",
+        "altitude": 2680,
+        "bearing": 245,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-st-johann-in-tirol",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.39558,
+          47.54576
+        ]
+      },
+      "properties": {
+        "name": "St. Johann in Tirol - Blick zum Kitzbüheler Horn",
+        "url": "https://www.foto-webcam.eu/webcam/st-johann-in-tirol/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/st-johann-in-tirol/infos/",
+        "altitude": 1220,
+        "bearing": 153,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-st-johann-in-tirol-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.487678,
+          47.52612
+        ]
+      },
+      "properties": {
+        "name": "St. Johann in Tirol - Blick zum Kitzbüheler Horn und Wilder Kaiser",
+        "url": "https://www.foto-webcam.eu/webcam/st-johann-in-tirol-west/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/st-johann-in-tirol-west/infos/",
+        "altitude": 1295,
+        "bearing": 258,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-steigerhof",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.547861,
+          46.994612
+        ]
+      },
+      "properties": {
+        "name": "Matrei in Osttirol / Steigerhof - Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/steigerhof/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/steigerhof/infos/",
+        "altitude": 1100,
+        "bearing": 290,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-stjakob",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.322638,
+          46.917213
+        ]
+      },
+      "properties": {
+        "name": "St. Jakob in Defereggen - Blick nach Osten",
+        "url": "https://www.foto-webcam.eu/webcam/stjakob/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/stjakob/infos/",
+        "altitude": 1500,
+        "bearing": 90,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-strumerhof",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.518056,
+          47.010288
+        ]
+      },
+      "properties": {
+        "name": "Matrei in Osttirol / Strumerhof - Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/strumerhof/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/strumerhof/infos/",
+        "altitude": 1451,
+        "bearing": 150,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-stveit",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.435715,
+          46.927657
+        ]
+      },
+      "properties": {
+        "name": "St.Veit im Defereggental - Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/stveit/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/stveit/infos/",
+        "altitude": 1495,
+        "bearing": 252,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-sulzkogel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.0624805,
+          47.0378416
+        ]
+      },
+      "properties": {
+        "name": "Sulzkogel - Blick nach Südosten",
+        "url": "https://www.foto-webcam.eu/webcam/sulzkogel/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/sulzkogel/infos/",
+        "altitude": 2680,
+        "bearing": 115,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-toelzer-huette",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.49251,
+          47.50413
+        ]
+      },
+      "properties": {
+        "name": "Tölzer Hütte am Schafreuter - Blick ins Karwendel",
+        "url": "https://www.foto-webcam.eu/webcam/toelzer-huette/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/toelzer-huette/infos/",
+        "altitude": 1825,
+        "bearing": 210,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-trins",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.420534,
+          47.088028
+        ]
+      },
+      "properties": {
+        "name": "Trins / Adlerblick - Blick nach Südwesten ins Gschnitztal",
+        "url": "https://www.foto-webcam.eu/webcam/trins/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/trins/infos/",
+        "altitude": 1485,
+        "bearing": 220,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-tristner",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.8257,
+          47.109119
+        ]
+      },
+      "properties": {
+        "name": "Tristner - Ginzling / Zillertal - Blick nach Südwesten zum Schlegeis",
+        "url": "https://www.foto-webcam.eu/webcam/tristner/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/tristner/infos/",
+        "altitude": 2050,
+        "bearing": 220,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-tuxertal",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.775214,
+          47.184268
+        ]
+      },
+      "properties": {
+        "name": "Wanglspitz - Tuxertal - Blick nach Südwesten",
+        "url": "https://www.foto-webcam.eu/webcam/tuxertal/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/tuxertal/infos/",
+        "altitude": 2420,
+        "bearing": 235,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-virgen-nord",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.44769,
+          46.990593
+        ]
+      },
+      "properties": {
+        "name": "Virgen / Würfelehütte - Blick nach Norden",
+        "url": "https://www.foto-webcam.eu/webcam/virgen-nord/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/virgen-nord/infos/",
+        "altitude": 1360,
+        "bearing": 10,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-virgen-west",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.470775,
+          47.00832
+        ]
+      },
+      "properties": {
+        "name": "Virgen / Sonnberg - Blick nach Westen",
+        "url": "https://www.foto-webcam.eu/webcam/virgen-west/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/virgen-west/infos/",
+        "altitude": 1430,
+        "bearing": 258,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-wannenkogel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.0733583,
+          47.0217027
+        ]
+      },
+      "properties": {
+        "name": "Wannenkogel - Blick zum Schrankogel",
+        "url": "https://www.foto-webcam.eu/webcam/wannenkogel/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/wannenkogel/infos/",
+        "altitude": 2640,
+        "bearing": 40,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-wilder-kaiser",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.487678,
+          47.52612
+        ]
+      },
+      "properties": {
+        "name": "St. Johann in Tirol - Blick zum Wilden Kaiser",
+        "url": "https://www.foto-webcam.eu/webcam/wilder-kaiser/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/wilder-kaiser/infos/",
+        "altitude": 1295,
+        "bearing": 290,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "foto-webcam-zielhaus-hahnenkamm",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.383487,
+          47.443202
+        ]
+      },
+      "properties": {
+        "name": "Kitzbühel / Zielhaus Hahnenkamm - Blick nach Osten in die Südberge",
+        "url": "https://www.foto-webcam.eu/webcam/zielhaus-hahnenkamm/",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Foto-Webcam.eu",
+        "sourceUrl": "https://www.foto-webcam.eu/webcam/zielhaus-hahnenkamm/infos/",
+        "altitude": 805,
+        "bearing": 80,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25505",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.903558,
+          47.41929
+        ]
+      },
+      "properties": {
+        "name": "Pinzgerhof",
+        "url": "https://webtv.feratel.com/webtv/?cam=25505",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25507",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.906148,
+          47.460943
+        ]
+      },
+      "properties": {
+        "name": "Reintalersee",
+        "url": "https://webtv.feratel.com/webtv/?cam=25507",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25510",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.880401,
+          47.41447
+        ]
+      },
+      "properties": {
+        "name": "Reitherkogelbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=25510",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25511",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.8997,
+          47.48898
+        ]
+      },
+      "properties": {
+        "name": "Brandenberg Dorf",
+        "url": "https://webtv.feratel.com/webtv/?cam=25511",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25576",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.333987,
+          46.970351
+        ]
+      },
+      "properties": {
+        "name": "Greitspitze",
+        "url": "https://webtv.feratel.com/webtv/?cam=25576",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25577",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.288588,
+          47.013905
+        ]
+      },
+      "properties": {
+        "name": "Ischgl Dorf",
+        "url": "https://webtv.feratel.com/webtv/?cam=25577",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25578",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.30936,
+          46.950312
+        ]
+      },
+      "properties": {
+        "name": "Palinkopf",
+        "url": "https://webtv.feratel.com/webtv/?cam=25578",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25580",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.772042,
+          47.155347
+        ]
+      },
+      "properties": {
+        "name": "Panoramabahn Tal",
+        "url": "https://webtv.feratel.com/webtv/?cam=25580",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-25731",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.040028,
+          47.427956
+        ]
+      },
+      "properties": {
+        "name": "Roggenboden",
+        "url": "https://webtv.feratel.com/webtv/?cam=25731",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5214",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.078223,
+          47.250427
+        ]
+      },
+      "properties": {
+        "name": "Fussalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5214",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5222",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.941452,
+          47.247891
+        ]
+      },
+      "properties": {
+        "name": "Rosenalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5222",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5226",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.035013,
+          47.24468
+        ]
+      },
+      "properties": {
+        "name": "Isskogel - Zillertal Arena",
+        "url": "https://webtv.feratel.com/webtv/?cam=5226",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5227",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.940103,
+          47.247812
+        ]
+      },
+      "properties": {
+        "name": "Fichtenschloss",
+        "url": "https://webtv.feratel.com/webtv/?cam=5227",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5228",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.014097,
+          47.24592
+        ]
+      },
+      "properties": {
+        "name": "Stuanmandl Berg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5228",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5229",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.977604,
+          47.25349
+        ]
+      },
+      "properties": {
+        "name": "Übergangsjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5229",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5500",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.69494,
+          47.42778
+        ]
+      },
+      "properties": {
+        "name": "Karwendel",
+        "url": "https://webtv.feratel.com/webtv/?cam=5500",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-achensee",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5501",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.68332,
+          47.50644
+        ]
+      },
+      "properties": {
+        "name": "Christlum",
+        "url": "https://webtv.feratel.com/webtv/?cam=5501",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-achensee",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5502",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.76359,
+          47.44139
+        ]
+      },
+      "properties": {
+        "name": "Rofan - Seilbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5502",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-achensee",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5505",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.92996,
+          47.36795
+        ]
+      },
+      "properties": {
+        "name": "Wiedersbergerhorn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5505",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5506",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.935645,
+          47.37202
+        ]
+      },
+      "properties": {
+        "name": "Alpbachtaler Lauser-Sauser",
+        "url": "https://webtv.feratel.com/webtv/?cam=5506",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5507",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.936713,
+          47.359955
+        ]
+      },
+      "properties": {
+        "name": "Hornbahn 2000 Talstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5507",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5508",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.923486,
+          47.358875
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Hornbahn 2000",
+        "url": "https://webtv.feratel.com/webtv/?cam=5508",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5510",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.281041,
+          47.182973
+        ]
+      },
+      "properties": {
+        "name": "Panoramarestaurant Hoadl-Haus",
+        "url": "https://webtv.feratel.com/webtv/?cam=5510",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5511",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.282668,
+          47.188986
+        ]
+      },
+      "properties": {
+        "name": "Golden Roofpark",
+        "url": "https://webtv.feratel.com/webtv/?cam=5511",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5515",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.76172,
+          47.41827
+        ]
+      },
+      "properties": {
+        "name": "Sonnalmbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5515",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5516",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.746197,
+          47.411723
+        ]
+      },
+      "properties": {
+        "name": "Egghof Sunjet",
+        "url": "https://webtv.feratel.com/webtv/?cam=5516",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5517",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7401,
+          47.41523
+        ]
+      },
+      "properties": {
+        "name": "Thanellerbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5517",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5518",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.736234,
+          47.422668
+        ]
+      },
+      "properties": {
+        "name": "Obere Karbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5518",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5520",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.22931,
+          47.46161
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Gondelbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5520",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5521",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.249036,
+          47.476952
+        ]
+      },
+      "properties": {
+        "name": "Jochbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5521",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5525",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.27245,
+          47.49225
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Hartkaiserbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5525",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ellmau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5526",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.271667,
+          47.491944
+        ]
+      },
+      "properties": {
+        "name": "Ellmau Hartkaiser II",
+        "url": "https://webtv.feratel.com/webtv/?cam=5526",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ellmau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5530",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.54902,
+          47.44448
+        ]
+      },
+      "properties": {
+        "name": "Lärchfilzkogel",
+        "url": "https://webtv.feratel.com/webtv/?cam=5530",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-pillerseetal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5531",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.55267,
+          47.42811
+        ]
+      },
+      "properties": {
+        "name": "Reckmoos",
+        "url": "https://webtv.feratel.com/webtv/?cam=5531",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-pillerseetal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5532",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.540945,
+          47.456934
+        ]
+      },
+      "properties": {
+        "name": "Mittelstation Streuböden",
+        "url": "https://webtv.feratel.com/webtv/?cam=5532",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-pillerseetal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5535",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.801968,
+          47.170323
+        ]
+      },
+      "properties": {
+        "name": "Penkenjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5535",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5538",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.615678,
+          47.083281
+        ]
+      },
+      "properties": {
+        "name": "Frommes",
+        "url": "https://webtv.feratel.com/webtv/?cam=5538",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5539",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.58859,
+          47.087377
+        ]
+      },
+      "properties": {
+        "name": "Nordseite",
+        "url": "https://webtv.feratel.com/webtv/?cam=5539",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5540",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.58629,
+          47.07435
+        ]
+      },
+      "properties": {
+        "name": "Schönjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5540",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5541",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.578477,
+          47.088921
+        ]
+      },
+      "properties": {
+        "name": "Schöngampalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5541",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5542",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.59321,
+          47.06003
+        ]
+      },
+      "properties": {
+        "name": "Möseralm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5542",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5543",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.62059,
+          47.06099
+        ]
+      },
+      "properties": {
+        "name": "Bertas Kinderland",
+        "url": "https://webtv.feratel.com/webtv/?cam=5543",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5544",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.630773,
+          47.058404
+        ]
+      },
+      "properties": {
+        "name": "Familienidylle Wolfsee",
+        "url": "https://webtv.feratel.com/webtv/?cam=5544",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5545",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.79829,
+          47.33087
+        ]
+      },
+      "properties": {
+        "name": "Onkeljoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5545",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5546",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.85653,
+          47.33831
+        ]
+      },
+      "properties": {
+        "name": "Therme Fügen",
+        "url": "https://webtv.feratel.com/webtv/?cam=5546",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5548",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.195753,
+          46.974329
+        ]
+      },
+      "properties": {
+        "name": "Galtür Dorf",
+        "url": "https://webtv.feratel.com/webtv/?cam=5548",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5550",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.14289,
+          46.96216
+        ]
+      },
+      "properties": {
+        "name": "Ballunspitzbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5550",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5551",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.663617,
+          47.098232
+        ]
+      },
+      "properties": {
+        "name": "Sommerberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5551",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5552",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.6794,
+          47.063638
+        ]
+      },
+      "properties": {
+        "name": "Gefrorene Wand",
+        "url": "https://webtv.feratel.com/webtv/?cam=5552",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5553",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.670953,
+          47.077062
+        ]
+      },
+      "properties": {
+        "name": "Tuxer Ferner Haus",
+        "url": "https://webtv.feratel.com/webtv/?cam=5553",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5554",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.745717,
+          47.184729
+        ]
+      },
+      "properties": {
+        "name": "Rastkogel",
+        "url": "https://webtv.feratel.com/webtv/?cam=5554",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5555",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.495848,
+          47.063836
+        ]
+      },
+      "properties": {
+        "name": "Familienglück Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5555",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5556",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.492417,
+          47.069954
+        ]
+      },
+      "properties": {
+        "name": "Zeinisbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5556",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5557",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.503974,
+          47.057116
+        ]
+      },
+      "properties": {
+        "name": "Furglerblick Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5557",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5558",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.477567,
+          47.07392
+        ]
+      },
+      "properties": {
+        "name": "Mittelstation See",
+        "url": "https://webtv.feratel.com/webtv/?cam=5558",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5559",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.463109,
+          47.084803
+        ]
+      },
+      "properties": {
+        "name": "See Dorf",
+        "url": "https://webtv.feratel.com/webtv/?cam=5559",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5560",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.76912,
+          47.26774
+        ]
+      },
+      "properties": {
+        "name": "Lamarkalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5560",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5561",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.753723,
+          47.243724
+        ]
+      },
+      "properties": {
+        "name": "Waidoffen",
+        "url": "https://webtv.feratel.com/webtv/?cam=5561",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5565",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.84207,
+          47.25821
+        ]
+      },
+      "properties": {
+        "name": "Wimbach Express",
+        "url": "https://webtv.feratel.com/webtv/?cam=5565",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5566",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.836984,
+          47.25328
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Schneeexpress",
+        "url": "https://webtv.feratel.com/webtv/?cam=5566",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5567",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.858783,
+          47.319486
+        ]
+      },
+      "properties": {
+        "name": "Uderns Golfplatz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5567",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5569",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.824655,
+          47.260058
+        ]
+      },
+      "properties": {
+        "name": "Kristallexpress",
+        "url": "https://webtv.feratel.com/webtv/?cam=5569",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5570",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.06044,
+          46.89825
+        ]
+      },
+      "properties": {
+        "name": "Hochgurgl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5570",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5571",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.052952,
+          46.909616
+        ]
+      },
+      "properties": {
+        "name": "Top Mountain Crosspoint",
+        "url": "https://webtv.feratel.com/webtv/?cam=5571",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5575",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.31634,
+          46.98133
+        ]
+      },
+      "properties": {
+        "name": "Idalp",
+        "url": "https://webtv.feratel.com/webtv/?cam=5575",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5576",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.32292,
+          46.99177
+        ]
+      },
+      "properties": {
+        "name": "Pardatschgrat",
+        "url": "https://webtv.feratel.com/webtv/?cam=5576",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5578",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.784189,
+          47.165971
+        ]
+      },
+      "properties": {
+        "name": "Zirbenbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5578",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5579",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.794458,
+          47.148593
+        ]
+      },
+      "properties": {
+        "name": "Hochzeiger",
+        "url": "https://webtv.feratel.com/webtv/?cam=5579",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5580",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7873,
+          47.161382
+        ]
+      },
+      "properties": {
+        "name": "Sechszeiger",
+        "url": "https://webtv.feratel.com/webtv/?cam=5580",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5582",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.783391,
+          47.151342
+        ]
+      },
+      "properties": {
+        "name": "Hochzeiger Mittelstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5582",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5583",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.759032,
+          47.152147
+        ]
+      },
+      "properties": {
+        "name": "Hochzeiger Talstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5583",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-pitztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5584",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.204311,
+          47.044786
+        ]
+      },
+      "properties": {
+        "name": "Alblitt Piste 7a",
+        "url": "https://webtv.feratel.com/webtv/?cam=5584",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5585",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.358471,
+          47.066872
+        ]
+      },
+      "properties": {
+        "name": "Diasbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5585",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5586",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.338494,
+          47.084544
+        ]
+      },
+      "properties": {
+        "name": "Alblittkopf",
+        "url": "https://webtv.feratel.com/webtv/?cam=5586",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5587",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.345406,
+          47.079711
+        ]
+      },
+      "properties": {
+        "name": "Fischteich",
+        "url": "https://webtv.feratel.com/webtv/?cam=5587",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5588",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.356811,
+          47.066539
+        ]
+      },
+      "properties": {
+        "name": "Erlebnispark",
+        "url": "https://webtv.feratel.com/webtv/?cam=5588",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5589",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.375074,
+          47.059734
+        ]
+      },
+      "properties": {
+        "name": "Kohlplatz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5589",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5590",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.714489,
+          46.864362
+        ]
+      },
+      "properties": {
+        "name": "Gletscherzentrum",
+        "url": "https://webtv.feratel.com/webtv/?cam=5590",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5591",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.693656,
+          46.857556
+        ]
+      },
+      "properties": {
+        "name": "Karlesjochbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5591",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5592",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.693908,
+          47.043917
+        ]
+      },
+      "properties": {
+        "name": "Sattelboden",
+        "url": "https://webtv.feratel.com/webtv/?cam=5592",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5593",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.751001,
+          47.032944
+        ]
+      },
+      "properties": {
+        "name": "Verpeilschlucht",
+        "url": "https://webtv.feratel.com/webtv/?cam=5593",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5595",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.348694,
+          47.075214
+        ]
+      },
+      "properties": {
+        "name": "Alblitt",
+        "url": "https://webtv.feratel.com/webtv/?cam=5595",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5599",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.365105,
+          47.400861
+        ]
+      },
+      "properties": {
+        "name": "Steinbergkogel",
+        "url": "https://webtv.feratel.com/webtv/?cam=5599",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbuehel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5600",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.348681,
+          47.39025
+        ]
+      },
+      "properties": {
+        "name": "Pengelstein",
+        "url": "https://webtv.feratel.com/webtv/?cam=5600",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5601",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.43222,
+          47.4667
+        ]
+      },
+      "properties": {
+        "name": "Kitzbüheler Hornköpfl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5601",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbuehel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5602",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.451283,
+          47.440566
+        ]
+      },
+      "properties": {
+        "name": "Bichlalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5602",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbuehel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5604",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.369383,
+          47.423723
+        ]
+      },
+      "properties": {
+        "name": "Hahnenkamm Berg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5604",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbuehel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5607",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.342754,
+          47.419334
+        ]
+      },
+      "properties": {
+        "name": "Ochsalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5607",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5608",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.433022,
+          47.466829
+        ]
+      },
+      "properties": {
+        "name": "Speicherteich Hornköpfl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5608",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbuehel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5610",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.43125,
+          47.63063
+        ]
+      },
+      "properties": {
+        "name": "Unterberghorn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5610",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kaiserwinkl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5611",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.421891,
+          47.653099
+        ]
+      },
+      "properties": {
+        "name": "Landeplatz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5611",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kaiserwinkl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5613",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.43811,
+          47.670283
+        ]
+      },
+      "properties": {
+        "name": "Moserberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5613",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kaiserwinkl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5614",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.296819,
+          47.660911
+        ]
+      },
+      "properties": {
+        "name": "Moorgebiet Schwemm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5614",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kaiserwinkl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5615",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.86311,
+          47.384653
+        ]
+      },
+      "properties": {
+        "name": "Grubig Alm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5615",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-lermoos",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5616",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.89108,
+          47.373821
+        ]
+      },
+      "properties": {
+        "name": "Talstation Marienberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5616",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5617",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.847523,
+          47.385603
+        ]
+      },
+      "properties": {
+        "name": "Grubigstein",
+        "url": "https://webtv.feratel.com/webtv/?cam=5617",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-lermoos",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5618",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.883877,
+          47.399598
+        ]
+      },
+      "properties": {
+        "name": "Familyjet Tal",
+        "url": "https://webtv.feratel.com/webtv/?cam=5618",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-lermoos",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5619",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.869822,
+          47.391861
+        ]
+      },
+      "properties": {
+        "name": "Hochmoos Express Berg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5619",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-lermoos",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5621",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.776039,
+          47.456448
+        ]
+      },
+      "properties": {
+        "name": "Schifffahrt Heiterwang am See",
+        "url": "https://webtv.feratel.com/webtv/?cam=5621",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5625",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.887633,
+          47.365425
+        ]
+      },
+      "properties": {
+        "name": "Mittelstation Biberwier",
+        "url": "https://webtv.feratel.com/webtv/?cam=5625",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5626",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.893862,
+          47.353141
+        ]
+      },
+      "properties": {
+        "name": "DSB Berg Biberwier",
+        "url": "https://webtv.feratel.com/webtv/?cam=5626",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5630",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.596982,
+          46.992112
+        ]
+      },
+      "properties": {
+        "name": "Adlerlounge, Cimaross",
+        "url": "https://webtv.feratel.com/webtv/?cam=5630",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-osttirol",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5635",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.83021,
+          47.17476
+        ]
+      },
+      "properties": {
+        "name": "Penkenbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5635",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5636",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.87287,
+          47.13636
+        ]
+      },
+      "properties": {
+        "name": "Ahornbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5636",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5638",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.79491,
+          47.18213
+        ]
+      },
+      "properties": {
+        "name": "Penken Park",
+        "url": "https://webtv.feratel.com/webtv/?cam=5638",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5639",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.854766,
+          47.201857
+        ]
+      },
+      "properties": {
+        "name": "Paulerhof - Schwendberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5639",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5640",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.54149,
+          46.86289
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Bergkastelseilbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5640",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5641",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.546583,
+          46.853528
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Zirmbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5641",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5642",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.570194,
+          46.888431
+        ]
+      },
+      "properties": {
+        "name": "Tscheyeck Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5642",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5643",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.496275,
+          46.888933
+        ]
+      },
+      "properties": {
+        "name": "Mutzkopflift Talstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5643",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5645",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.37799,
+          47.305619
+        ]
+      },
+      "properties": {
+        "name": "Seegrube",
+        "url": "https://webtv.feratel.com/webtv/?cam=5645",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5646",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.400325,
+          47.285986
+        ]
+      },
+      "properties": {
+        "name": "Hungerburg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5646",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5647",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.383587,
+          47.312051
+        ]
+      },
+      "properties": {
+        "name": "Hafelekar",
+        "url": "https://webtv.feratel.com/webtv/?cam=5647",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5650",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.04589,
+          46.86134
+        ]
+      },
+      "properties": {
+        "name": "Hohe Mut",
+        "url": "https://webtv.feratel.com/webtv/?cam=5650",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-obergurgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5651",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.0444,
+          46.862467
+        ]
+      },
+      "properties": {
+        "name": "Festkogel",
+        "url": "https://webtv.feratel.com/webtv/?cam=5651",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-obergurgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5652",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.026424,
+          46.865429
+        ]
+      },
+      "properties": {
+        "name": "Gaisberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5652",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-obergurgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5658",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.535726,
+          47.256483
+        ]
+      },
+      "properties": {
+        "name": "Glungezerbahn - Zirbensee",
+        "url": "https://webtv.feratel.com/webtv/?cam=5658",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-hall-wattens",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5659",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.544209,
+          47.241895
+        ]
+      },
+      "properties": {
+        "name": "Glungezerbahn Mittelstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5659",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-hall-wattens",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5665",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.24902,
+          47.49084
+        ]
+      },
+      "properties": {
+        "name": "Brandstadl Restaurant",
+        "url": "https://webtv.feratel.com/webtv/?cam=5665",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wilden-kaiser",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5670",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.30767,
+          47.14635
+        ]
+      },
+      "properties": {
+        "name": "Krinnenkopf",
+        "url": "https://webtv.feratel.com/webtv/?cam=5670",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5671",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.29791,
+          47.14085
+        ]
+      },
+      "properties": {
+        "name": "Mitterjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5671",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5672",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.31523,
+          47.15586
+        ]
+      },
+      "properties": {
+        "name": "Panoramasee",
+        "url": "https://webtv.feratel.com/webtv/?cam=5672",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5675",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.209801,
+          47.470165
+        ]
+      },
+      "properties": {
+        "name": "Siller-Keat Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5675",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wilden-kaiser",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5676",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.197197,
+          47.479915
+        ]
+      },
+      "properties": {
+        "name": "Hexenwasser",
+        "url": "https://webtv.feratel.com/webtv/?cam=5676",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wilden-kaiser",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5680",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.566184,
+          47.048984
+        ]
+      },
+      "properties": {
+        "name": "Seables",
+        "url": "https://webtv.feratel.com/webtv/?cam=5680",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5681",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.496586,
+          47.022428
+        ]
+      },
+      "properties": {
+        "name": "Masner",
+        "url": "https://webtv.feratel.com/webtv/?cam=5681",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5682",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.548019,
+          47.048394
+        ]
+      },
+      "properties": {
+        "name": "Plansegg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5682",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5683",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.565502,
+          47.036898
+        ]
+      },
+      "properties": {
+        "name": "Murmliwasser",
+        "url": "https://webtv.feratel.com/webtv/?cam=5683",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5684",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.58829,
+          47.04675
+        ]
+      },
+      "properties": {
+        "name": "Königsleithe",
+        "url": "https://webtv.feratel.com/webtv/?cam=5684",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5685",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.194221,
+          47.48373
+        ]
+      },
+      "properties": {
+        "name": "Bergstation Gondelbahn Hexenwasser",
+        "url": "https://webtv.feratel.com/webtv/?cam=5685",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wilden-kaiser",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5686",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.184625,
+          47.467242
+        ]
+      },
+      "properties": {
+        "name": "Kleine Salve - Salvistabahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5686",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-ferienregion-hohe-salve",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5687",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.202901,
+          47.464437
+        ]
+      },
+      "properties": {
+        "name": "Gipfel Hohe Salve - Söll",
+        "url": "https://webtv.feratel.com/webtv/?cam=5687",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-ferienregion-hohe-salve",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5688",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.563094,
+          47.039524
+        ]
+      },
+      "properties": {
+        "name": "Murmlis Kinderalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5688",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5689",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.582835,
+          47.035113
+        ]
+      },
+      "properties": {
+        "name": "Erlebnispark Hög",
+        "url": "https://webtv.feratel.com/webtv/?cam=5689",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5690",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.213029,
+          47.157587
+        ]
+      },
+      "properties": {
+        "name": "Valluga",
+        "url": "https://webtv.feratel.com/webtv/?cam=5690",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5691",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.232739,
+          47.132034
+        ]
+      },
+      "properties": {
+        "name": "Galzig Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5691",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5692",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.248855,
+          47.13797
+        ]
+      },
+      "properties": {
+        "name": "Gampen",
+        "url": "https://webtv.feratel.com/webtv/?cam=5692",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5693",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.263134,
+          47.128656
+        ]
+      },
+      "properties": {
+        "name": "Skicenter",
+        "url": "https://webtv.feratel.com/webtv/?cam=5693",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5694",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.267856,
+          47.104747
+        ]
+      },
+      "properties": {
+        "name": "Rendl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5694",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5695",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.215125,
+          47.126286
+        ]
+      },
+      "properties": {
+        "name": "St. Christoph",
+        "url": "https://webtv.feratel.com/webtv/?cam=5695",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5703",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.424513,
+          47.51852
+        ]
+      },
+      "properties": {
+        "name": "Kitzhorn Suites",
+        "url": "https://webtv.feratel.com/webtv/?cam=5703",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5704",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.239542,
+          47.053124
+        ]
+      },
+      "properties": {
+        "name": "Klaus Äuele",
+        "url": "https://webtv.feratel.com/webtv/?cam=5704",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5708",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.131122,
+          46.989497
+        ]
+      },
+      "properties": {
+        "name": "Fernau Mittelstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5708",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5710",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.11532,
+          46.98725
+        ]
+      },
+      "properties": {
+        "name": "Eisgrat Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5710",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5711",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.10753,
+          46.98757
+        ]
+      },
+      "properties": {
+        "name": "Daunjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5711",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5712",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.115701,
+          46.997874
+        ]
+      },
+      "properties": {
+        "name": "Murmele Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5712",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5713",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.305704,
+          47.114174
+        ]
+      },
+      "properties": {
+        "name": "Neustift",
+        "url": "https://webtv.feratel.com/webtv/?cam=5713",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5714",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.32475,
+          47.0985
+        ]
+      },
+      "properties": {
+        "name": "Panoramabahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5714",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5715",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.53609,
+          47.49205
+        ]
+      },
+      "properties": {
+        "name": "Neunerköpfle Mittelstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5715",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5716",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.475822,
+          47.513952
+        ]
+      },
+      "properties": {
+        "name": "Obere Halde",
+        "url": "https://webtv.feratel.com/webtv/?cam=5716",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5717",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.597174,
+          47.51301
+        ]
+      },
+      "properties": {
+        "name": "Füssener Jöchle Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5717",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5718",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.588553,
+          47.479818
+        ]
+      },
+      "properties": {
+        "name": "Krinnenalpe",
+        "url": "https://webtv.feratel.com/webtv/?cam=5718",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5722",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.572209,
+          47.627608
+        ]
+      },
+      "properties": {
+        "name": "Schwarzlofer",
+        "url": "https://webtv.feratel.com/webtv/?cam=5722",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-pillerseetal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5725",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.247516,
+          47.412303
+        ]
+      },
+      "properties": {
+        "name": "Talkaser",
+        "url": "https://webtv.feratel.com/webtv/?cam=5725",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5726",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.24447,
+          47.419194
+        ]
+      },
+      "properties": {
+        "name": "Choralpe",
+        "url": "https://webtv.feratel.com/webtv/?cam=5726",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5730",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.98941,
+          47.394506
+        ]
+      },
+      "properties": {
+        "name": "Schatzbergbahn",
+        "url": "https://webtv.feratel.com/webtv/?cam=5730",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5731",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.09654,
+          47.43164
+        ]
+      },
+      "properties": {
+        "name": "Markbachjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5731",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5733",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.052028,
+          47.443917
+        ]
+      },
+      "properties": {
+        "name": "Drachental",
+        "url": "https://webtv.feratel.com/webtv/?cam=5733",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5734",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.987559,
+          47.384092
+        ]
+      },
+      "properties": {
+        "name": "Schatzberg-Gernalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5734",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5736",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.110869,
+          46.977208
+        ]
+      },
+      "properties": {
+        "name": "Schaufeljoch Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5736",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5737",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.126739,
+          46.971947
+        ]
+      },
+      "properties": {
+        "name": "Fernau Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5737",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5740",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.983938,
+          47.421121
+        ]
+      },
+      "properties": {
+        "name": "Tiroler Zugspitzbahn Bergstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5740",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5741",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.968862,
+          47.384088
+        ]
+      },
+      "properties": {
+        "name": "Ehrwalder Alm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5741",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5742",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.903267,
+          47.402776
+        ]
+      },
+      "properties": {
+        "name": "Tiroler Zugspitze Golf-Anlage",
+        "url": "https://webtv.feratel.com/webtv/?cam=5742",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5743",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.993335,
+          47.379974
+        ]
+      },
+      "properties": {
+        "name": "Feldernalm",
+        "url": "https://webtv.feratel.com/webtv/?cam=5743",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5744",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.580288,
+          47.088086
+        ]
+      },
+      "properties": {
+        "name": "Gasthaus Olpererblick",
+        "url": "https://webtv.feratel.com/webtv/?cam=5744",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wipptal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5747",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.40746,
+          47.13109
+        ]
+      },
+      "properties": {
+        "name": "Maria Waldrast",
+        "url": "https://webtv.feratel.com/webtv/?cam=5747",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wipptal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5748",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.405726,
+          46.99605
+        ]
+      },
+      "properties": {
+        "name": "Obernberger See",
+        "url": "https://webtv.feratel.com/webtv/?cam=5748",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wipptal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5749",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.559565,
+          47.151224
+        ]
+      },
+      "properties": {
+        "name": "Peer Alm Hochleger",
+        "url": "https://webtv.feratel.com/webtv/?cam=5749",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wipptal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5750",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.905375,
+          47.200665
+        ]
+      },
+      "properties": {
+        "name": "Kids Park/Schwimmbad",
+        "url": "https://webtv.feratel.com/webtv/?cam=5750",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5751",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.349444,
+          47.044167
+        ]
+      },
+      "properties": {
+        "name": "Gschnitz Zentrum",
+        "url": "https://webtv.feratel.com/webtv/?cam=5751",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wipptal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5752",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.949052,
+          47.126623
+        ]
+      },
+      "properties": {
+        "name": "Stuibenfall",
+        "url": "https://webtv.feratel.com/webtv/?cam=5752",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5753",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.964589,
+          47.120739
+        ]
+      },
+      "properties": {
+        "name": "Langlaufzentrum Niederthai",
+        "url": "https://webtv.feratel.com/webtv/?cam=5753",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5754",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.961854,
+          47.124525
+        ]
+      },
+      "properties": {
+        "name": "Hotel Tauferberg",
+        "url": "https://webtv.feratel.com/webtv/?cam=5754",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5755",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.931589,
+          47.212382
+        ]
+      },
+      "properties": {
+        "name": "Hochoetz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5755",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5756",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.940859,
+          47.218893
+        ]
+      },
+      "properties": {
+        "name": "Wetterkreuzbahn Talstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5756",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5757",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.930964,
+          47.212379
+        ]
+      },
+      "properties": {
+        "name": "Widiversum Hochoetz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5757",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5758",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.93543,
+          47.226112
+        ]
+      },
+      "properties": {
+        "name": "Balbach Wiesenlift",
+        "url": "https://webtv.feratel.com/webtv/?cam=5758",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5759",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.893206,
+          47.194463
+        ]
+      },
+      "properties": {
+        "name": "Piburger See",
+        "url": "https://webtv.feratel.com/webtv/?cam=5759",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5760",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.9582,
+          46.96556
+        ]
+      },
+      "properties": {
+        "name": "Seekogl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5760",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-soelden",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5761",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.96799,
+          46.94237
+        ]
+      },
+      "properties": {
+        "name": "Gaislachkogl",
+        "url": "https://webtv.feratel.com/webtv/?cam=5761",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-soelden",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5762",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.975294,
+          46.976122
+        ]
+      },
+      "properties": {
+        "name": "Giggijoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5762",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-soelden",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5763",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.924782,
+          46.934447
+        ]
+      },
+      "properties": {
+        "name": "Schwarze Schneid Mittelstation",
+        "url": "https://webtv.feratel.com/webtv/?cam=5763",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-soelden",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5770",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.964886,
+          47.069452
+        ]
+      },
+      "properties": {
+        "name": "Therme Längenfeld",
+        "url": "https://webtv.feratel.com/webtv/?cam=5770",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-oetztal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5772",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.39457,
+          47.149766
+        ]
+      },
+      "properties": {
+        "name": "Koppeneck",
+        "url": "https://webtv.feratel.com/webtv/?cam=5772",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5775",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.505336,
+          47.279582
+        ]
+      },
+      "properties": {
+        "name": "Unterer Stadtplatz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5775",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-hall-wattens",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5776",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.60101,
+          47.29456
+        ]
+      },
+      "properties": {
+        "name": "Swarovski Kristallwelten",
+        "url": "https://webtv.feratel.com/webtv/?cam=5776",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-hall-wattens",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5778",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.227806,
+          47.341528
+        ]
+      },
+      "properties": {
+        "name": "Bergbahnen Rosshütte",
+        "url": "https://webtv.feratel.com/webtv/?cam=5778",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5779",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.187305,
+          47.328778
+        ]
+      },
+      "properties": {
+        "name": "Seefeld - Dorfplatz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5779",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5780",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.742094,
+          47.320958
+        ]
+      },
+      "properties": {
+        "name": "Kellerjoch",
+        "url": "https://webtv.feratel.com/webtv/?cam=5780",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5781",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.707096,
+          47.347302
+        ]
+      },
+      "properties": {
+        "name": "Silberstadt Schwaz",
+        "url": "https://webtv.feratel.com/webtv/?cam=5781",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5782",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.681719,
+          47.308333
+        ]
+      },
+      "properties": {
+        "name": "Schiestlhof",
+        "url": "https://webtv.feratel.com/webtv/?cam=5782",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5783",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.67515,
+          47.291
+        ]
+      },
+      "properties": {
+        "name": "Hüttegglift",
+        "url": "https://webtv.feratel.com/webtv/?cam=5783",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5786",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.7142,
+          47.3691
+        ]
+      },
+      "properties": {
+        "name": "Burglift",
+        "url": "https://webtv.feratel.com/webtv/?cam=5786",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5787",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.729928,
+          47.323305
+        ]
+      },
+      "properties": {
+        "name": "Kellerjoch Speichersee",
+        "url": "https://webtv.feratel.com/webtv/?cam=5787",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5789",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.652481,
+          47.282281
+        ]
+      },
+      "properties": {
+        "name": "Jägerhof",
+        "url": "https://webtv.feratel.com/webtv/?cam=5789",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-silberregion-karwendel",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5790",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.263639,
+          47.077667
+        ]
+      },
+      "properties": {
+        "name": "Krössbach",
+        "url": "https://webtv.feratel.com/webtv/?cam=5790",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-5850",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.44817,
+          47.267
+        ]
+      },
+      "properties": {
+        "name": "Roßau",
+        "url": "https://webtv.feratel.com/webtv/?cam=5850",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75226",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.030943,
+          47.22663
+        ]
+      },
+      "properties": {
+        "name": "Gerlos - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75226",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75227",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.942805,
+          47.248106
+        ]
+      },
+      "properties": {
+        "name": "Zell am Ziller - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75227",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75300",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.451234,
+          47.567875
+        ]
+      },
+      "properties": {
+        "name": "Jungholz - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75300",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75301",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.542892,
+          47.483546
+        ]
+      },
+      "properties": {
+        "name": "Tannheim - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75301",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tannheimer-tal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75501",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.665126,
+          47.506226
+        ]
+      },
+      "properties": {
+        "name": "Achensee - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75501",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-achensee",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75505",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.930184,
+          47.370362
+        ]
+      },
+      "properties": {
+        "name": "Alpbach - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75505",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-alpbachtal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75510",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.302455,
+          47.195907
+        ]
+      },
+      "properties": {
+        "name": "Axams - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75510",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75541",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.613527,
+          47.056688
+        ]
+      },
+      "properties": {
+        "name": "Fiss - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75541",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-fiss",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75547",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.143833,
+          46.965896
+        ]
+      },
+      "properties": {
+        "name": "Galtür - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75547",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75555",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.471222,
+          47.085068
+        ]
+      },
+      "properties": {
+        "name": "See im Paznaun - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75555",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75560",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.795443,
+          47.331027
+        ]
+      },
+      "properties": {
+        "name": "Fügen - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75560",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75575",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.288611,
+          47.009699
+        ]
+      },
+      "properties": {
+        "name": "Ischgl - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75575",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75585",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.358901,
+          47.067295
+        ]
+      },
+      "properties": {
+        "name": "Kappl - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75585",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-paznaun-ischgl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75610",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.43206,
+          47.63275
+        ]
+      },
+      "properties": {
+        "name": "Kössen - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75610",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kaiserwinkl",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75635",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.79221,
+          47.19147
+        ]
+      },
+      "properties": {
+        "name": "Mayrhofen - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75635",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-zillertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75640",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.546447,
+          46.853239
+        ]
+      },
+      "properties": {
+        "name": "Nauders - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75640",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-nauders-tiroler-oberland-kaunertal",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75645",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.389875,
+          47.26752
+        ]
+      },
+      "properties": {
+        "name": "Nordkette - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75645",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-innsbruck",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75680",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.59652,
+          47.040701
+        ]
+      },
+      "properties": {
+        "name": "Serfaus - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75680",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-serfaus",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75687",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.19175,
+          47.463698
+        ]
+      },
+      "properties": {
+        "name": "SkiWelt Hopfgarten/Itter - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75687",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-ferienregion-hohe-salve",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75690",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.22831,
+          47.13215
+        ]
+      },
+      "properties": {
+        "name": "St. Anton am Arlberg - Galzig - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75690",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75691",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.249222,
+          47.137722
+        ]
+      },
+      "properties": {
+        "name": "St. Anton am Arlberg - Gampen - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75691",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75692",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.267778,
+          47.104972
+        ]
+      },
+      "properties": {
+        "name": "St. Anton am Arlberg - Rendl - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75692",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-st-anton-am-arlberg",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75710",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.108898,
+          46.975083
+        ]
+      },
+      "properties": {
+        "name": "Stubai - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75710",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75726",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.215126,
+          47.4321
+        ]
+      },
+      "properties": {
+        "name": "Westendorf - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75726",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75730",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.992157,
+          47.393344
+        ]
+      },
+      "properties": {
+        "name": "Wildschönau - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75730",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-wildschoenau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75740",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.984286,
+          47.421436
+        ]
+      },
+      "properties": {
+        "name": "Ehrwald - Zugspitze - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75740",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75741",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.968814,
+          47.384778
+        ]
+      },
+      "properties": {
+        "name": "Ehrwald - Ehrwalder Alm - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75741",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-tiroler-zugspitz-arena",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75772",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.395034,
+          47.149986
+        ]
+      },
+      "properties": {
+        "name": "Mieders - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75772",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-stubaital",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "feratel-75778",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.187111,
+          47.328722
+        ]
+      },
+      "properties": {
+        "name": "Seefeld - FlyingCam",
+        "url": "https://webtv.feratel.com/webtv/?cam=75778",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "feratel / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-1654",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.254804,
+          47.380388
+        ]
+      },
+      "properties": {
+        "name": "Scharnitz",
+        "url": "https://seefeld.panomax.com/scharnitz",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-2455",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.010953,
+          47.226181
+        ]
+      },
+      "properties": {
+        "name": "Webcam Kühtai",
+        "url": "https://kuehtai.panomax.com/kaiserbahn",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-innsbruck",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-3772",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.250166,
+          47.40254
+        ]
+      },
+      "properties": {
+        "name": "Fleidingbahn",
+        "url": "https://westendorf.panomax.com/fleiding",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-kitzbueheler-alpen-brixental",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-4056109",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.177789,
+          47.320295
+        ]
+      },
+      "properties": {
+        "name": "Toni Seelos Schanze",
+        "url": "https://seefeld.panomax.com/toni-seelos-schanze",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-488",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.239262,
+          47.340802
+        ]
+      },
+      "properties": {
+        "name": "Seefelder Joch",
+        "url": "https://seefeld.panomax.com/joch",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-511",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.227728,
+          47.341306
+        ]
+      },
+      "properties": {
+        "name": "Bergrestaurant Rosshütte",
+        "url": "https://seefeld.panomax.com/rosshuette",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panomax-580",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.179408,
+          47.327845
+        ]
+      },
+      "properties": {
+        "name": "Seekirchl",
+        "url": "https://seefeld.panomax.com/seekirchl",
+        "country": "AT",
+        "region": "Tirol",
+        "provider": "Panomax / Tirol Werbung",
+        "sourceUrl": "https://www.tirol.at/reiseservice/webcams/webcams-region-seefeld-tirols-hochplateau",
+        "panorama": true,
+        "checkedOn": "2026-11-15"
+      }
+    }
+  ]
+}
