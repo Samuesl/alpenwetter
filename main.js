@@ -111,7 +111,7 @@ let favorites = loadSavedFavorites();
 let stationLayersById = new Map();
 
 // Karte initialisierenn
-let map = L.map("map", { maxZoom: 18 }).setView([ibk.lat, ibk.lng], ibk.zoom);
+let map = L.map("map", { maxZoom: 18, zoomControl: false }).setView([ibk.lat, ibk.lng], ibk.zoom);
 
 // thematische Layer
 let overlays = {
@@ -174,6 +174,10 @@ map.on("overlayadd", function (event) {
 // Maßstab
 L.control.scale({
     imperial: false,
+}).addTo(map);
+
+L.control.zoom({
+    position: "bottomleft",
 }).addTo(map);
 
 let lastPlaceSearchAt = 0;
