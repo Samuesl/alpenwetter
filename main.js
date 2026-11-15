@@ -143,6 +143,79 @@ L.control.scale({
     imperial: false,
 }).addTo(map);
 
+let lastPlaceSearchAt = 0;
+let placeSearchControl = L.control({ position: "topleft" });
+placeSearchControl.onAdd = function () {
+    let container = L.DomUtil.create("div", "place-search-control leaflet-bar");
+    container.innerHTML = `
+        <form class="place-search-form" role="search">
+            <label class="visually-hidden" for="place-search-input">Ort suchen</label>
+            <input id="place-search-input" type="search" placeholder="Ort suchen…" autocomplete="off" required>
+            <button type="submit" aria-label="Ort suchen" title="Ort suchen">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            </button>
+        </form>
+        <div class="place-search-message" role="status" aria-live="polite"></div>
+        <small class="place-search-attribution">Ortsdaten: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap</a></small>
+    `;
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+
+    let form = container.querySelector("form");
+    let input = container.querySelector("input");
+    let button = container.querySelector("button");
+    let message = container.querySelector(".place-search-message");
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        let query = input.value.trim();
+        if (!query) {
+            return;
+        }
+        let timeSinceLastSearch = Date.now() - lastPlaceSearchAt;
+        if (timeSinceLastSearch < 1000) {
+            message.textContent = "Bitte vor der nächsten Suche kurz warten.";
+            return;
+        }
+
+        lastPlaceSearchAt = Date.now();
+        button.disabled = true;
+        input.disabled = true;
+        message.textContent = "Suche läuft …";
+        try {
+            let url = new URL("https://nominatim.openstreetmap.org/search");
+            url.searchParams.set("format", "jsonv2");
+            url.searchParams.set("limit", "1");
+            url.searchParams.set("accept-language", "de");
+            url.searchParams.set("q", query);
+            let response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Ortsuche fehlgeschlagen (${response.status})`);
+            }
+            let results = await response.json();
+            let latitude = Number(results[0]?.lat);
+            let longitude = Number(results[0]?.lon);
+            if (!Number.isFinite(latitude) || !Number.isFinite(longitude) ||
+                latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+                message.textContent = "Kein passender Ort gefunden.";
+                return;
+            }
+
+            map.addLayer(overlays.stations);
+            map.flyTo([latitude, longitude], 12);
+            message.textContent = results[0].display_name;
+        } catch (error) {
+            console.error("Die Ortsuche konnte nicht ausgeführt werden.", error);
+            message.textContent = "Ortsuche momentan nicht verfügbar.";
+        } finally {
+            button.disabled = false;
+            input.disabled = false;
+        }
+    });
+
+    return container;
+};
+placeSearchControl.addTo(map);
+
 /*
 // RainViewer-Regensteuerung, aktuell deaktiviert.
 L.control.rainviewer({
