@@ -25,14 +25,66 @@ header h2 {
 }
 
 #favorites-bar {
-    grid-column: 1 / -1;
     display: grid;
     gap: 5px;
-    margin-top: 6px;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    box-sizing: border-box;
+    width: min(280px, calc(100vw - 100px));
+    max-height: 55vh;
+    overflow-y: auto;
     padding: 8px;
     border: 1px solid #c5cdd3;
     border-radius: 4px;
     background: #f5f7f8;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-top.leaflet-right .favorites-map-control {
+    clear: none;
+}
+
+.favorites-menu {
+    position: relative;
+    font-family: "Open Sans", sans-serif;
+}
+
+.favorites-menu > summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    min-height: 48px;
+    padding: 8px 12px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background: white;
+    background-clip: padding-box;
+    color: #234b6b;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+
+.favorites-menu > summary::-webkit-details-marker {
+    display: none;
+}
+
+.favorites-menu > summary > i {
+    color: #d39700;
+}
+
+.favorites-menu > summary:hover,
+.favorites-menu[open] > summary {
+    background-color: #e8eef2;
+}
+
+.favorites-menu > summary:focus-visible,
+.favorite-location:focus-visible,
+.favorite-remove:focus-visible {
+    outline: 3px solid #234b6b;
+    outline-offset: 2px;
 }
 
 .favorites-empty {
@@ -43,7 +95,7 @@ header h2 {
 
 .favorites-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
 }
 
@@ -82,7 +134,7 @@ header h2 {
 .favorite-remove {
     width: 38px;
     flex: 0 0 auto;
-    color: #52616b;
+    color: #d39700;
     font-size: 1.1em;
 }
 
@@ -383,8 +435,18 @@ footer nav {
 }
 
 @media (max-width: 600px) {
-    .favorites-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .favorites-menu > summary {
+        min-height: 52px;
+        padding: 8px;
+    }
+
+    .favorite-location,
+    .favorite-remove {
+        min-height: 44px;
+    }
+
+    .favorite-remove {
+        width: 44px;
     }
 
     .leaflet-control-layers-toggle {

@@ -253,8 +253,26 @@ placeSearchControl.onAdd = function () {
 };
 placeSearchControl.addTo(map);
 
+let favoritesControl = L.control({ position: "topright" });
+favoritesControl.onAdd = function () {
+    let container = L.DomUtil.create("div", "favorites-map-control");
+    container.innerHTML = `
+        <details class="favorites-menu">
+            <summary><i class="fa-solid fa-star" aria-hidden="true"></i> Favoriten · <span class="favorites-count">0</span></summary>
+        </details>
+    `;
+    container.querySelector("details").append(document.querySelector("#favorites-bar"));
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+    return container;
+};
+favoritesControl.addTo(map);
+
 function setFavoritesStatus(message) {
     document.querySelector(".favorites-status").textContent = message;
+    if (message) {
+        favoritesControl.getContainer().querySelector("details").open = true;
+    }
 }
 
 function renderFavorites() {
@@ -262,6 +280,7 @@ function renderFavorites() {
     let favoritesList = favoritesBar.querySelector(".favorites-list");
     favoritesList.textContent = "";
     favoritesBar.querySelector(".favorites-empty").hidden = favorites.length > 0;
+    favoritesControl.getContainer().querySelector(".favorites-count").textContent = favorites.length;
 
     favorites.forEach((favorite, index) => {
         let item = document.createElement("div");
@@ -274,12 +293,9 @@ function renderFavorites() {
         locationButton.title = favorite.name;
         locationButton.setAttribute("aria-label", `Zu ${favorite.name} fliegen`);
 
-        let icon = document.createElement("i");
-        icon.className = "fa-solid fa-star";
-        icon.setAttribute("aria-hidden", "true");
         let label = document.createElement("span");
         label.textContent = favorite.name;
-        locationButton.append(icon, label);
+        locationButton.append(label);
 
         let removeButton = document.createElement("button");
         removeButton.type = "button";
@@ -287,7 +303,10 @@ function renderFavorites() {
         removeButton.dataset.removeFavoriteIndex = index;
         removeButton.title = `${favorite.name} aus Favoriten entfernen`;
         removeButton.setAttribute("aria-label", removeButton.title);
-        removeButton.textContent = "×";
+        let removeIcon = document.createElement("i");
+        removeIcon.className = "fa-solid fa-star";
+        removeIcon.setAttribute("aria-hidden", "true");
+        removeButton.append(removeIcon);
 
         item.append(locationButton, removeButton);
         favoritesList.append(item);
