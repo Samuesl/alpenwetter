@@ -169,6 +169,68 @@ article {
     border: 1px solid gray;
 }
 
+.location-control {
+    position: relative;
+}
+
+.location-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background: white;
+    color: #234b6b;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.location-button:hover {
+    background: #e8eef2;
+}
+
+.location-button:focus-visible {
+    outline: 3px solid #234b6b;
+    outline-offset: 2px;
+}
+
+.location-button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.location-status {
+    position: absolute;
+    bottom: 0;
+    left: 62px;
+    box-sizing: border-box;
+    width: min(250px, calc(100vw - 100px));
+    max-height: 30vh;
+    overflow-y: auto;
+    padding: 8px 10px;
+    border: 1px solid #9aa8b2;
+    border-radius: 5px;
+    background: white;
+    color: #234b6b;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    font-family: "Open Sans", sans-serif;
+    font-size: 13px;
+}
+
+.location-status:empty {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .location-button .fa-spin {
+        animation: none;
+    }
+}
+
 .place-search-control {
     box-sizing: border-box;
     width: min(250px, calc(100vw - 80px));

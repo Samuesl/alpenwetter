@@ -180,6 +180,99 @@ L.control.zoom({
     position: "bottomleft",
 }).addTo(map);
 
+let userLocationLayers = L.layerGroup().addTo(map);
+let locationControl = L.control({ position: "bottomleft" });
+locationControl.onAdd = function () {
+    let container = L.DomUtil.create("div", "location-control");
+    container.innerHTML = `
+        <button type="button" class="location-button" aria-label="Meinen Standort anzeigen" title="Meinen Standort anzeigen">
+            <i class="fa-solid fa-crosshairs" aria-hidden="true"></i>
+        </button>
+        <div class="location-status" role="status" aria-live="polite"></div>
+    `;
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+
+    let button = container.querySelector("button");
+    let icon = button.querySelector("i");
+    let status = container.querySelector(".location-status");
+    function finishLocationRequest(message) {
+        button.disabled = false;
+        button.removeAttribute("aria-busy");
+        icon.classList.remove("fa-spin");
+        status.textContent = message;
+    }
+
+    button.addEventListener("click", function () {
+        if (!window.isSecureContext) {
+            status.textContent = "Standortzugriff benötigt HTTPS oder eine lokale Vorschau über localhost.";
+            return;
+        }
+        if (!navigator.geolocation) {
+            status.textContent = "Dieser Browser unterstützt keine Standortabfrage.";
+            return;
+        }
+
+        button.disabled = true;
+        button.setAttribute("aria-busy", "true");
+        icon.classList.add("fa-spin");
+        status.textContent = "Standort wird ermittelt …";
+        try {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let { latitude, longitude, accuracy } = position.coords;
+                if (!Number.isFinite(latitude) || !Number.isFinite(longitude) ||
+                    latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 ||
+                    !Number.isFinite(accuracy) || accuracy < 0) {
+                    finishLocationRequest("Der Browser hat keinen gültigen Standort geliefert.");
+                    return;
+                }
+
+                userLocationLayers.clearLayers();
+                let coordinates = [latitude, longitude];
+                let accuracyCircle = L.circle(coordinates, {
+                    radius: accuracy,
+                    color: "#168fe5",
+                    weight: 1,
+                    fillColor: "#168fe5",
+                    fillOpacity: 0.12,
+                    interactive: false,
+                }).addTo(userLocationLayers);
+                let locationLabel = document.createElement("span");
+                locationLabel.textContent = `Dein Standort · Genauigkeit ca. ${Math.ceil(accuracy)} m`;
+                L.circleMarker(coordinates, {
+                    radius: 8,
+                    color: "#fff",
+                    weight: 3,
+                    fillColor: "#168fe5",
+                    fillOpacity: 1,
+                }).bindPopup(locationLabel).addTo(userLocationLayers);
+                map.closePopup();
+                if (accuracy > 0) {
+                    map.flyToBounds(accuracyCircle.getBounds(), { maxZoom: 14, padding: [30, 30] });
+                } else {
+                    map.flyTo(coordinates, 14);
+                }
+                finishLocationRequest(`Standort gefunden · Genauigkeit ca. ${Math.ceil(accuracy)} m.`);
+            }, function (error) {
+                let messages = {
+                    1: "Standortzugriff nicht erlaubt. Du kannst ihn in den Website-Berechtigungen deines Browsers aktivieren.",
+                    2: "Dein Standort ist momentan nicht verfügbar. Bitte versuche es erneut.",
+                    3: "Die Standortsuche hat zu lange gedauert. Bitte versuche es erneut.",
+                };
+                finishLocationRequest(messages[error.code] ?? "Der Standort konnte nicht ermittelt werden.");
+            }, {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 60000,
+            });
+        } catch (error) {
+            finishLocationRequest("Die Standortabfrage konnte nicht gestartet werden.");
+        }
+    });
+    return container;
+};
+locationControl.addTo(map);
+
 let lastPlaceSearchAt = 0;
 let placeSearchControl = L.control({ position: "topleft" });
 placeSearchControl.onAdd = function () {
