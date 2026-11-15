@@ -24,6 +24,82 @@ header h2 {
     margin: 0;
 }
 
+#favorites-bar {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 5px;
+    margin-top: 6px;
+    padding: 8px;
+    border: 1px solid #c5cdd3;
+    border-radius: 4px;
+    background: #f5f7f8;
+}
+
+.favorites-empty {
+    margin: 0;
+    color: #52616b;
+    font-size: 0.85em;
+}
+
+.favorites-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.favorite-item {
+    display: flex;
+    min-width: 0;
+    gap: 4px;
+}
+
+.favorite-location,
+.favorite-remove {
+    min-height: 38px;
+    border: 1px solid #9aa8b2;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.favorite-location {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 9px;
+    color: #234b6b;
+    text-align: left;
+}
+
+.favorite-location span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.favorite-remove {
+    width: 38px;
+    flex: 0 0 auto;
+    color: #52616b;
+    font-size: 1.1em;
+}
+
+.favorite-location:hover,
+.favorite-remove:hover {
+    background: #e8eef2;
+}
+
+.favorites-status {
+    color: #52616b;
+    font-size: 0.8em;
+}
+
+.favorites-status:empty {
+    display: none;
+}
+
 article {
     margin-top: 0.5em;
 }
@@ -238,6 +314,23 @@ footer nav {
     font-weight: 700;
 }
 
+.station-favorite-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #9aa8b2;
+    border-radius: 50%;
+    background: white;
+    color: #52616b;
+    cursor: pointer;
+}
+
+.station-favorite-toggle.is-favorite {
+    color: #d39700;
+}
+
 .station-popup-time {
     margin: 0 0 8px;
     text-align: center;
@@ -290,6 +383,10 @@ footer nav {
 }
 
 @media (max-width: 600px) {
+    .favorites-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .leaflet-control-layers-toggle {
         width: 48px;
         height: 48px;

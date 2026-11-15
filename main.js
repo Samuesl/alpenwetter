@@ -7,6 +7,8 @@ let ibk = {
     zoom: 11,
 };
 const maxStationAge = 90 * 60 * 1000;
+const maxSavedFavorites = 4;
+const favoriteStorageKey = "alpenwetter-favorites";
 const regionalFallbackMaxDistance = 25000;
 const bodenseeOberschwabenBounds = {
     south: 47.4,
@@ -76,6 +78,37 @@ const germanAlpineCoverageLocations = [
     { name: "Sigmarszell-Zeisertsweiler", lat: 47.5776, lon: 9.74045 },
     { name: "Rot an der Rot", lat: 47.9589, lon: 10.0139 },
 ];
+
+function loadSavedFavorites() {
+    try {
+        let storedFavorites = localStorage.getItem(favoriteStorageKey);
+        if (!storedFavorites) {
+            return [];
+        }
+
+        let parsedFavorites = JSON.parse(storedFavorites);
+        if (!Array.isArray(parsedFavorites)) {
+            throw new Error("Favoriten müssen als Liste gespeichert sein.");
+        }
+
+        let validFavorites = parsedFavorites.filter(favorite =>
+            favorite &&
+            (typeof favorite.id === "string" || Number.isFinite(favorite.id)) &&
+            typeof favorite.name === "string" &&
+            Number.isFinite(favorite.lat) && favorite.lat >= -90 && favorite.lat <= 90 &&
+            Number.isFinite(favorite.lng) && favorite.lng >= -180 && favorite.lng <= 180
+        );
+        return validFavorites.filter((favorite, index) =>
+            validFavorites.findIndex(candidate => candidate.id === favorite.id) === index
+        ).slice(0, maxSavedFavorites);
+    } catch (error) {
+        console.error("Gespeicherte Favoriten konnten nicht geladen werden.", error);
+        return [];
+    }
+}
+
+let favorites = loadSavedFavorites();
+let stationLayersById = new Map();
 
 // Karte initialisierenn
 let map = L.map("map", { maxZoom: 18 }).setView([ibk.lat, ibk.lng], ibk.zoom);
@@ -215,6 +248,143 @@ placeSearchControl.onAdd = function () {
     return container;
 };
 placeSearchControl.addTo(map);
+
+function setFavoritesStatus(message) {
+    document.querySelector(".favorites-status").textContent = message;
+}
+
+function renderFavorites() {
+    let favoritesBar = document.querySelector("#favorites-bar");
+    let favoritesList = favoritesBar.querySelector(".favorites-list");
+    favoritesList.textContent = "";
+    favoritesBar.querySelector(".favorites-empty").hidden = favorites.length > 0;
+
+    favorites.forEach((favorite, index) => {
+        let item = document.createElement("div");
+        item.className = "favorite-item";
+
+        let locationButton = document.createElement("button");
+        locationButton.type = "button";
+        locationButton.className = "favorite-location";
+        locationButton.dataset.favoriteIndex = index;
+        locationButton.title = favorite.name;
+        locationButton.setAttribute("aria-label", `Zu ${favorite.name} fliegen`);
+
+        let icon = document.createElement("i");
+        icon.className = "fa-solid fa-star";
+        icon.setAttribute("aria-hidden", "true");
+        let label = document.createElement("span");
+        label.textContent = favorite.name;
+        locationButton.append(icon, label);
+
+        let removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "favorite-remove";
+        removeButton.dataset.removeFavoriteIndex = index;
+        removeButton.title = `${favorite.name} aus Favoriten entfernen`;
+        removeButton.setAttribute("aria-label", removeButton.title);
+        removeButton.textContent = "×";
+
+        item.append(locationButton, removeButton);
+        favoritesList.append(item);
+    });
+
+    for (let button of document.querySelectorAll(".station-favorite-toggle[data-station-id]")) {
+        setFavoriteButtonState(
+            button,
+            favorites.some(favorite => String(favorite.id) === button.dataset.stationId),
+        );
+    }
+}
+
+function saveFavorites(nextFavorites) {
+    try {
+        localStorage.setItem(favoriteStorageKey, JSON.stringify(nextFavorites));
+    } catch (error) {
+        console.error("Favoriten konnten nicht gespeichert werden.", error);
+        setFavoritesStatus("Favoriten konnten nicht gespeichert werden.");
+        return false;
+    }
+
+    favorites = nextFavorites;
+    renderFavorites();
+    return true;
+}
+
+function setFavoriteButtonState(button, isFavorite) {
+    button.classList.toggle("is-favorite", isFavorite);
+    button.setAttribute("aria-pressed", String(isFavorite));
+    button.setAttribute("aria-label", isFavorite ? "Favorit entfernen" : "Als Favorit speichern");
+    button.title = isFavorite ? "Favorit entfernen" : "Als Favorit speichern";
+    button.querySelector("i").className = isFavorite ? "fa-solid fa-star" : "fa-regular fa-star";
+}
+
+function toggleStationFavorite(feature) {
+    let favoriteIndex = favorites.findIndex(favorite => favorite.id === feature.id);
+    if (favoriteIndex >= 0) {
+        let nextFavorites = favorites.filter((favorite, index) => index !== favoriteIndex);
+        if (saveFavorites(nextFavorites)) {
+            stationLayersById.get(feature.id)?.setPopupContent(stationPopupContent(feature));
+            setFavoritesStatus(`${feature.properties.name} aus Favoriten entfernt.`);
+        }
+        return;
+    }
+
+    if (favorites.length >= maxSavedFavorites) {
+        setFavoritesStatus("Es sind bereits vier Favoriten gespeichert. Entferne zuerst einen.");
+        return;
+    }
+
+    let [lng, lat] = feature.geometry.coordinates;
+    let nextFavorites = [...favorites, {
+        id: feature.id,
+        name: feature.properties.name,
+        lat,
+        lng,
+    }];
+    if (saveFavorites(nextFavorites)) {
+        stationLayersById.get(feature.id)?.setPopupContent(stationPopupContent(feature));
+        setFavoritesStatus(`${feature.properties.name} zu Favoriten hinzugefügt.`);
+    }
+}
+
+function flyToFavorite(favorite) {
+    setFavoritesStatus("");
+    map.addLayer(overlays.stations);
+    map.closePopup();
+    map.once("moveend", function () {
+        let stationLayer = stationLayersById.get(favorite.id);
+        if (stationLayer) {
+            stationLayer.openPopup();
+        }
+    });
+    map.flyTo([favorite.lat, favorite.lng], 12);
+}
+
+let favoritesBar = document.querySelector("#favorites-bar");
+favoritesBar.addEventListener("click", function (event) {
+    let removeButton = event.target.closest("[data-remove-favorite-index]");
+    if (removeButton) {
+        let index = Number(removeButton.dataset.removeFavoriteIndex);
+        let favorite = favorites[index];
+        if (!favorite) {
+            return;
+        }
+        if (saveFavorites(favorites.filter((entry, entryIndex) => entryIndex !== index))) {
+            setFavoritesStatus(`${favorite.name} aus Favoriten entfernt.`);
+        }
+        return;
+    }
+
+    let locationButton = event.target.closest("[data-favorite-index]");
+    if (locationButton) {
+        let favorite = favorites[Number(locationButton.dataset.favoriteIndex)];
+        if (favorite) {
+            flyToFavorite(favorite);
+        }
+    }
+});
+renderFavorites();
 
 /*
 // RainViewer-Regensteuerung, aktuell deaktiviert.
@@ -691,7 +861,7 @@ async function loadStations() {
             });
         },
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(stationPopupContent(feature));
+            bindStationPopup(layer, feature, true);
             if (feature.id === requestedStationId) {
                 focusedLayer = layer;
             }
@@ -794,6 +964,7 @@ function fillRegionalMeasurementGaps(features) {
 function stationPopupContent(feature) {
     let pointInTime = new Date(feature.properties.date);
     let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
+    let isFavorite = favorites.some(favorite => favorite.id === feature.id);
     let measurementSources = Object.values(feature.properties.measurementSources ?? []);
     let uniqueMeasurementSources = measurementSources.filter((source, index) =>
         measurementSources.findIndex(candidate =>
@@ -822,6 +993,9 @@ function stationPopupContent(feature) {
 
     return `
         <div class="station-popup-heading">
+            <button type="button" class="station-favorite-toggle${isFavorite ? " is-favorite" : ""}" aria-label="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}" aria-pressed="${isFavorite}" title="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}">
+                <i class="${isFavorite ? "fa-solid" : "fa-regular"} fa-star" aria-hidden="true"></i>
+            </button>
             <h4 class="station-popup-title">${feature.properties.name} (${formatValue(altitude)} m)</h4>
             ${uniqueMeasurementSources.length
                 ? `<details class="station-source-info">
@@ -840,17 +1014,37 @@ function stationPopupContent(feature) {
     `;
 }
 
+function bindStationPopup(layer, feature, isStationLayer = false) {
+    layer.bindPopup(stationPopupContent(feature));
+    if (isStationLayer) {
+        stationLayersById.set(feature.id, layer);
+    }
+    layer.on("popupopen", function (event) {
+        let button = event.popup.getElement().querySelector(".station-favorite-toggle");
+        if (!button) {
+            return;
+        }
+        button.dataset.stationId = String(feature.id);
+        setFavoriteButtonState(
+            button,
+            favorites.some(favorite => favorite.id === feature.id),
+        );
+        button.onclick = () => toggleStationFavorite(feature);
+    });
+    return layer;
+}
+
 function showTemperature(jsondata) {
     L.geoJSON(jsondata, {
         filter: feature => isValidMeasurement(feature.properties.LT),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.LT, COLORS.temperature);
-            return L.marker(latlng, {
+            return bindStationPopup(L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon",
                     html: `<span style = "background-color:${color}">${feature.properties.LT.toFixed(1)}</span>`
                 }),
-            }).bindPopup(stationPopupContent(feature));
+            }), feature);
         },
     }).addTo(overlays.temperature);
 }
@@ -860,14 +1054,14 @@ function showHumidity(jsondata) {
         filter: feature => isValidMeasurement(feature.properties.RH) &&
             feature.properties.RH >= 0 && feature.properties.RH <= 100,
         pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
+            return bindStationPopup(L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon-humidity",
                     html: `<span><i class="fa-solid fa-droplet"></i><b>${formatValue(feature.properties.RH)}%</b></span>`,
                     iconSize: [72, 38],
                     iconAnchor: [36, 19],
                 }),
-            }).bindPopup(stationPopupContent(feature));
+            }), feature);
         },
     }).addTo(overlays.humidity);
 }
@@ -880,12 +1074,12 @@ function showWind(jsondata) {
         filter: feature => isValidMeasurement(feature.properties.WG),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.WG, COLORS.wind);
-            return L.marker(latlng, {
+            return bindStationPopup(L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon-wind-speed",
                     html: `<span style="background-color:${color}"> ${feature.properties.WG.toFixed(1)}</span>`
                 })
-            }).bindPopup(stationPopupContent(feature));
+            }), feature);
         },
     }).addTo(overlays.wind);
 }
@@ -896,12 +1090,12 @@ function showSnow(jsondata) {
         filter: feature => isValidMeasurement(feature.properties.HS),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.HS, COLORS.snow);
-            return L.marker(latlng, {
+            return bindStationPopup(L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon-snow",
                     html: `<span style="background-color:${color}"> ${feature.properties.HS.toFixed(1)}</span>`
                 })
-            }).bindPopup(stationPopupContent(feature));
+            }), feature);
         },
     }).addTo(overlays.snow);
 }
@@ -913,14 +1107,14 @@ function showDirect(jsondata) {
         filter: feature => isValidMeasurement(feature.properties.WR),
         pointToLayer: function (feature, latlng) {
             let color = getColor(feature.properties.WG, COLORS.wind);
-            return L.marker(latlng, {
+            return bindStationPopup(L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon-wind",
                     html: `<span ><i style ="transform:rotate(${feature.properties.WR}deg);
                     color:${color}"class="fa-solid 
                     fa-circle-arrow-down"></i></span>`,
                 })
-            }).bindPopup(stationPopupContent(feature));
+            }), feature);
         },
     }).addTo(overlays.direction);
 }
