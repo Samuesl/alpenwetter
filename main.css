@@ -521,32 +521,35 @@ footer nav {
 .forecast-hours.forecast-hours-compact {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 4px;
     overflow: visible;
-    padding: 8px 0;
+    padding: 6px 0;
 }
 
 .forecast-hours-compact .forecast-hour {
     display: grid;
-    grid-template-columns: 28px minmax(0, 1fr);
+    grid-template-columns: 24px minmax(0, 1fr);
     align-items: center;
-    gap: 2px 8px;
+    gap: 2px 4px;
     min-width: 0;
-    padding: 6px 8px;
+    padding: 4px 6px;
     text-align: left;
-    line-height: 1.3;
-    font-size: 12px;
+    line-height: 1.2;
+    font-size: 11px;
 }
 
 .forecast-hours-compact .forecast-hour > time,
 .forecast-hours-compact .forecast-hour > strong,
 .forecast-hours-compact .forecast-hour > span:not(.forecast-weather) {
     grid-column: 2;
+    white-space: nowrap;
 }
 
 .forecast-hours-compact .forecast-hour > img {
     grid-column: 1;
     grid-row: 1 / span 3;
+    width: 24px;
+    height: 24px;
 }
 
 .forecast-hours-compact .forecast-symbol-fallback {
@@ -564,15 +567,15 @@ footer nav {
 }
 
 .station-forecast {
-    margin-top: 12px;
+    margin-top: 8px;
     border-top: 1px solid #d9e1e7;
-    padding-top: 8px;
+    padding-top: 6px;
 }
 
 .forecast-heading {
     margin: 0 0 4px;
     color: #234b6b;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
 }
 
