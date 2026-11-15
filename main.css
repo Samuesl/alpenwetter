@@ -161,7 +161,7 @@ main {
     z-index: 1000;
 }
 
-.webcam-marker > span,
+.webcam-marker-symbol,
 .webcam-cluster {
     display: flex;
     align-items: center;
@@ -174,10 +174,34 @@ main {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-.webcam-marker > span {
+.webcam-marker-symbol {
     width: 36px;
     height: 36px;
     font-size: 16px;
+}
+
+.webcam-marker-label {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 150px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    color: #234052;
+    font: 600 10px/1.4 "Open Sans", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.webcam-labels-visible .webcam-marker-label {
+    display: block;
 }
 
 .webcam-cluster {

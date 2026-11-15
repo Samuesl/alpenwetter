@@ -521,6 +521,38 @@ favoritesControl.addTo(map);
 
 // Webcams werden über einen eigenen Kamerabutton geschaltet.
 map.createPane("webcamPane").style.zIndex = 625;
+function updateWebcamLabels() {
+    map.getContainer().classList.toggle("webcam-labels-visible", map.getZoom() >= 13);
+}
+map.on("zoomend", updateWebcamLabels);
+updateWebcamLabels();
+
+function createWebcamMarker(feature, latlng) {
+    let content = document.createElement("div");
+    let symbol = document.createElement("span");
+    symbol.className = "webcam-marker-symbol";
+    symbol.innerHTML = '<i class="fa-solid fa-camera" aria-hidden="true"></i>';
+    let label = document.createElement("div");
+    label.className = "webcam-marker-label";
+    label.textContent = feature.properties.name
+        .replace(/\s*(?:[-–—/]\s*)?(?:mit\s+)?Blick\b.*$/iu, "")
+        .replace(/\s*[-–—]\s*FlyingCam\s*$/iu, "")
+        .replace(/^Webcam\s+/iu, "")
+        .trim() || feature.properties.name;
+    content.append(symbol, label);
+    return L.marker(latlng, {
+        icon: L.divIcon({
+            className: "webcam-marker",
+            html: content,
+            iconSize: [36, 36],
+            iconAnchor: [18, 18],
+            popupAnchor: [0, -18],
+        }),
+        pane: "webcamPane",
+        title: `${feature.properties.name} – Webcam öffnen`,
+    });
+}
+
 let webcamMarkers = L.markerClusterGroup({
     clusterPane: "webcamPane",
     maxClusterRadius: 45,
@@ -664,19 +696,8 @@ async function setWebcamsVisible(visible) {
         let data = await loadWebcams();
         if (requestId !== webcamToggleRequestId || !webcamsVisible) return;
         if (!webcamsBuilt) {
-            let cameraIcon = L.divIcon({
-                className: "webcam-marker",
-                html: '<span><i class="fa-solid fa-camera" aria-hidden="true"></i></span>',
-                iconSize: [36, 36],
-                iconAnchor: [18, 18],
-                popupAnchor: [0, -18],
-            });
             L.geoJSON(data, {
-                pointToLayer: (feature, latlng) => L.marker(latlng, {
-                    icon: cameraIcon,
-                    pane: "webcamPane",
-                    title: `${feature.properties.name} – Webcam öffnen`,
-                }),
+                pointToLayer: createWebcamMarker,
                 onEachFeature: (feature, layer) => layer.bindPopup(webcamPopupContent(feature), { maxWidth: 280, minWidth: 200 }),
             }).addTo(webcamMarkers);
             webcamsBuilt = true;
