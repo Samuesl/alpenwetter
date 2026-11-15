@@ -309,6 +309,14 @@ placeSearchControl.onAdd = function () {
     }
     updateSearchLayout();
     mobileLayout.addEventListener("change", updateSearchLayout);
+    function closeSearchOutside(event) {
+        if (mobileLayout.matches && panel.open && !container.contains(event.target)) {
+            panel.open = false;
+            input.blur();
+        }
+    }
+    document.addEventListener("pointerdown", closeSearchOutside, true);
+    document.addEventListener("click", closeSearchOutside, true);
     panel.addEventListener("toggle", function () {
         if (panel.open && mobileLayout.matches) {
             favoritesControl.getContainer().querySelector("details").open = false;
@@ -394,6 +402,17 @@ favoritesControl.onAdd = function () {
     return container;
 };
 favoritesControl.addTo(map);
+
+function closeFavoritesOutside(event) {
+    let container = favoritesControl.getContainer();
+    if (!container.contains(event.target)) {
+        container.querySelector("details").open = false;
+    }
+}
+
+// Auch Klicks auf Kartenbedienelemente erfassen, die Ereignisse nicht weiterreichen.
+document.addEventListener("pointerdown", closeFavoritesOutside, true);
+document.addEventListener("click", closeFavoritesOutside, true);
 
 favoritesControl.getContainer().querySelector("details").addEventListener("toggle", function (event) {
     if (event.target.open && window.matchMedia("(max-width: 600px)").matches) {
@@ -511,9 +530,7 @@ function toggleStationFavorite(feature) {
 
 function flyToFavorite(favorite) {
     setFavoritesStatus("");
-    if (window.matchMedia("(max-width: 600px)").matches) {
-        favoritesControl.getContainer().querySelector("details").open = false;
-    }
+    favoritesControl.getContainer().querySelector("details").open = false;
     map.addLayer(overlays.stations);
     map.closePopup();
     map.once("moveend", function () {
