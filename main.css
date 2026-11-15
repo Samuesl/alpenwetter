@@ -439,6 +439,213 @@ footer nav {
         1px 1px 0 white;
 }
 
+.mobile-forecast-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 2000;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 75vh;
+    max-height: 75dvh;
+    margin: 0;
+    padding: 0 0 env(safe-area-inset-bottom, 0px);
+    border: 0;
+    border-top: 1px solid #c5cdd3;
+    border-radius: 16px 16px 0 0;
+    background: white;
+    color: #17212b;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.25);
+    font-family: "Open Sans", sans-serif;
+    overflow: hidden;
+}
+
+.mobile-forecast-sheet[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-forecast-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #d9e1e7;
+}
+
+.mobile-forecast-header > div {
+    min-width: 0;
+}
+
+.mobile-forecast-subtitle {
+    margin: 0 0 4px;
+    color: #52616b;
+    font-size: 12px;
+}
+
+.mobile-forecast-header h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.mobile-forecast-close {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #c5cdd3;
+    border-radius: 8px;
+    background: #f5f7f8;
+    color: #234b6b;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.mobile-forecast-close:focus-visible {
+    outline: 3px solid #234b6b;
+    outline-offset: 2px;
+}
+
+.mobile-forecast-content {
+    min-height: 0;
+    padding: 0 16px 12px;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    font-size: 14px;
+}
+
+.forecast-hours.forecast-hours-compact {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    overflow: visible;
+    padding: 8px 0;
+}
+
+.forecast-hours-compact .forecast-hour {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    align-items: center;
+    gap: 2px 8px;
+    min-width: 0;
+    padding: 6px 8px;
+    text-align: left;
+    line-height: 1.3;
+    font-size: 12px;
+}
+
+.forecast-hours-compact .forecast-hour > time,
+.forecast-hours-compact .forecast-hour > strong,
+.forecast-hours-compact .forecast-hour > span:not(.forecast-weather) {
+    grid-column: 2;
+}
+
+.forecast-hours-compact .forecast-hour > img {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+}
+
+.forecast-hours-compact .forecast-symbol-fallback {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    min-height: 0;
+    overflow-wrap: anywhere;
+    font-size: 9px;
+}
+
+.mobile-forecast-content .forecast-credit,
+.station-forecast-content .forecast-credit {
+    margin: 0;
+    font-size: 10px;
+}
+
+.station-forecast {
+    margin-top: 12px;
+    border-top: 1px solid #d9e1e7;
+    padding-top: 8px;
+}
+
+.forecast-heading {
+    margin: 0 0 4px;
+    color: #234b6b;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.forecast-mobile-open {
+    display: none;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid #9aa8b2;
+    border-radius: 5px;
+    background: #f5f7f8;
+    color: #234b6b;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.forecast-mobile-open:focus-visible,
+.forecast-hours:focus-visible,
+.forecast-retry:focus-visible {
+    outline: 3px solid #234b6b;
+    outline-offset: 2px;
+}
+
+.forecast-note,
+.forecast-credit {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #52616b;
+}
+
+.forecast-hours {
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 4px 2px 10px;
+}
+
+.forecast-hour {
+    display: flex;
+    flex: 0 0 94px;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    padding: 10px 5px;
+    border: 1px solid #d9e1e7;
+    border-radius: 6px;
+    background: #f5f7f8;
+    text-align: center;
+    font-size: 12px;
+}
+
+.forecast-hour time {
+    font-weight: 700;
+}
+
+.forecast-weather {
+    min-height: 32px;
+    font-size: 11px;
+}
+
+.forecast-retry {
+    min-height: 44px;
+    border: 1px solid #9aa8b2;
+    border-radius: 4px;
+    background: white;
+    color: #234b6b;
+    cursor: pointer;
+}
+
 .station-popup-heading {
     position: relative;
     padding: 0 30px;
@@ -519,6 +726,15 @@ footer nav {
 }
 
 @media (max-width: 600px) {
+    .station-forecast .forecast-heading,
+    .station-forecast .station-forecast-content {
+        display: none;
+    }
+
+    .forecast-mobile-open {
+        display: block;
+    }
+
     body {
         margin: 0;
     }

@@ -150,10 +150,10 @@ let layerControl = L.control.layers({
     "Esri WorldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }, {
     "Wetterstationen": overlays.stations,
-    "Temperatur": overlays.temperature,
-    "Luftfeuchte": overlays.humidity,
-    "Windgeschwindigkeit": overlays.wind,
-    "Schneehöhe": overlays.snow,
+    "Temperatur (°C)": overlays.temperature,
+    "Luftfeuchtigkeit (%)": overlays.humidity,
+    "Windgeschwindigkeit (km/h)": overlays.wind,
+    "Schneehöhe (cm)": overlays.snow,
     "Windrichtung": overlays.direction,
 }).addTo(map);
 
@@ -487,7 +487,6 @@ function toggleStationFavorite(feature) {
     if (favoriteIndex >= 0) {
         let nextFavorites = favorites.filter((favorite, index) => index !== favoriteIndex);
         if (saveFavorites(nextFavorites)) {
-            stationLayersById.get(feature.id)?.setPopupContent(stationPopupContent(feature));
             setFavoritesStatus(`${feature.properties.name} aus Favoriten entfernt.`);
         }
         return;
@@ -506,7 +505,6 @@ function toggleStationFavorite(feature) {
         lng,
     }];
     if (saveFavorites(nextFavorites)) {
-        stationLayersById.get(feature.id)?.setPopupContent(stationPopupContent(feature));
         setFavoritesStatus(`${feature.properties.name} zu Favoriten hinzugefügt.`);
     }
 }
@@ -1127,6 +1125,302 @@ function fillRegionalMeasurementGaps(features) {
     }
 }
 
+const stationForecastCache = new Map();
+const stationForecastRequests = new Map();
+
+function stationForecastUrl(feature) {
+    let [longitude, latitude, elevation] = feature.geometry.coordinates;
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude) ||
+        Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
+        throw new Error("Ungültige Stationskoordinaten");
+    }
+    let url = new URL("https://api.met.no/weatherapi/locationforecast/2.0/compact");
+    url.searchParams.set("lat", (Math.trunc(latitude * 10000) / 10000).toFixed(4));
+    url.searchParams.set("lon", (Math.trunc(longitude * 10000) / 10000).toFixed(4));
+    let altitude = Number.isFinite(elevation) ? elevation : feature.properties.altitude;
+    if (Number.isFinite(altitude) && altitude >= -500 && altitude <= 9000) {
+        url.searchParams.set("altitude", Math.round(altitude));
+    }
+    return url.href;
+}
+
+async function loadStationForecast(feature) {
+    let url = stationForecastUrl(feature);
+    let cached = stationForecastCache.get(url);
+    if (cached && cached.expires > Date.now()) {
+        return cached.data;
+    }
+    if (stationForecastRequests.has(url)) {
+        return stationForecastRequests.get(url);
+    }
+    let request = (async function () {
+        let controller = new AbortController();
+        let timer = setTimeout(() => controller.abort(), 15000);
+        try {
+            let response = await fetch(url, { signal: controller.signal });
+            if (!response.ok) {
+                throw new Error(`Vorhersage nicht verfügbar (${response.status})`);
+            }
+            let data = await response.json();
+            if (!Array.isArray(data?.properties?.timeseries)) {
+                throw new Error("Ungültige Vorhersagedaten");
+            }
+            let serverExpiry = Date.parse(response.headers.get("Expires"));
+            stationForecastCache.delete(url);
+            stationForecastCache.set(url, {
+                data,
+                expires: Math.max(Date.now() + 30 * 60 * 1000, serverExpiry || 0),
+            });
+            if (stationForecastCache.size > 100) {
+                stationForecastCache.delete(stationForecastCache.keys().next().value);
+            }
+            return data;
+        } finally {
+            clearTimeout(timer);
+        }
+    })();
+    stationForecastRequests.set(url, request);
+    try {
+        return await request;
+    } finally {
+        stationForecastRequests.delete(url);
+    }
+}
+
+function selectForecastHours(data, now = Date.now()) {
+    let end = now + 24 * 60 * 60 * 1000;
+    return data.properties.timeseries.filter(entry => {
+        let time = Date.parse(entry.time);
+        return time >= now && time < end;
+    }).sort((first, second) => Date.parse(first.time) - Date.parse(second.time));
+}
+
+function forecastWeatherLabel(symbol) {
+    let base = symbol.replace(/_(day|night|polartwilight)$/, "");
+    let names = { clearsky: "Klar", fair: "Heiter", partlycloudy: "Leicht bewölkt", cloudy: "Bewölkt", fog: "Nebel" };
+    if (names[base]) return names[base];
+    let description = base.includes("sleet") ? "Schneeregen" :
+        base.includes("snow") ? "Schnee" : base.includes("rain") ? "Regen" : "Wettervorhersage";
+    if (base.includes("showers")) description += "schauer";
+    if (base.includes("thunder")) description += " mit Gewitter";
+    return description;
+}
+
+function renderStationForecast(container, data, { compact = false } = {}) {
+    let hours = selectForecastHours(data);
+    if (compact) {
+        let nextTime = -Infinity;
+        hours = hours.filter(hour => {
+            let time = Date.parse(hour.time);
+            if (time < nextTime) return false;
+            nextTime = time + 3 * 60 * 60 * 1000;
+            return true;
+        }).slice(0, 8);
+    }
+    if (!hours.length) throw new Error("Keine Vorhersage für die nächsten 24 Stunden");
+    container.replaceChildren();
+    let note = document.createElement("p");
+    note.className = "forecast-note";
+    note.textContent = "Modellvorhersage für den Stationsstandort · keine Stationsmessung. Im Gebirge sind örtliche Abweichungen möglich.";
+    let strip = document.createElement("div");
+    strip.className = compact ? "forecast-hours forecast-hours-compact" : "forecast-hours";
+    if (!compact) strip.tabIndex = 0;
+    strip.setAttribute("role", "region");
+    strip.setAttribute("aria-label", compact ? "Vorhersage in Drei-Stunden-Schritten" : "Stündliche Vorhersage, seitlich scrollbar");
+    let valueText = (value, unit) => Number.isFinite(value) ? `${formatValue(value)} ${unit}` : "–";
+    for (let hour of hours) {
+        let card = document.createElement("div");
+        card.className = "forecast-hour";
+        let time = document.createElement("time");
+        time.dateTime = hour.time;
+        time.textContent = new Date(hour.time).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+        time.title = new Date(hour.time).toLocaleString("de-DE");
+        let details = hour.data?.instant?.details ?? {};
+        let interval = hour.data?.next_1_hours;
+        let symbol = interval?.summary?.symbol_code ?? "";
+        let weather = document.createElement("span");
+        weather.className = compact ? "forecast-weather visually-hidden" : "forecast-weather";
+        weather.textContent = symbol ? forecastWeatherLabel(symbol) : "Keine Wetterangabe";
+        card.append(time);
+        if (/^[a-z0-9_]+$/.test(symbol)) {
+            let icon = document.createElement("img");
+            icon.src = `https://samuesl.github.io/forecast/icons/${symbol}.svg`;
+            icon.alt = "";
+            icon.width = compact ? 28 : 36;
+            icon.height = compact ? 28 : 36;
+            icon.loading = "lazy";
+            icon.addEventListener("error", () => {
+                icon.hidden = true;
+                if (compact) weather.className = "forecast-weather forecast-symbol-fallback";
+            });
+            card.append(icon);
+        }
+        let temperature = document.createElement("strong");
+        temperature.textContent = valueText(details.air_temperature, "°C");
+        let precipitation = document.createElement("span");
+        precipitation.textContent = valueText(interval?.details?.precipitation_amount, "mm/1h");
+        precipitation.title = "Niederschlag in der folgenden Stunde";
+        let wind = document.createElement("span");
+        let windValue = valueText(Number.isFinite(details.wind_speed) ? details.wind_speed * 3.6 : undefined, "km/h");
+        wind.textContent = compact ? windValue : `Wind ${windValue}`;
+        wind.title = "Windgeschwindigkeit";
+        wind.setAttribute("aria-label", `Windgeschwindigkeit ${windValue}`);
+        card.append(weather, temperature);
+        if (!compact) card.append(precipitation);
+        card.append(wind);
+        strip.append(card);
+    }
+    let credit = document.createElement("p");
+    credit.className = "forecast-credit";
+    let updated = new Date(data.properties.meta?.updated_at);
+    if (!compact && Number.isFinite(updated.getTime())) {
+        credit.append(`Modellstand: ${updated.toLocaleString("de-DE")} · `);
+    }
+    let source = document.createElement("a");
+    source.href = "https://api.met.no/weatherapi/locationforecast/2.0/documentation";
+    source.textContent = "MET Norway";
+    source.target = "_blank";
+    source.rel = "noopener noreferrer";
+    let license = document.createElement("a");
+    license.href = "https://creativecommons.org/licenses/by/4.0/";
+    license.textContent = "CC BY 4.0";
+    license.target = "_blank";
+    license.rel = "noopener noreferrer";
+    credit.append(source, " · ", license, compact ? " · Modellvorhersage" : " · Wind in km/h umgerechnet. Symbole: MET Norway.");
+    if (!compact) container.append(note);
+    container.append(strip, credit);
+}
+
+let mobileForecastSheet;
+let mobileForecastRequestId = 0;
+
+function closeMobileStationForecast() {
+    if (!mobileForecastSheet?.dialog.open) return;
+    mobileForecastRequestId++;
+    mobileForecastSheet.dialog.close();
+    mobileForecastSheet.content.removeAttribute("aria-busy");
+    let trigger = mobileForecastSheet.trigger;
+    if (trigger?.isConnected) trigger.focus({ preventScroll: true });
+}
+
+function createMobileForecastSheet() {
+    let dialog = document.createElement("dialog");
+    dialog.className = "mobile-forecast-sheet";
+    dialog.setAttribute("aria-labelledby", "mobile-forecast-title");
+    dialog.innerHTML = `
+        <div class="mobile-forecast-header">
+            <div>
+                <p class="mobile-forecast-subtitle">24 Stunden · in 3-Stunden-Schritten</p>
+                <h3 id="mobile-forecast-title"></h3>
+            </div>
+            <button type="button" class="mobile-forecast-close" aria-label="Vorhersage schließen" title="Vorhersage schließen">×</button>
+        </div>
+        <div class="mobile-forecast-content" aria-live="polite"></div>
+    `;
+    document.body.append(dialog);
+    let closeButton = dialog.querySelector("button");
+    closeButton.addEventListener("click", closeMobileStationForecast);
+    dialog.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeMobileStationForecast();
+        }
+    });
+    window.matchMedia("(max-width: 600px)").addEventListener("change", function (event) {
+        if (!event.matches) closeMobileStationForecast();
+    });
+    return {
+        dialog,
+        title: dialog.querySelector("h3"),
+        content: dialog.querySelector(".mobile-forecast-content"),
+        closeButton,
+    };
+}
+
+async function showMobileStationForecast(feature, trigger) {
+    if (!mobileForecastSheet) mobileForecastSheet = createMobileForecastSheet();
+    let sheet = mobileForecastSheet;
+    let requestId = ++mobileForecastRequestId;
+    sheet.trigger = trigger;
+    sheet.title.textContent = feature.properties.name;
+    sheet.content.textContent = "Vorhersage wird geladen …";
+    sheet.content.setAttribute("aria-busy", "true");
+    sheet.content.scrollTop = 0;
+    if (!sheet.dialog.open) sheet.dialog.show();
+    sheet.closeButton.focus({ preventScroll: true });
+    try {
+        let data = await loadStationForecast(feature);
+        if (requestId !== mobileForecastRequestId || !sheet.dialog.open) return;
+        renderStationForecast(sheet.content, data, { compact: true });
+    } catch (error) {
+        if (requestId !== mobileForecastRequestId || !sheet.dialog.open) return;
+        sheet.content.textContent = "Vorhersage momentan nicht verfügbar. ";
+        let retry = document.createElement("button");
+        retry.type = "button";
+        retry.className = "forecast-retry";
+        retry.textContent = "Erneut versuchen";
+        retry.addEventListener("click", () => showMobileStationForecast(feature, trigger));
+        sheet.content.append(retry);
+    } finally {
+        if (requestId === mobileForecastRequestId) sheet.content.removeAttribute("aria-busy");
+    }
+}
+
+const stationForecastViews = new WeakMap();
+const stationForecastLayout = window.matchMedia("(max-width: 600px)");
+stationForecastLayout.addEventListener("change", function () {
+    for (let panel of document.querySelectorAll(".station-forecast")) {
+        stationForecastViews.get(panel)?.();
+    }
+});
+
+function bindStationForecast(popup, feature) {
+    let panel = popup.getElement().querySelector(".station-forecast");
+    if (!panel) return;
+    if (stationForecastViews.has(panel)) {
+        stationForecastViews.get(panel)();
+        return;
+    }
+    let content = panel.querySelector(".station-forecast-content");
+    let loading = false;
+    let loaded = false;
+    let mobileButton = panel.querySelector(".forecast-mobile-open");
+    mobileButton.addEventListener("click", function () {
+        showMobileStationForecast(feature, mobileButton);
+    });
+    async function showForecast() {
+        if (loading || loaded) return;
+        loading = true;
+        content.setAttribute("aria-busy", "true");
+        content.textContent = "Vorhersage wird geladen …";
+        popup.update();
+        try {
+            let data = await loadStationForecast(feature);
+            renderStationForecast(content, data, { compact: true });
+            loaded = true;
+        } catch (error) {
+            content.textContent = "Vorhersage momentan nicht verfügbar. ";
+            let retry = document.createElement("button");
+            retry.type = "button";
+            retry.className = "forecast-retry";
+            retry.textContent = "Erneut versuchen";
+            retry.addEventListener("click", showForecast);
+            content.append(retry);
+        } finally {
+            loading = false;
+            content.removeAttribute("aria-busy");
+            if (popup.isOpen()) popup.update();
+        }
+    }
+    function updateLayout() {
+        if (!stationForecastLayout.matches) showForecast();
+        if (popup.isOpen()) popup.update();
+    }
+    stationForecastViews.set(panel, updateLayout);
+    L.DomEvent.disableScrollPropagation(content);
+    updateLayout();
+}
+
 function stationPopupContent(feature) {
     let pointInTime = new Date(feature.properties.date);
     let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
@@ -1157,7 +1451,8 @@ function stationPopupContent(feature) {
             : ""
     }</ul>`;
 
-    return `
+    let content = document.createElement("div");
+    content.innerHTML = `
         <div class="station-popup-heading">
             <button type="button" class="station-favorite-toggle${isFavorite ? " is-favorite" : ""}" aria-label="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}" aria-pressed="${isFavorite}" title="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}">
                 <i class="${isFavorite ? "fa-solid" : "fa-regular"} fa-star" aria-hidden="true"></i>
@@ -1177,7 +1472,13 @@ function stationPopupContent(feature) {
         </div>
         <p class="station-popup-time">${pointInTime.toLocaleString()}</p>
         ${measurementsList}
+        <div class="station-forecast">
+            <h5 class="forecast-heading">Vorhersage · nächste 24 Stunden</h5>
+            <button type="button" class="forecast-mobile-open">24-Stunden-Vorhersage</button>
+            <div class="station-forecast-content" aria-live="polite"></div>
+        </div>
     `;
+    return content;
 }
 
 function bindStationPopup(layer, feature, isStationLayer = false) {
@@ -1186,6 +1487,7 @@ function bindStationPopup(layer, feature, isStationLayer = false) {
         stationLayersById.set(feature.id, layer);
     }
     layer.on("popupopen", function (event) {
+        bindStationForecast(event.popup, feature);
         let button = event.popup.getElement().querySelector(".station-favorite-toggle");
         if (!button) {
             return;
