@@ -109,7 +109,9 @@ function loadSavedFavorites() {
 
 let favorites = loadSavedFavorites();
 let stationLayersById = new Map();
-let stationDataReady;
+let stationMarkerSignatures = new WeakMap();
+let markStationDataReady;
+let stationDataReady = new Promise(resolve => { markStationDataReady = resolve; });
 
 // Karte initialisierenn
 let map = L.map("map", { maxZoom: 18, zoomControl: false }).setView([ibk.lat, ibk.lng], ibk.zoom);
@@ -117,6 +119,7 @@ let map = L.map("map", { maxZoom: 18, zoomControl: false }).setView([ibk.lat, ib
 // thematische Layer
 let overlays = {
     stations: L.markerClusterGroup({
+        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://data.hub.geosphere.at/de/dataset/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://brightsky.dev/'>DWD via Bright Sky</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
         maxClusterRadius: 60,
         disableClusteringAtZoom: 11,
         showCoverageOnHover: false,
@@ -164,12 +167,45 @@ for (let input of layerControl.getContainer().querySelectorAll('input[type="chec
 }
 
 let weatherOverlays = Object.values(overlays);
+let currentStationData = { type: "FeatureCollection", features: [] };
+let stationDataVersion = 0;
+let weatherOverlayVersions = new Map();
+let weatherOverlayRenderers = new Map([
+    [overlays.temperature, showTemperature],
+    [overlays.humidity, showHumidity],
+    [overlays.wind, showWind],
+    [overlays.snow, showSnow],
+    [overlays.direction, showDirect],
+]);
+
+function ensureWeatherOverlay(layer) {
+    let render = weatherOverlayRenderers.get(layer);
+    if (!render || weatherOverlayVersions.get(layer) === stationDataVersion) return;
+    layer.clearLayers();
+    render(currentStationData);
+    weatherOverlayVersions.set(layer, stationDataVersion);
+}
+
+function updateWeatherOverlays(jsondata) {
+    currentStationData = jsondata;
+    stationDataVersion++;
+    for (let layer of weatherOverlayRenderers.keys()) {
+        if (map.hasLayer(layer)) {
+            ensureWeatherOverlay(layer);
+        } else if (weatherOverlayVersions.has(layer)) {
+            layer.clearLayers();
+            weatherOverlayVersions.delete(layer);
+        }
+    }
+}
+
 map.on("overlayadd", function (event) {
     for (let overlay of weatherOverlays) {
         if (overlay !== event.layer && map.hasLayer(overlay)) {
             map.removeLayer(overlay);
         }
     }
+    ensureWeatherOverlay(event.layer);
 });
 
 // Maßstab
@@ -215,7 +251,7 @@ dataSourcesControl.addTo(map);
 
 function findNearestStation(latitude, longitude) {
     let nearest;
-    for (let layer of stationLayersById.values()) {
+    for (let layer of new Set(stationLayersById.values())) {
         let position = layer.getLatLng();
         if (!Number.isFinite(position.lat) || !Number.isFinite(position.lng)) continue;
         let distance = distanceBetweenStations([longitude, latitude], [position.lng, position.lat]);
@@ -551,9 +587,10 @@ function renderFavorites() {
     });
 
     for (let button of document.querySelectorAll(".station-favorite-toggle[data-station-id]")) {
+        let station = stationLayersById.get(button.dataset.stationId)?.feature;
         setFavoriteButtonState(
             button,
-            favorites.some(favorite => String(favorite.id) === button.dataset.stationId),
+            station ? isStationFavorite(station) : favorites.some(favorite => String(favorite.id) === button.dataset.stationId),
         );
     }
 }
@@ -581,7 +618,8 @@ function setFavoriteButtonState(button, isFavorite) {
 }
 
 function toggleStationFavorite(feature) {
-    let favoriteIndex = favorites.findIndex(favorite => favorite.id === feature.id);
+    let ids = stationIdentifiers(feature).map(String);
+    let favoriteIndex = favorites.findIndex(favorite => ids.includes(String(favorite.id)));
     if (favoriteIndex >= 0) {
         let nextFavorites = favorites.filter((favorite, index) => index !== favoriteIndex);
         if (saveFavorites(nextFavorites)) {
@@ -703,6 +741,15 @@ function isValidMeasurement(value) {
         value !== -999 && value !== -777;
 }
 
+function stationIdentifiers(feature) {
+    return [...new Set([feature.id, ...(feature.stationIds ?? [])])];
+}
+
+function isStationFavorite(feature) {
+    let ids = stationIdentifiers(feature).map(String);
+    return favorites.some(favorite => ids.includes(String(favorite.id)));
+}
+
 function mergeStationFeatures(existingFeature, incomingFeature) {
     let existingTimestamp = Date.parse(existingFeature.properties.date);
     let incomingTimestamp = Date.parse(incomingFeature.properties.date);
@@ -725,6 +772,7 @@ function mergeStationFeatures(existingFeature, incomingFeature) {
 
     return {
         ...preferredFeature,
+        stationIds: [...new Set([...stationIdentifiers(existingFeature), ...stationIdentifiers(incomingFeature)])],
         properties,
     };
 }
@@ -1063,125 +1111,145 @@ function updateFavoriteStationNames(featuresById) {
     }
 }
 
+let weatherStationIcon;
+
+function updateStationMarkers(jsondata) {
+    weatherStationIcon ??= L.icon({ iconUrl: "icons/wifi.png", iconAnchor: [16, 37], popupAnchor: [0, -37] });
+    let previousById = new Map(stationLayersById);
+    let previousLayers = new Set(previousById.values());
+    let retainedLayers = new Set();
+    let addedLayers = [];
+    stationLayersById.clear();
+
+    for (let feature of jsondata.features) {
+        let identifiers = stationIdentifiers(feature);
+        let candidates = identifiers.map(id => previousById.get(id)).filter(layer => layer && !retainedLayers.has(layer));
+        let layer = candidates.find(candidate => candidate.isPopupOpen()) ?? candidates[0];
+        let signature = JSON.stringify(feature);
+        if (!layer) {
+            let [longitude, latitude] = feature.geometry.coordinates;
+            layer = bindStationPopup(L.marker([latitude, longitude], { icon: weatherStationIcon }), feature);
+            addedLayers.push(layer);
+        } else if (stationMarkerSignatures.get(layer) !== signature) {
+            layer.feature = feature;
+            let [longitude, latitude] = feature.geometry.coordinates;
+            let position = layer.getLatLng();
+            if (position.lat !== latitude || position.lng !== longitude) layer.setLatLng([latitude, longitude]);
+            layer.setPopupContent(stationPopupContent(feature));
+            if (layer.isPopupOpen()) initializeStationPopup(layer.getPopup(), feature);
+        }
+        stationMarkerSignatures.set(layer, signature);
+        retainedLayers.add(layer);
+        for (let id of identifiers) {
+            stationLayersById.set(id, layer);
+            stationLayersById.set(String(id), layer);
+        }
+    }
+    for (let layer of previousLayers) {
+        if (!retainedLayers.has(layer)) overlays.stations.removeLayer(layer);
+    }
+    if (addedLayers.length) overlays.stations.addLayers(addedLayers);
+}
+
 async function loadStations() {
-    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult, bavarianResult, stationNamesResult] = await Promise.allSettled([
-        loadStationData("https://static.avalanche.report/weather_stations/stations.geojson"),
-        loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"),
-        loadGeoSphereStations(),
-        loadMeteoSwissStations(),
-        loadBrightSkyStations(),
-        loadStationData("data/dwd-stations.json"),
-    ]);
-    let featuresById = new Map();
-
-    if (additionalResult.status === "fulfilled") {
-        for (let feature of additionalResult.value.features) {
-            addNewestStation(featuresById, feature, true);
-        }
-    } else {
-        console.error("Der zusätzliche Wetterstations-Feed konnte nicht geladen werden.", additionalResult.reason);
-    }
-
-    if (avalancheResult.status === "fulfilled") {
-        for (let feature of avalancheResult.value.features) {
-            addNewestStation(featuresById, feature, false);
-        }
-    } else {
-        console.error("Der avalanche.report-Wetterstations-Feed konnte nicht geladen werden.", avalancheResult.reason);
-    }
-
-    if (geoSphereResult.status === "fulfilled") {
-        for (let feature of geoSphereResult.value) {
-            addNewestLiveStation(featuresById, feature);
-        }
-    } else {
-        console.error("Die GeoSphere-Live-Wetterstationen konnten nicht geladen werden.", geoSphereResult.reason);
-    }
-
-    if (meteoSwissResult.status === "fulfilled") {
-        for (let feature of meteoSwissResult.value) {
-            addNewestLiveStation(featuresById, feature);
-        }
-    } else {
-        console.error("Die MeteoSchweiz-Live-Wetterstationen konnten nicht geladen werden.", meteoSwissResult.reason);
-    }
-
-    if (bavarianResult.status === "fulfilled") {
-        for (let feature of bavarianResult.value) {
-            addNewestLiveStation(featuresById, feature);
-        }
-    } else {
-        console.error("Die DWD-Live-Wetterstationen aus dem deutschen Alpenraum konnten nicht geladen werden.", bavarianResult.reason);
-    }
-
-    if (!featuresById.size) {
-        console.error("Es konnten keine Wetterstationen geladen werden.");
-        return;
-    }
-
-    let now = Date.now();
-    let allFeatures = [...featuresById.values()];
-    if (stationNamesResult.status === "fulfilled" && Array.isArray(stationNamesResult.value?.stations)) {
-        completeDwdStationNames(allFeatures, stationNamesResult.value);
-        updateFavoriteStationNames(featuresById);
-    } else {
-        console.warn("Vollständige DWD-Stationsnamen konnten nicht geladen werden; die gelieferten Namen bleiben erhalten.");
-    }
-    let freshFeatures = allFeatures.filter(feature => {
-        let timestamp = Date.parse(feature.properties.date);
-        return Number.isFinite(timestamp) && now - timestamp >= 0 && now - timestamp <= maxStationAge;
-    });
-    let excludedCount = allFeatures.length - freshFeatures.length;
-
-    if (excludedCount) {
-        console.info(`${excludedCount} Wetterstationen wegen veralteter oder fehlender Zeitstempel ausgeblendet.`);
-    }
-    if (!freshFeatures.length) {
-        console.warn("Keine Wetterstationen mit Daten der letzten 90 Minuten gefunden.");
-        return;
-    }
-
-    fillRegionalMeasurementGaps(freshFeatures);
-
-    let jsondata = {
-        type: "FeatureCollection",
-        features: freshFeatures,
-    };
+    // Feste Reihenfolge erhält bei zeitgleichen Messungen dieselbe Quellenpriorität.
+    let sources = [
+        { name: "zusätzlicher Stations-Feed", load: () => loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"), normalize: true },
+        { name: "avalanche.report", load: () => loadStationData("https://static.avalanche.report/weather_stations/stations.geojson"), normalize: false },
+        { name: "GeoSphere Austria", load: loadGeoSphereStations },
+        { name: "MeteoSchweiz", load: loadMeteoSwissStations },
+        { name: "DWD via Bright Sky", load: loadBrightSkyStations },
+    ];
+    let availableSources = new Map();
+    let stationNames;
+    let revision = 0;
+    let renderedRevision = -1;
+    let scheduledUpdate;
     let requestedStationId = new URLSearchParams(window.location.search).get("station");
-    let focusedLayer;
+    let requestedStationFocused = false;
 
-    L.geoJSON(jsondata, {
-        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://data.hub.geosphere.at/de/dataset/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://brightsky.dev/'>DWD via Bright Sky</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: L.icon({
-                    iconUrl: "icons/wifi.png",
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -37]
-                })
-            });
-        },
-        onEachFeature: function (feature, layer) {
-            bindStationPopup(layer, feature, true);
-            if (feature.id === requestedStationId) {
-                focusedLayer = layer;
+    function renderAvailableStations() {
+        if (renderedRevision === revision) return;
+        renderedRevision = revision;
+        let featuresById = new Map();
+        for (let index = 0; index < sources.length; index++) {
+            for (let feature of availableSources.get(index) ?? []) {
+                // Ergänzte Nachbarwerte dürfen nicht in die Rohdaten zurückgeschrieben werden.
+                addStationFeature(featuresById, { ...feature, properties: { ...feature.properties } });
             }
         }
-    }).addTo(overlays.stations);
-    if (focusedLayer) {
-        map.setView(focusedLayer.getLatLng(), Math.max(map.getZoom(), 11));
-        focusedLayer.openPopup();
-    } else if (requestedStationId) {
-        console.warn(`Die angeforderte Wetterstation wurde nicht gefunden: ${requestedStationId}`);
+        if (!featuresById.size) return;
+        let allFeatures = [...featuresById.values()];
+        if (stationNames) completeDwdStationNames(allFeatures, stationNames);
+        let namesById = new Map();
+        for (let feature of allFeatures) {
+            for (let id of stationIdentifiers(feature)) {
+                namesById.set(id, feature);
+                namesById.set(String(id), feature);
+            }
+        }
+        updateFavoriteStationNames(namesById);
+        let now = Date.now();
+        let freshFeatures = allFeatures.filter(feature => {
+            let timestamp = Date.parse(feature.properties.date);
+            return Number.isFinite(timestamp) && now - timestamp >= 0 && now - timestamp <= maxStationAge;
+        });
+        fillRegionalMeasurementGaps(freshFeatures);
+        let jsondata = { type: "FeatureCollection", features: freshFeatures };
+        updateStationMarkers(jsondata);
+        updateWeatherOverlays(jsondata);
+        if (freshFeatures.length) markStationDataReady();
+
+        let focusedLayer = requestedStationId && stationLayersById.get(requestedStationId);
+        if (focusedLayer && !requestedStationFocused) {
+            requestedStationFocused = true;
+            map.setView(focusedLayer.getLatLng(), Math.max(map.getZoom(), 11));
+            focusedLayer.openPopup();
+        }
     }
-    showTemperature(jsondata);
-    showHumidity(jsondata);
-    showWind(jsondata);
-    showSnow(jsondata);
-    showDirect(jsondata);
+
+    function scheduleUpdate() {
+        if (scheduledUpdate !== undefined) return;
+        scheduledUpdate = setTimeout(function () {
+            scheduledUpdate = undefined;
+            renderAvailableStations();
+        }, 0);
+    }
+
+    let requests = sources.map(async function (source, index) {
+        try {
+            let data = await source.load();
+            let features = Array.isArray(data) ? data : data.features;
+            if (!Array.isArray(features)) throw new Error("Ungültige Stationsliste");
+            availableSources.set(index, features.map(feature => source.normalize === undefined
+                ? feature : normalizeStation(feature, source.normalize)));
+            revision++;
+            scheduleUpdate();
+        } catch (error) {
+            console.error(`${source.name}: Wetterstationen konnten nicht geladen werden.`, error);
+        }
+    });
+    requests.push((async function () {
+        try {
+            let metadata = await loadStationData("data/dwd-stations.json");
+            if (!Array.isArray(metadata?.stations)) throw new Error("Ungültige Stationsnamen");
+            stationNames = metadata;
+            revision++;
+            scheduleUpdate();
+        } catch (error) {
+            console.warn("Vollständige DWD-Stationsnamen konnten nicht geladen werden; die gelieferten Namen bleiben erhalten.", error);
+        }
+    })());
+    await Promise.allSettled(requests);
+    clearTimeout(scheduledUpdate);
+    renderAvailableStations();
+    if (!currentStationData.features.length) console.warn("Keine Wetterstationen mit Daten der letzten 90 Minuten gefunden.");
+    if (requestedStationId && !requestedStationFocused) console.warn(`Die angeforderte Wetterstation wurde nicht gefunden: ${requestedStationId}`);
 }
-stationDataReady = loadStations().catch(function (error) {
+loadStations().catch(function (error) {
     console.error("Wetterstationen konnten nicht vollständig geladen werden.", error);
+}).finally(function () {
+    markStationDataReady();
 });
 
 function formatValue(value) {
@@ -1573,7 +1641,7 @@ function stationPopupContent(feature) {
         ? `${sameDay ? "Gemessen um" : `Gemessen am ${pointInTime.toLocaleDateString("de-DE")} ·`} ${pointInTime.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })} Uhr`
         : "Messzeit unbekannt";
     let temperature = feature.properties.LT;
-    let isFavorite = favorites.some(favorite => favorite.id === feature.id);
+    let isFavorite = isStationFavorite(feature);
     let measurementSources = Object.values(feature.properties.measurementSources ?? []);
     let uniqueMeasurementSources = measurementSources.filter((source, index) =>
         measurementSources.findIndex(candidate =>
@@ -1635,23 +1703,26 @@ function stationPopupContent(feature) {
     return content;
 }
 
+function initializeStationPopup(popup, feature) {
+    bindStationForecast(popup, feature);
+    let button = popup.getElement().querySelector(".station-favorite-toggle");
+    if (!button) return;
+    button.dataset.stationId = String(feature.id);
+    setFavoriteButtonState(button, isStationFavorite(feature));
+    button.onclick = () => toggleStationFavorite(feature);
+}
+
 function bindStationPopup(layer, feature, isStationLayer = false) {
+    layer.feature = feature;
     layer.bindPopup(stationPopupContent(feature));
     if (isStationLayer) {
-        stationLayersById.set(feature.id, layer);
+        for (let id of stationIdentifiers(feature)) {
+            stationLayersById.set(id, layer);
+            stationLayersById.set(String(id), layer);
+        }
     }
     layer.on("popupopen", function (event) {
-        bindStationForecast(event.popup, feature);
-        let button = event.popup.getElement().querySelector(".station-favorite-toggle");
-        if (!button) {
-            return;
-        }
-        button.dataset.stationId = String(feature.id);
-        setFavoriteButtonState(
-            button,
-            favorites.some(favorite => favorite.id === feature.id),
-        );
-        button.onclick = () => toggleStationFavorite(feature);
+        initializeStationPopup(event.popup, layer.feature);
     });
     return layer;
 }
