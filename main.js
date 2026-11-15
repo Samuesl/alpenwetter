@@ -1029,13 +1029,48 @@ async function loadMeteoSwissStations() {
     );
 }
 
+function completeDwdStationNames(features, metadata) {
+    let stationsById = new Map((metadata?.stations ?? []).filter(station =>
+        /^\d{5}$/.test(station.id) && typeof station.name === "string" && station.name.trim() &&
+        Number.isFinite(station.lat) && Number.isFinite(station.lng)
+    ).map(station => [station.id, station]));
+
+    for (let feature of features) {
+        let stationId = String(feature.properties.dwdStationId ?? "").trim();
+        if (!/^\d{1,5}$/.test(stationId)) continue;
+        let station = stationsById.get(stationId.padStart(5, "0"));
+        if (!station) continue;
+        let [longitude, latitude] = feature.geometry.coordinates;
+        if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
+        let distance = distanceBetweenStations([longitude, latitude], [station.lng, station.lat]);
+        // Stationsnummern können nach einer Verlegung einen anderen Standort bezeichnen.
+        if (!Number.isFinite(distance) || distance > 1000) continue;
+        let fullName = station.name.trim().replace(/\bKr\.(?=\s|$)\s*/g, "Kreis ").trim();
+        if (fullName !== feature.properties.name) {
+            feature.properties.sourceName ??= feature.properties.name;
+            feature.properties.name = fullName;
+        }
+    }
+}
+
+function updateFavoriteStationNames(featuresById) {
+    let nextFavorites = favorites.map(favorite => {
+        let name = featuresById.get(favorite.id)?.properties.name;
+        return name && name !== favorite.name ? { ...favorite, name } : favorite;
+    });
+    if (nextFavorites.some((favorite, index) => favorite !== favorites[index])) {
+        saveFavorites(nextFavorites);
+    }
+}
+
 async function loadStations() {
-    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult, bavarianResult] = await Promise.allSettled([
+    let [avalancheResult, additionalResult, geoSphereResult, meteoSwissResult, bavarianResult, stationNamesResult] = await Promise.allSettled([
         loadStationData("https://static.avalanche.report/weather_stations/stations.geojson"),
         loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"),
         loadGeoSphereStations(),
         loadMeteoSwissStations(),
         loadBrightSkyStations(),
+        loadStationData("data/dwd-stations.json"),
     ]);
     let featuresById = new Map();
 
@@ -1086,6 +1121,12 @@ async function loadStations() {
 
     let now = Date.now();
     let allFeatures = [...featuresById.values()];
+    if (stationNamesResult.status === "fulfilled" && Array.isArray(stationNamesResult.value?.stations)) {
+        completeDwdStationNames(allFeatures, stationNamesResult.value);
+        updateFavoriteStationNames(featuresById);
+    } else {
+        console.warn("Vollständige DWD-Stationsnamen konnten nicht geladen werden; die gelieferten Namen bleiben erhalten.");
+    }
     let freshFeatures = allFeatures.filter(feature => {
         let timestamp = Date.parse(feature.properties.date);
         return Number.isFinite(timestamp) && now - timestamp >= 0 && now - timestamp <= maxStationAge;

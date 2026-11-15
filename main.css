@@ -1046,16 +1046,12 @@ footer nav {
         min-height: 52px;
         height: 52px;
         gap: 10px;
-        padding: 6px 12px;
+        padding: 5px 12px;
     }
 
     .site-header h1 {
         font-size: 20px;
         line-height: 1.2;
-    }
-
-    .brand-icon {
-        display: none;
     }
 
     .site-subtitle {
