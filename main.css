@@ -79,6 +79,22 @@ main {
     border-radius: 4px;
     background: #f5f7f8;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Das geöffnete Menü liegt vor den anderen Kartenbuttons. */
+#map .leaflet-top:has(.leaflet-control-layers-expanded),
+#map .leaflet-top:has(.favorites-menu[open]) {
+    z-index: 1100;
+}
+
+#map .favorites-map-control:has(.favorites-menu[open]) {
+    z-index: 1000;
+}
+
+#map .leaflet-control-layers-expanded {
+    z-index: 1010;
 }
 
 .leaflet-top.leaflet-right .favorites-map-control {
@@ -169,6 +185,7 @@ main {
     align-items: center;
     gap: 7px;
     padding: 5px 9px;
+    font: inherit;
     color: #234b6b;
     text-align: left;
 }
@@ -218,6 +235,12 @@ article {
     border-radius: var(--control-radius);
     background: white;
     box-shadow: var(--control-shadow);
+}
+
+#map .leaflet-control-layers {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 #map .leaflet-control-layers-toggle {
@@ -955,10 +978,7 @@ footer nav {
     }
 
     .brand-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 9px;
-        font-size: 19px;
+        display: none;
     }
 
     .site-subtitle {
@@ -993,6 +1013,14 @@ footer nav {
 
     .place-search-panel {
         position: relative;
+    }
+
+    #map .leaflet-top:has(.place-search-panel[open]) {
+        z-index: 1100;
+    }
+
+    #map .place-search-control:has(.place-search-panel[open]) {
+        z-index: 1000;
     }
 
     .place-search-panel > summary {
@@ -1085,7 +1113,7 @@ footer nav {
         box-sizing: border-box;
         max-width: calc(100vw - 20px);
         padding: 8px 10px;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .leaflet-control-layers-list {

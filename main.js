@@ -1110,7 +1110,7 @@ async function loadStations() {
     let focusedLayer;
 
     L.geoJSON(jsondata, {
-        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://brightsky.dev/'>DWD via Bright Sky</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
+        attribution: "Datenquellen: <a href='https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn'>MeteoSchweiz</a>, <a href='https://data.hub.geosphere.at/de/dataset/tawes-v1-10min'>GeoSphere Austria</a>, <a href='https://brightsky.dev/'>DWD via Bright Sky</a>, <a href='https://lawinen.report/eaws_weather_stations/linea.geojson'>Lawinen.report</a>, <a href='https://static.avalanche.report/weather_stations/stations.geojson'>avalanche.report</a>",
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
                 icon: L.icon({
