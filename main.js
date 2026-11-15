@@ -109,6 +109,7 @@ function loadSavedFavorites() {
 
 let favorites = loadSavedFavorites();
 let stationLayersById = new Map();
+let stationDataReady;
 
 // Karte initialisierenn
 let map = L.map("map", { maxZoom: 18, zoomControl: false }).setView([ibk.lat, ibk.lng], ibk.zoom);
@@ -180,12 +181,25 @@ L.control.zoom({
     position: "bottomleft",
 }).addTo(map);
 
+function findNearestStation(latitude, longitude) {
+    let nearest;
+    for (let layer of stationLayersById.values()) {
+        let position = layer.getLatLng();
+        if (!Number.isFinite(position.lat) || !Number.isFinite(position.lng)) continue;
+        let distance = distanceBetweenStations([longitude, latitude], [position.lng, position.lat]);
+        if (Number.isFinite(distance) && (!nearest || distance < nearest.distance)) {
+            nearest = { layer, distance };
+        }
+    }
+    return nearest;
+}
+
 let userLocationLayers = L.layerGroup().addTo(map);
 let locationControl = L.control({ position: "bottomleft" });
 locationControl.onAdd = function () {
     let container = L.DomUtil.create("div", "location-control");
     container.innerHTML = `
-        <button type="button" class="location-button" aria-label="Meinen Standort anzeigen" title="Meinen Standort anzeigen">
+        <button type="button" class="location-button" aria-label="Standort und nächste Wetterstation finden" title="Standort und nächste Wetterstation finden">
             <i class="fa-solid fa-crosshairs" aria-hidden="true"></i>
         </button>
         <div class="location-status" role="status" aria-live="polite"></div>
@@ -218,7 +232,7 @@ locationControl.onAdd = function () {
         icon.classList.add("fa-spin");
         status.textContent = "Standort wird ermittelt …";
         try {
-            navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(async function (position) {
                 let { latitude, longitude, accuracy } = position.coords;
                 if (!Number.isFinite(latitude) || !Number.isFinite(longitude) ||
                     latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 ||
@@ -247,12 +261,45 @@ locationControl.onAdd = function () {
                     fillOpacity: 1,
                 }).bindPopup(locationLabel).addTo(userLocationLayers);
                 map.closePopup();
+                status.textContent = "Standort gefunden · Suche nächste Wetterstation …";
+                let stationWaitTimer;
+                try {
+                    await Promise.race([
+                        stationDataReady,
+                        new Promise(resolve => { stationWaitTimer = setTimeout(resolve, 15000); }),
+                    ]);
+                } finally {
+                    clearTimeout(stationWaitTimer);
+                }
+                let nearest = findNearestStation(latitude, longitude);
+                if (nearest) {
+                    map.addLayer(overlays.stations);
+                    let stationPosition = nearest.layer.getLatLng();
+                    let nearestMarker = bindStationPopup(L.circleMarker(stationPosition, {
+                        radius: 15,
+                        color: "#d39700",
+                        weight: 3,
+                        fillColor: "#ffd54f",
+                        fillOpacity: 0.15,
+                    }), nearest.layer.feature).addTo(userLocationLayers);
+                    let bounds = L.latLngBounds([coordinates, stationPosition]);
+                    map.once("moveend", function () {
+                        nearestMarker.openPopup();
+                    });
+                    map.flyToBounds(bounds, { maxZoom: 14, padding: [50, 50] });
+                    let distanceText = nearest.distance < 1000
+                        ? `${Math.round(nearest.distance)} m`
+                        : `${(nearest.distance / 1000).toLocaleString("de-DE", { maximumFractionDigits: 1 })} km`;
+                    let stationName = nearest.layer.feature?.properties?.name ?? "Wetterstation";
+                    finishLocationRequest(`Nächste Station: ${stationName} · ${distanceText} Luftlinie. Standortgenauigkeit ca. ${Math.ceil(accuracy)} m.`);
+                    return;
+                }
                 if (accuracy > 0) {
                     map.flyToBounds(accuracyCircle.getBounds(), { maxZoom: 14, padding: [30, 30] });
                 } else {
                     map.flyTo(coordinates, 14);
                 }
-                finishLocationRequest(`Standort gefunden · Genauigkeit ca. ${Math.ceil(accuracy)} m.`);
+                finishLocationRequest("Standort gefunden. Noch keine Wetterstationen verfügbar – bitte später erneut auf den Standortbutton tippen.");
             }, function (error) {
                 let messages = {
                     1: "Standortzugriff nicht erlaubt. Du kannst ihn in den Website-Berechtigungen deines Browsers aktivieren.",
@@ -1060,7 +1107,9 @@ async function loadStations() {
     showSnow(jsondata);
     showDirect(jsondata);
 }
-loadStations();
+stationDataReady = loadStations().catch(function (error) {
+    console.error("Wetterstationen konnten nicht vollständig geladen werden.", error);
+});
 
 function formatValue(value) {
     return typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : value ?? "-";
