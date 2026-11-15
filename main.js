@@ -1521,7 +1521,17 @@ function bindStationForecast(popup, feature) {
 
 function stationPopupContent(feature) {
     let pointInTime = new Date(feature.properties.date);
-    let altitude = feature.geometry.coordinates[2] || feature.properties.altitude;
+    let altitude = feature.geometry.coordinates[2] ?? feature.properties.altitude;
+    let escapeText = value => String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    })[character]);
+    let validTime = Number.isFinite(pointInTime.getTime());
+    let today = new Date();
+    let sameDay = validTime && pointInTime.toDateString() === today.toDateString();
+    let timeText = validTime
+        ? `${sameDay ? "Gemessen um" : `Gemessen am ${pointInTime.toLocaleDateString("de-DE")} ·`} ${pointInTime.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })} Uhr`
+        : "Messzeit unbekannt";
+    let temperature = feature.properties.LT;
     let isFavorite = favorites.some(favorite => favorite.id === feature.id);
     let measurementSources = Object.values(feature.properties.measurementSources ?? []);
     let uniqueMeasurementSources = measurementSources.filter((source, index) =>
@@ -1530,45 +1540,50 @@ function stationPopupContent(feature) {
         ) === index
     );
     let measurements = [
-        ["Lufttemperatur", "LT", "°C"],
-        ["Relative Luftfeuchte", "RH", "%"],
-        ["Windgeschwindigkeit", "WG", "km/h"],
+        ["Luftfeuchtigkeit", "RH", "%"],
+        ["Wind", "WG", "km/h"],
         ["Windrichtung", "WR", "°"],
         ["Schneehöhe", "HS", "cm"],
     ];
-    let measurementsList = `<ul>${measurements.map(([label, property, unit]) => {
+    let measurementsList = `<dl class="station-measurements">${measurements.map(([label, property, unit]) => {
         let value = feature.properties[property];
         let displayValue = isValidMeasurement(value) ? formatValue(value) : "-";
         if (label === "Windrichtung" && displayValue !== "-") {
-            return `<li>${label} <strong>${formatWindDirection(value)}</strong></li>`;
+            return `<div class="station-measurement"><dt>${label}</dt><dd>${formatWindDirection(value)}</dd></div>`;
         }
-        return `<li>${label} <strong>${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</strong></li>`;
+        return `<div class="station-measurement"><dt>${label}</dt><dd>${displayValue}${displayValue === "-" ? "" : ` ${unit}`}</dd></div>`;
     }).join("")}${
         isValidMeasurement(feature.properties.RS)
-            ? `<li>Strahlung (60 Min.) <strong>${formatValue(feature.properties.RS)}</strong></li>`
+            ? `<div class="station-measurement"><dt>Strahlung (60 Min.)</dt><dd>${formatValue(feature.properties.RS)}</dd></div>`
             : ""
-    }</ul>`;
+    }</dl>`;
 
     let content = document.createElement("div");
+    content.className = "station-popup";
     content.innerHTML = `
         <div class="station-popup-heading">
             <button type="button" class="station-favorite-toggle${isFavorite ? " is-favorite" : ""}" aria-label="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}" aria-pressed="${isFavorite}" title="${isFavorite ? "Favorit entfernen" : "Als Favorit speichern"}">
                 <i class="${isFavorite ? "fa-solid" : "fa-regular"} fa-star" aria-hidden="true"></i>
             </button>
-            <h4 class="station-popup-title">${feature.properties.name} (${formatValue(altitude)} m)</h4>
+            <h4 class="station-popup-title">${escapeText(feature.properties.name)}</h4>
+            <p class="station-popup-altitude">${Number.isFinite(Number(altitude)) && altitude != null ? `${escapeText(formatValue(Number(altitude)))} m Höhe` : "Höhe unbekannt"}</p>
             ${uniqueMeasurementSources.length
                 ? `<details class="station-source-info">
                     <summary aria-label="Herkunft ergänzter Messwerte" title="Herkunft ergänzter Messwerte">i</summary>
                     <div class="station-source-info-content">
                         <strong>Ergänzte Werte</strong>
                         <ul>${uniqueMeasurementSources.map(source =>
-                            `<li>${source.name} (${source.distanceKm} km, ${new Date(source.date).toLocaleTimeString()})</li>`
+                            `<li>${escapeText(source.name)} (${escapeText(source.distanceKm)} km, ${new Date(source.date).toLocaleTimeString()})</li>`
                         ).join("")}</ul>
                     </div>
                 </details>`
                 : ""}
         </div>
-        <p class="station-popup-time">${pointInTime.toLocaleString()}</p>
+        <p class="station-popup-time"${validTime ? ` title="${pointInTime.toLocaleString("de-DE")}"` : ""}>${timeText}</p>
+        <div class="station-current-temperature">
+            <span>Lufttemperatur</span>
+            <strong>${isValidMeasurement(temperature) ? `${formatValue(temperature)}<span> °C</span>` : "–"}</strong>
+        </div>
         ${measurementsList}
         <div class="station-forecast">
             <h5 class="forecast-heading">Vorhersage · nächste 24 Stunden</h5>

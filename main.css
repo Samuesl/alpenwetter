@@ -755,6 +755,9 @@ footer nav {
     text-align: left;
     line-height: 1.2;
     font-size: 11px;
+    border: 0;
+    border-radius: 6px;
+    background: #f1f5f7;
 }
 
 .forecast-hours-compact .forecast-hour > time,
@@ -868,25 +871,99 @@ footer nav {
     cursor: pointer;
 }
 
+.station-popup {
+    font-family: "Open Sans", sans-serif;
+    color: #234052;
+    font-size: 12px;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+}
+
 .station-popup-heading {
     position: relative;
-    padding: 0 30px;
+    min-height: 36px;
+    padding: 0 34px;
 }
 
 .station-popup-title {
-    margin: 0 0 4px;
-    text-align: center;
+    margin: 0;
+    color: #234b6b;
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: left;
     font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.station-popup .station-popup-altitude {
+    margin: 3px 0 0;
+    color: #627481;
+    font-size: 11px;
+}
+
+.station-current-temperature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 8px 0 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #edf4f8;
+    color: #234b6b;
+}
+
+.station-current-temperature > span {
+    font-size: 11px;
+}
+
+.station-current-temperature > strong {
+    font-size: 26px;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.station-current-temperature > strong > span {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.station-measurements {
+    margin: 0;
+}
+
+.station-measurement {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 1px solid #edf1f4;
+}
+
+.station-measurement:last-child {
+    border-bottom: 0;
+}
+
+.station-measurement dt {
+    color: #627481;
+}
+
+.station-measurement dd {
+    margin: 0;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
 }
 
 .station-favorite-toggle {
     position: absolute;
     top: 0;
     left: 0;
-    width: 24px;
-    height: 24px;
-    border: 1px solid #9aa8b2;
-    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d9e1e7;
+    border-radius: 8px;
     background: white;
     color: #52616b;
     cursor: pointer;
@@ -896,10 +973,10 @@ footer nav {
     color: #d39700;
 }
 
-.station-popup-time {
-    margin: 0 0 8px;
-    text-align: center;
-    font-size: 0.85em;
+.station-popup .station-popup-time {
+    margin: 6px 0 8px;
+    color: #627481;
+    font-size: 10px;
 }
 
 .station-source-info {
