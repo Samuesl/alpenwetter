@@ -6542,6 +6542,75 @@
         "panorama": true,
         "checkedOn": "2026-11-15"
       }
+    },
+    {
+      "type": "Feature",
+      "id": "lindau-park-camping",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.731133,
+          47.537817
+        ]
+      },
+      "properties": {
+        "name": "Lindau",
+        "description": "Park-Camping Lindau am Bodensee",
+        "region": "Bayern",
+        "provider": "Park-Camping Lindau / Lindau Tourismus",
+        "url": "https://www.park-camping.de/webcam/",
+        "locationSourceUrl": "https://www.echt-bodensee.de/uebernachtung/park-camping-lindau-0e54412bfe",
+        "country": "DE",
+        "sourceUrl": "https://www.park-camping.de/webcam/",
+        "coordinateAccuracy": "Standort des Gebaeudes bzw. Gelaendes",
+        "checkedOn": "2026-11-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lindenberg-stadtpfarrkirche",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.885278,
+          47.600667
+        ]
+      },
+      "properties": {
+        "name": "Lindenberg im Allgäu",
+        "description": "Stadtpfarrkirche St. Peter und Paul",
+        "region": "Bayern",
+        "provider": "Stadt Lindenberg / Montaregio",
+        "url": "https://www.montaregio.de/de/webcams/webcams-westallgaeu/webcams-lindenberg/webcam-mit-blick-auf-lindenberg.html",
+        "locationSourceUrl": "https://spotcameras.com/de/webcams/Deutschland/Lindenberg-im-Allg%C3%A4u/36518-Lindenberg-im-Allg%C3%A4u-Landkreis-Lindau-Bayern-Deutschland-%E2%80%93-Stadtpanorama-vom-Turm-der-Kirche-St.-Peter-und-Paul",
+        "country": "DE",
+        "sourceUrl": "https://www.montaregio.de/de/webcams/webcams-westallgaeu/webcams-lindenberg/webcam-mit-blick-auf-lindenberg.html",
+        "coordinateAccuracy": "Standort des Gebaeudes bzw. Gelaendes",
+        "checkedOn": "2026-11-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "konstanz-konzil",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17824,
+          47.66095
+        ]
+      },
+      "properties": {
+        "name": "Konstanz",
+        "description": "Konzil · Konstanzer Hafen",
+        "region": "Baden-Württemberg",
+        "provider": "Konzil Konstanz",
+        "url": "https://www.konzil-konstanz.de/",
+        "locationSourceUrl": "https://www.wikidata.org/wiki/Q1285506",
+        "country": "DE",
+        "sourceUrl": "https://www.konzil-konstanz.de/",
+        "coordinateAccuracy": "Standort des Gebaeudes bzw. Gelaendes",
+        "checkedOn": "2026-11-16"
+      }
     }
   ]
 }
