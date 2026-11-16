@@ -253,6 +253,7 @@ dataSourcesControl.addTo(map);
 function findNearestStation(latitude, longitude) {
     let nearest;
     for (let layer of new Set(stationLayersById.values())) {
+        if (layer.feature?.properties.pending) continue;
         let position = layer.getLatLng();
         if (!Number.isFinite(position.lat) || !Number.isFinite(position.lng)) continue;
         let distance = distanceBetweenStations([longitude, latitude], [position.lng, position.lat]);
@@ -907,7 +908,7 @@ L.control.rainviewer({
 
 //Wetterstationen mit Icons und Popups
 async function loadStationData(url) {
-    let response = await fetch(url);
+    let response = await fetch(url, { signal: AbortSignal.timeout(20000) });
     if (!response.ok) {
         throw new Error(`Wetterstationen konnten nicht geladen werden: ${url} (${response.status})`);
     }
@@ -989,28 +990,80 @@ function addNewestStation(featuresById, feature, isAdditionalFeed) {
     addStationFeature(featuresById, normalizedFeature);
 }
 
+const stationMergeIndexes = new WeakMap();
+
 function addStationFeature(featuresById, feature) {
+    // Kleine Rasterzellen vermeiden den Vergleich jeder Station mit allen anderen.
+    let index = stationMergeIndexes.get(featuresById);
+    let cellKey = (lon, lat) => Math.floor(lon / 0.01) + ":" + Math.floor(lat / 0.01);
+    function indexFeature(id, item) {
+        let key = cellKey(...item.geometry.coordinates);
+        if (!index.cells.has(key)) index.cells.set(key, new Set());
+        index.cells.get(key).add(id);
+        index.entries.set(id, { key, order: index.nextOrder++ });
+    }
+    if (!index || index.entries.size !== featuresById.size) {
+        index = { cells: new Map(), entries: new Map(), nextOrder: 0 };
+        stationMergeIndexes.set(featuresById, index);
+        for (let [id, item] of featuresById) indexFeature(id, item);
+    }
     let [longitude, latitude] = feature.geometry.coordinates;
-    let nearbyEntries = [...featuresById.entries()].filter(([id, existingFeature]) => {
-        if (id === feature.id) {
-            return true;
+    let longitudeRadius = 100 / (111320 * Math.max(0.000001, Math.abs(Math.cos(latitude * Math.PI / 180))));
+    let latitudeRadius = 100 / 111320;
+    let candidates = new Set(featuresById.has(feature.id) ? [feature.id] : []);
+    for (let x = Math.floor((longitude - longitudeRadius) / 0.01); x <= Math.floor((longitude + longitudeRadius) / 0.01); x++) {
+        for (let y = Math.floor((latitude - latitudeRadius) / 0.01); y <= Math.floor((latitude + latitudeRadius) / 0.01); y++) {
+            for (let id of index.cells.get(x + ":" + y) ?? []) candidates.add(id);
         }
-        let [existingLongitude, existingLatitude] = existingFeature.geometry.coordinates;
+    }
+    let nearbyIds = [...candidates].filter(id => {
+        if (id === feature.id) return true;
+        let [existingLongitude, existingLatitude] = featuresById.get(id).geometry.coordinates;
         let eastWestDistance = (longitude - existingLongitude) * 111320 * Math.cos(latitude * Math.PI / 180);
         let northSouthDistance = (latitude - existingLatitude) * 111320;
         return Math.hypot(eastWestDistance, northSouthDistance) < 100;
-    });
-
+    }).sort((a, b) => index.entries.get(a).order - index.entries.get(b).order);
     let mergedFeature = feature;
-    for (let [id, nearbyFeature] of nearbyEntries) {
-        mergedFeature = mergeStationFeatures(nearbyFeature, mergedFeature);
+    for (let id of nearbyIds) {
+        mergedFeature = mergeStationFeatures(featuresById.get(id), mergedFeature);
+        let entry = index.entries.get(id);
+        let cell = index.cells.get(entry.key);
+        cell.delete(id);
+        if (!cell.size) index.cells.delete(entry.key);
+        index.entries.delete(id);
         featuresById.delete(id);
     }
     featuresById.set(mergedFeature.id, mergedFeature);
+    indexFeature(mergedFeature.id, mergedFeature);
 }
 
 function addNewestLiveStation(featuresById, feature) {
     addStationFeature(featuresById, feature);
+}
+
+async function loadStationTasks(items, load, onStation) {
+    let remaining = items.map((item, index) => ({ item, index }));
+    let results = new Array(items.length);
+    function distance(item) {
+        let [lon, lat] = item.geometry?.coordinates ?? [item.lon, item.lat];
+        let center = map.getCenter();
+        return (map.getBounds().contains([lat, lon]) ? 0 : 1000) + Math.hypot(lon - center.lng, lat - center.lat);
+    }
+    async function worker() {
+        while (remaining.length) {
+            remaining.sort((a, b) => distance(a.item) - distance(b.item));
+            let { item, index } = remaining.shift();
+            try {
+                let value = await load(item);
+                results[index] = { status: "fulfilled", value };
+                if (value) onStation?.(value);
+            } catch (reason) {
+                results[index] = { status: "rejected", reason };
+            }
+        }
+    }
+    await Promise.all(Array.from({ length: Math.min(4, items.length) }, worker));
+    return results;
 }
 
 async function loadGeoSphereStations() {
@@ -1083,13 +1136,13 @@ async function loadGeoSphereStations() {
     });
 }
 
-async function loadBrightSkyStations() {
-    let stationResults = await Promise.allSettled(germanAlpineCoverageLocations.map(async location => {
+async function loadBrightSkyStations(onStation) {
+    let stationResults = await loadStationTasks(germanAlpineCoverageLocations, async location => {
         let url = new URL(brightSkyCurrentWeather);
         url.searchParams.set("lat", location.lat);
         url.searchParams.set("lon", location.lon);
         url.searchParams.set("units", "dwd");
-        let response = await fetch(url);
+        let response = await fetch(url, { signal: AbortSignal.timeout(20000) });
         if (!response.ok) {
             throw new Error(`${location.name}: ${response.status}`);
         }
@@ -1127,7 +1180,7 @@ async function loadBrightSkyStations() {
                 RS: getOwnMeasurement("solar_60", weather.solar_60),
             },
         };
-    }));
+    }, onStation);
 
     let failures = stationResults.filter(result => result.status === "rejected");
     if (failures.length) {
@@ -1181,9 +1234,9 @@ function parseMeteoSwissTimestamp(value) {
     return utcGuess - offsetHours * 60 * 60 * 1000;
 }
 
-async function loadMeteoSwissStations() {
+async function loadMeteoSwissStations(onStation) {
     let [metadataResponse, stationsResponse] = await Promise.all([
-        fetch("https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/ogd-smn_meta_stations.csv"),
+        fetch("https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/ogd-smn_meta_stations.csv", { signal: AbortSignal.timeout(20000) }),
         loadStationData(`${meteoSwissStacSearch}?collections=${meteoSwissCollection}&bbox=8.2,45.9,10.7,47.9&limit=100`),
     ]);
     if (!metadataResponse.ok) {
@@ -1203,10 +1256,10 @@ async function loadMeteoSwissStations() {
     let stations = stationsResponse.features.filter(feature =>
         ["TG", "SG", "GR"].includes(stationMetadataById.get(feature.id)?.canton)
     );
-    let stationResults = await Promise.allSettled(stations.map(async stationFeature => {
+    let stationResults = await loadStationTasks(stations, async stationFeature => {
         let stationId = stationFeature.id;
         let csvUrl = `https://data.geo.admin.ch/${meteoSwissCollection}/${stationId}/ogd-smn_${stationId}_t_now.csv`;
-        let csvResponse = await fetch(csvUrl);
+        let csvResponse = await fetch(csvUrl, { signal: AbortSignal.timeout(20000) });
         if (!csvResponse.ok) {
             throw new Error(`${stationId}: ${csvResponse.status}`);
         }
@@ -1268,7 +1321,7 @@ async function loadMeteoSwissStations() {
                 HS: getValue(measurement, "htoauts0"),
             },
         };
-    }));
+    }, onStation);
 
     let failures = stationResults.filter(result => result.status === "rejected");
     if (failures.length) {
@@ -1320,45 +1373,130 @@ function updateFavoriteStationNames(featuresById) {
 
 let weatherStationIcon;
 
-function updateStationMarkers(jsondata) {
+let stationRenderRevision = 0;
+let stationLocationFeatures = [];
+let stationLoadingComplete = false;
+const stationLocationStorageKey = "alpenwetter-station-locations-v1";
+
+function stationMarkerData(liveData) {
+    if (stationLoadingComplete || !stationLocationFeatures.length) return liveData;
+    let merged = new Map();
+    for (let feature of liveData.features) addStationFeature(merged, feature);
+    let bounds = map.getBounds();
+    for (let feature of stationLocationFeatures) {
+        let [lon, lat] = feature.geometry.coordinates;
+        if (liveData.features.length || bounds.contains([lat, lon])) addStationFeature(merged, feature);
+    }
+    return { type: "FeatureCollection", features: [...merged.values()] };
+}
+
+async function loadInitialStationLocations() {
+    try {
+        let cached;
+        try { cached = JSON.parse(localStorage.getItem(stationLocationStorageKey)); } catch {}
+        let catalog = cached?.version === 1 && Array.isArray(cached.stations) && cached.stations.length
+            ? cached : await loadStationData("data/station-locations.json");
+        stationLocationFeatures = (catalog.stations ?? []).filter(station =>
+            (typeof station.id === "string" || Number.isFinite(station.id)) &&
+            typeof station.name === "string" &&
+            Number.isFinite(station.lat) && Math.abs(station.lat) <= 90 &&
+            Number.isFinite(station.lon) && Math.abs(station.lon) <= 180
+        ).map(station => ({
+            type: "Feature", id: station.id,
+            stationIds: Array.isArray(station.ids) ? station.ids : [],
+            geometry: { type: "Point", coordinates: [station.lon, station.lat, station.altitude] },
+            properties: { name: station.name, pending: true },
+        }));
+        if (!stationLoadingComplete) await updateStationMarkers(stationMarkerData(currentStationData));
+    } catch (error) {
+        console.warn("Stationsstandorte konnten nicht vorab geladen werden.", error);
+    }
+}
+
+map.on("moveend", function () {
+    if (!stationLoadingComplete && stationLocationFeatures.length && !currentStationData.features.length) {
+        updateStationMarkers(stationMarkerData(currentStationData)).catch(error =>
+            console.warn("Stationsstandorte konnten nicht angezeigt werden.", error));
+    }
+});
+
+function saveStationLocations(features) {
+    if (!features.length) return;
+    let stations = features.map(feature => ({
+        id: feature.id, ids: feature.stationIds, name: feature.properties.name,
+        lon: feature.geometry.coordinates[0], lat: feature.geometry.coordinates[1],
+        altitude: feature.geometry.coordinates[2] ?? feature.properties.altitude,
+    }));
+    try { localStorage.setItem(stationLocationStorageKey, JSON.stringify({ version: 1, stations })); } catch {}
+}
+
+async function updateStationMarkers(jsondata) {
+    let revision = ++stationRenderRevision;
     weatherStationIcon ??= L.icon({ iconUrl: "icons/wifi.png", iconAnchor: [16, 37], popupAnchor: [0, -37] });
     let previousById = new Map(stationLayersById);
     let previousLayers = new Set(previousById.values());
     let retainedLayers = new Set();
-    let addedLayers = [];
-    stationLayersById.clear();
-
-    for (let feature of jsondata.features) {
-        let identifiers = stationIdentifiers(feature);
-        let candidates = identifiers.map(id => previousById.get(id)).filter(layer => layer && !retainedLayers.has(layer));
-        let layer = candidates.find(candidate => candidate.isPopupOpen()) ?? candidates[0];
-        let signature = JSON.stringify(feature);
-        if (!layer) {
-            let [longitude, latitude] = feature.geometry.coordinates;
-            layer = bindStationPopup(L.marker([latitude, longitude], { icon: weatherStationIcon }), feature);
-            addedLayers.push(layer);
-        } else if (stationMarkerSignatures.get(layer) !== signature) {
-            layer.feature = feature;
-            let [longitude, latitude] = feature.geometry.coordinates;
-            let position = layer.getLatLng();
-            if (position.lat !== latitude || position.lng !== longitude) layer.setLatLng([latitude, longitude]);
-            layer.setPopupContent(stationPopupContent(feature));
-            if (layer.isPopupOpen()) initializeStationPopup(layer.getPopup(), feature);
+    let nextById = new Map();
+    let remaining = [...jsondata.features];
+    let priorityBounds;
+    let priorityCenter;
+    while (remaining.length) {
+        if (revision !== stationRenderRevision) return;
+        let bounds = map.getBounds();
+        let boundsKey = bounds.toBBoxString();
+        if (boundsKey !== priorityBounds) {
+            priorityBounds = boundsKey;
+            priorityCenter = map.getCenter();
+            remaining.sort((a, b) => {
+                let [ax, ay] = a.geometry.coordinates, [bx, by] = b.geometry.coordinates;
+                let aVisible = bounds.contains([ay, ax]), bVisible = bounds.contains([by, bx]);
+                return Number(bVisible) - Number(aVisible) ||
+                    Math.hypot(ax - priorityCenter.lng, ay - priorityCenter.lat) -
+                    Math.hypot(bx - priorityCenter.lng, by - priorityCenter.lat);
+            });
         }
-        stationMarkerSignatures.set(layer, signature);
-        retainedLayers.add(layer);
-        for (let id of identifiers) {
-            stationLayersById.set(id, layer);
-            stationLayersById.set(String(id), layer);
-        }
+        let addedLayers = [];
+        let started = performance.now();
+        do {
+            let feature = remaining.shift();
+            let identifiers = stationIdentifiers(feature);
+            let candidates = identifiers.map(id => previousById.get(id)).filter(layer => layer && !retainedLayers.has(layer));
+            let layer = candidates.find(candidate => candidate.isPopupOpen()) ?? candidates[0];
+            let signature = JSON.stringify(feature);
+            if (!layer) {
+                let [longitude, latitude] = feature.geometry.coordinates;
+                layer = bindStationPopup(L.marker([latitude, longitude], { icon: weatherStationIcon }), feature);
+                addedLayers.push(layer);
+            } else if (stationMarkerSignatures.get(layer) !== signature) {
+                layer.feature = feature;
+                let [longitude, latitude] = feature.geometry.coordinates;
+                let position = layer.getLatLng();
+                if (position.lat !== latitude || position.lng !== longitude) layer.setLatLng([latitude, longitude]);
+                layer.setPopupContent(lazyStationPopupContent(feature));
+                if (layer.isPopupOpen()) initializeStationPopup(layer.getPopup(), feature);
+            }
+            layer.setOpacity(feature.properties.pending ? 0.5 : 1);
+            stationMarkerSignatures.set(layer, signature);
+            retainedLayers.add(layer);
+            for (let id of identifiers) {
+                nextById.set(id, layer);
+                nextById.set(String(id), layer);
+                stationLayersById.set(id, layer);
+                stationLayersById.set(String(id), layer);
+            }
+        } while (remaining.length && addedLayers.length < 40 && performance.now() - started < 6);
+        if (addedLayers.length) overlays.stations.addLayers(addedLayers);
+        if (remaining.length) await new Promise(resolve => setTimeout(resolve, 0));
     }
+    if (revision !== stationRenderRevision) return;
     for (let layer of previousLayers) {
         if (!retainedLayers.has(layer)) overlays.stations.removeLayer(layer);
     }
-    if (addedLayers.length) overlays.stations.addLayers(addedLayers);
+    stationLayersById = nextById;
 }
 
 async function loadStations() {
+    let initialLocations = loadInitialStationLocations();
     // Feste Reihenfolge erhält bei zeitgleichen Messungen dieselbe Quellenpriorität.
     let sources = [
         { name: "zusätzlicher Stations-Feed", load: () => loadStationData("https://static.avalanche.report/eaws_weather_stations/linea.geojson"), normalize: true },
@@ -1375,17 +1513,24 @@ async function loadStations() {
     let requestedStationId = new URLSearchParams(window.location.search).get("station");
     let requestedStationFocused = false;
 
-    function renderAvailableStations() {
+    async function renderAvailableStations() {
         if (renderedRevision === revision) return;
         renderedRevision = revision;
+        let renderingRevision = revision;
         let featuresById = new Map();
         for (let index = 0; index < sources.length; index++) {
             for (let feature of availableSources.get(index) ?? []) {
                 // Ergänzte Nachbarwerte dürfen nicht in die Rohdaten zurückgeschrieben werden.
-                addStationFeature(featuresById, { ...feature, properties: { ...feature.properties } });
+                addStationFeature(featuresById, { ...feature, properties: { ...feature.properties, pending: false } });
             }
         }
-        if (!featuresById.size) return;
+        if (!featuresById.size) {
+            if (stationLoadingComplete) {
+                updateWeatherOverlays({ type: "FeatureCollection", features: [] });
+                await updateStationMarkers(currentStationData);
+            }
+            return;
+        }
         let allFeatures = [...featuresById.values()];
         if (stationNames) completeDwdStationNames(allFeatures, stationNames);
         let namesById = new Map();
@@ -1403,12 +1548,13 @@ async function loadStations() {
         });
         fillRegionalMeasurementGaps(freshFeatures);
         let jsondata = { type: "FeatureCollection", features: freshFeatures };
-        updateStationMarkers(jsondata);
         updateWeatherOverlays(jsondata);
+        await updateStationMarkers(stationMarkerData(jsondata));
+        if (renderingRevision !== revision) return;
         if (freshFeatures.length) markStationDataReady();
 
         let focusedLayer = requestedStationId && stationLayersById.get(requestedStationId);
-        if (focusedLayer && !requestedStationFocused) {
+        if (focusedLayer && !focusedLayer.feature.properties.pending && !requestedStationFocused) {
             requestedStationFocused = true;
             map.setView(focusedLayer.getLatLng(), Math.max(map.getZoom(), 11));
             focusedLayer.openPopup();
@@ -1419,13 +1565,19 @@ async function loadStations() {
         if (scheduledUpdate !== undefined) return;
         scheduledUpdate = setTimeout(function () {
             scheduledUpdate = undefined;
-            renderAvailableStations();
-        }, 0);
+            renderAvailableStations().catch(error => console.error("Stationen konnten nicht angezeigt werden.", error));
+        }, 120);
     }
 
     let requests = sources.map(async function (source, index) {
         try {
-            let data = await source.load();
+            let partial = [];
+            let data = await source.load(feature => {
+                partial.push(feature);
+                availableSources.set(index, partial);
+                revision++;
+                scheduleUpdate();
+            });
             let features = Array.isArray(data) ? data : data.features;
             if (!Array.isArray(features)) throw new Error("Ungültige Stationsliste");
             availableSources.set(index, features.map(feature => source.normalize === undefined
@@ -1447,9 +1599,12 @@ async function loadStations() {
             console.warn("Vollständige DWD-Stationsnamen konnten nicht geladen werden; die gelieferten Namen bleiben erhalten.", error);
         }
     })());
-    await Promise.allSettled(requests);
+    await Promise.allSettled([...requests, initialLocations]);
     clearTimeout(scheduledUpdate);
-    renderAvailableStations();
+    stationLoadingComplete = true;
+    revision++;
+    await renderAvailableStations();
+    saveStationLocations(currentStationData.features);
     if (!currentStationData.features.length) console.warn("Keine Wetterstationen mit Daten der letzten 90 Minuten gefunden.");
     if (requestedStationId && !requestedStationFocused) console.warn(`Die angeforderte Wetterstation wurde nicht gefunden: ${requestedStationId}`);
 }
@@ -1836,6 +1991,17 @@ function bindStationForecast(popup, feature) {
 }
 
 function stationPopupContent(feature) {
+    if (feature.properties.pending) {
+        let content = document.createElement("div");
+        content.className = "station-popup";
+        let title = document.createElement("h4");
+        title.className = "station-popup-title";
+        title.textContent = feature.properties.name;
+        let status = document.createElement("p");
+        status.textContent = "Messwerte werden geladen \u2026";
+        content.append(title, status);
+        return content;
+    }
     let pointInTime = new Date(feature.properties.date);
     let altitude = feature.geometry.coordinates[2] ?? feature.properties.altitude;
     let escapeText = value => String(value).replace(/[&<>"']/g, character => ({
@@ -1911,6 +2077,7 @@ function stationPopupContent(feature) {
 }
 
 function initializeStationPopup(popup, feature) {
+    if (feature.properties.pending) return;
     bindStationForecast(popup, feature);
     let button = popup.getElement().querySelector(".station-favorite-toggle");
     if (!button) return;
@@ -1919,9 +2086,16 @@ function initializeStationPopup(popup, feature) {
     button.onclick = () => toggleStationFavorite(feature);
 }
 
+function lazyStationPopupContent(feature) {
+    // Leaflet ruft Inhaltsfunktionen auch bei popup.update() erneut auf.
+    // Das DOM bleibt erhalten, damit geladene Vorhersagen und Klickhandler bestehen bleiben.
+    let content;
+    return () => content ??= stationPopupContent(feature);
+}
+
 function bindStationPopup(layer, feature, isStationLayer = false) {
     layer.feature = feature;
-    layer.bindPopup(stationPopupContent(feature));
+    layer.bindPopup(lazyStationPopupContent(feature));
     if (isStationLayer) {
         for (let id of stationIdentifiers(feature)) {
             stationLayersById.set(id, layer);
