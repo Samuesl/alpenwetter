@@ -629,7 +629,7 @@ function webcamPopupContent(feature) {
     title.textContent = properties.name;
     let region = document.createElement("p");
     region.className = "webcam-region";
-    region.textContent = [properties.region, { AT: "Österreich", CH: "Schweiz", DE: "Deutschland" }[properties.country]].filter(Boolean).join(" · ");
+    region.textContent = [properties.region, { AT: "Österreich", CH: "Schweiz", DE: "Deutschland", IT: "Italien" }[properties.country]].filter(Boolean).join(" · ");
     content.append(title, region);
     let info = document.createElement("p");
     info.className = "webcam-details";
